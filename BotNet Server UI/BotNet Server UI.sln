@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotNet Server UI", "BotNet Server UI.csproj", "{5AAE2F42-0775-4DAB-9BF4-417DD051EECB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5AAE2F42-0775-4DAB-9BF4-417DD051EECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AAE2F42-0775-4DAB-9BF4-417DD051EECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AAE2F42-0775-4DAB-9BF4-417DD051EECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AAE2F42-0775-4DAB-9BF4-417DD051EECB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C29305F3-6576-48F3-BCE6-C7E40640E930}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\BotNet Server UI.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\MainWindow.g.cs
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\App.g.cs
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\BotNet Server UI_MarkupCompile.cache
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\bin\Debug\BotNet Server UI.exe.config
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\bin\Debug\BotNet Server UI.exe
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\bin\Debug\BotNet Server UI.pdb
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\MainWindow.baml
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\BotNet Server UI.g.resources
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\BotNet_Server_UI.Properties.Resources.resources
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\BotNet Server UI.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\BotNet Server UI.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\BotNet Server UI.exe
+C:\Users\Admin\Desktop\Zerumi\C#\BotNet\BotNet Server UI\obj\Debug\BotNet Server UI.pdb
