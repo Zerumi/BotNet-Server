@@ -4,15 +4,46 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="BotNet Server UI by Zerumi" Height="450" Width="800">
+        Title="BotNet Server UI by Zerumi" Height="450" Width="800" Loaded="Formloaded">
     <Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
         <TextBox x:Name="LogPanel" HorizontalAlignment="Left" Height="400" Margin="506,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" FontSize="16" IsReadOnlyCaretVisible="True"/>
         <Button Content="Запустить сервер" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="129" Height="32" Click="Connect_Click"/>
-        <Label x:Name="ServerLabel" Content="Запустите сервер" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="300" Height="28"/>
         <TextBox x:Name="Command" HorizontalAlignment="Left" Height="23" Margin="63,387,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="358" KeyDown="Command_KeyDown"/>
         <Button x:Name="SendButton" Content="Отправить" HorizontalAlignment="Left" Margin="426,387,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Label Content="Команда" HorizontalAlignment="Left" Margin="10,387,0,0" VerticalAlignment="Top" Height="22" Width="58" FontSize="10"/>
-        <Label Content="IP-Адрес" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Height="22" Width="53" FontSize="10"/>
-        <TextBox x:Name="IP" HorizontalAlignment="Left" Height="23" Margin="63,364,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <Label Content="IP-Адрес" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Height="22" Width="58" FontSize="10"/>
+        <Button x:Name="Button_Plus" Content="+" HorizontalAlignment="Left" Margin="111,48,0,0" VerticalAlignment="Top" Width="22" Height="22" Click="Plus_Click"/>
+        <Button x:Name="Button_Minus" Content="-" HorizontalAlignment="Left" Margin="63,48,0,0" VerticalAlignment="Top" Width="22" Height="22" Click="Minus_Click"/>
+        <Label x:Name="IPCount" Content="1" HorizontalAlignment="Left" Margin="85,48,0,0" VerticalAlignment="Top" Height="45" Width="26"/>
+        <TextBox x:Name="IP1" HorizontalAlignment="Left" Height="23" Margin="138,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP2" HorizontalAlignment="Left" Height="23" Margin="138,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP3" HorizontalAlignment="Left" Height="23" Margin="138,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP4" HorizontalAlignment="Left" Height="23" Margin="138,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP5" HorizontalAlignment="Left" Height="23" Margin="138,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP6" HorizontalAlignment="Left" Height="23" Margin="138,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP7" HorizontalAlignment="Left" Height="23" Margin="138,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP8" HorizontalAlignment="Left" Height="23" Margin="138,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP9" HorizontalAlignment="Left" Height="23" Margin="138,231,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP10" HorizontalAlignment="Left" Height="23" Margin="138,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP11" HorizontalAlignment="Left" Height="23" Margin="138,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP12" HorizontalAlignment="Left" Height="23" Margin="138,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP13" HorizontalAlignment="Left" Height="23" Margin="138,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP14" HorizontalAlignment="Left" Height="23" Margin="138,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP15" HorizontalAlignment="Left" Height="23" Margin="283,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP16" HorizontalAlignment="Left" Height="23" Margin="283,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP17" HorizontalAlignment="Left" Height="23" Margin="283,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP18" HorizontalAlignment="Left" Height="23" Margin="283,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP19" HorizontalAlignment="Left" Height="23" Margin="283,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP20" HorizontalAlignment="Left" Height="23" Margin="283,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP21" HorizontalAlignment="Left" Height="23" Margin="283,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP22" HorizontalAlignment="Left" Height="23" Margin="283,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP23" HorizontalAlignment="Left" Height="23" Margin="283,231,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP24" HorizontalAlignment="Left" Height="23" Margin="283,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP25" HorizontalAlignment="Left" Height="23" Margin="283,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP26" HorizontalAlignment="Left" Height="23" Margin="283,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP27" HorizontalAlignment="Left" Height="23" Margin="283,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="IP28" HorizontalAlignment="Left" Height="23" Margin="283,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <Label Content="Список клиентов:" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Height="24" Width="123"/>
+        <TextBlock x:Name="ClientList" HorizontalAlignment="Left" Margin="10,93,0,0" TextWrapping="Wrap" Text="text" VerticalAlignment="Top" Height="253" Width="123"/>
     </Grid>
 </Window>

@@ -9,7 +9,8 @@ app.set('port', PORT);
 app.set('env', NODE_ENV);
 app.use(logger('tiny'));
 app.use(bodyParser.json());
-app.use('/', require(path.join(__dirname, 'routes')));
+app.use('/', require(path.join(__dirname, 'mesroutes')));
+app.use('/', require(path.join(__dirname, 'iproutes')));
 app.use((req, res, next) => {
     const err = new Error(`${req.method} ${req.url} Not Found`);
     err.status = 404;

