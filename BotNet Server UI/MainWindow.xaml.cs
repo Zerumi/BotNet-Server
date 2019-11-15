@@ -32,7 +32,7 @@ namespace BotNet_Server_UI
         }
         private async void Connect_Click(object sender, RoutedEventArgs e)
         {
-
+            _ = await ApiRequest.CreateProductAsync(new IP() { id = 3, ip = "123.3.3.31" }, "ip");
         }
 
         private async void Send_Command()
@@ -93,7 +93,13 @@ namespace BotNet_Server_UI
             textBoxes.Add(IP27);
             textBoxes.Add(IP28);
             UpdateTextBoxes();
-            ClientList.Text = (await ApiRequest.GetProductAsync<IP>("/api/v1/ip")); /*.ip.ToString();*/
+            var arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/ip");
+            string res = "";
+            for (int i = 0; i < arr.Length; i++)
+            {
+                res += arr[i].ip + "\n";
+            }
+            ClientList.Text = res;
         }
 
         private void Minus_Click(object sender, RoutedEventArgs e)

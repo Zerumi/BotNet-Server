@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const router = express.Router();
-const stats = require('./ip.json');
+var stats = require('./ip.json');
 
 const getStats = async (req, res, next) => {
     try {
@@ -12,9 +12,6 @@ const getStats = async (req, res, next) => {
         next(e);
     }
 };
-router
-    .route('/api/v1/ip/')
-    .get(getStats);
 
 const createStats = async (req, res, next) => {
     try {
@@ -31,9 +28,6 @@ const createStats = async (req, res, next) => {
         next(e);
     }
 };
-router
-    .route('/api/v1/ip')
-    .post(createStats);
 
 const updateStats = async (req, res, next) => {
     try {
@@ -64,10 +58,6 @@ const updateStats = async (req, res, next) => {
         next(e);
     }
 };
-router
-    .route('/api/v1/ip/:id')
-    .get(getStats)
-    .put(updateStats);
 
 const deleteStats = async (req, res, next) => {
     try {
@@ -94,8 +84,13 @@ const deleteStats = async (req, res, next) => {
     }
 };
 router
+    .route('/api/v1/ip')
+    .post(createStats);
+router
+    .route('/api/v1/ip')
+    .get(getStats);
+router
     .route('/api/v1/ip/:id')
-    .get(getStats)
     .put(updateStats)
     .delete(deleteStats);
 

@@ -13,7 +13,7 @@ namespace BotNet_Server_UI
         {
             client.BaseAddress = new Uri("http://botnet-api.glitch.me/");
         }
-        public static async Task<Uri> CreateProductAsync(Message product, string apilist)
+        public static async Task<Uri> CreateProductAsync<T>(T product, string apilist)
         {
             InitializeUri();
             HttpResponseMessage response = await client.PostAsJsonAsync(
@@ -24,34 +24,31 @@ namespace BotNet_Server_UI
             return response.Headers.Location;
         }
 
-        public static async Task<string> GetProductAsync<T>(string path)
+        public static async Task<T> GetProductAsync<T>(string path)
         {
             InitializeUri();
             T product = default(T);
-            string s = "";
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                s = response.Content.ReadAsStringAsync().Result;
-                // product = await response.Content.ReadAsAsync<T>();
+                product = await response.Content.ReadAsAsync<T>();
             }
-            return s;
-            // return product;
-        }
-
-        public static async Task<Message> UpdateProductAsync(Message product, string apilist)
-        {
-            InitializeUri();
-            HttpResponseMessage response = await client.PutAsJsonAsync(
-                $"api/v1/{apilist}/{product.id}", product);
-            response.EnsureSuccessStatusCode();
-
-            // Deserialize the updated product from the response body.
-            product = await response.Content.ReadAsAsync<Message>();
             return product;
         }
 
-        public static async Task<HttpStatusCode> DeleteProductAsync(string id, string apilist)
+        public static async Task<T> UpdateProductAsync<T>(T product, string apilist, uint id)
+        {
+            InitializeUri();
+            HttpResponseMessage response = await client.PutAsJsonAsync(
+                $"api/v1/{apilist}/{id}", product);
+            response.EnsureSuccessStatusCode();
+
+            // Deserialize the updated product from the response body.
+            product = await response.Content.ReadAsAsync<T>();
+            return product;
+        }
+
+        public static async Task<HttpStatusCode> DeleteProductAsync(uint id, string apilist)
         {
             InitializeUri();
             HttpResponseMessage response = await client.DeleteAsync(
