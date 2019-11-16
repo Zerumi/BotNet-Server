@@ -2,7 +2,6 @@
 const fs = require('fs');
 const path = require('path');
 const router = express.Router();
-const stats = require('./messages.json');
 
 const getStats = async (req, res, next) => {
     try {

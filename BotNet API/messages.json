@@ -1,6 +1,6 @@
 [
   {
-    "id": "0",
+    "id": 0,
     "command": "/start cmd.exe",
     "ip": ["ip1","ip2","ip3"]
   }
