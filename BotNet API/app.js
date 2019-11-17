@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
-var ip = require('./ip.json');
+const ip = require('./ip.json');
 const messages = require('./messages.json');
 app.set('port', PORT);
 app.set('env', NODE_ENV);
@@ -14,7 +14,7 @@ app.use(logger('tiny'));
 app.use(bodyParser.text());
 app.get('/api/v1/ip', (req, res, next) => {
     try {
-        const playerStats = ip;
+        const playerStats = require('./ip.json');
         res.json(playerStats);
     } catch (e) {
         next(e);
@@ -42,17 +42,10 @@ app.post('/api/v1/ip', (req, res, next) => {
             ip: JSON.parse(req.body).ip,
         };
         ip.push(newIP);
-        fs.readFile('ip.json', 'utf8', function readFileCallback(err, data) {
-            if (err) {
-                console.log(err);
-            } else {
-                var obj = JSON.parse(data); //now it an object
-                obj.push(newIP); //add some data
-                var json = JSON.stringify(obj); //convert it back to json
-                fs.writeFile('ip.json', json, 'utf8', (error) => { console.log(error) }); // write it back 
-            }
-        });
+        var sip = JSON.stringify(ip);
+        fs.writeFileSync("ip.json",sip);
         res.status(201).json(newIP);
+        res.
     } catch (e) {
         next(e);
     }
