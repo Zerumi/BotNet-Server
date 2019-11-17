@@ -11,10 +11,7 @@ const messages = require('./messages.json');
 app.set('port', PORT);
 app.set('env', NODE_ENV);
 app.use(logger('tiny'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.text());
 app.get('/api/v1/ip', (req, res, next) => {
     try {
         const playerStats = ip;
@@ -41,8 +38,8 @@ app.get('/api/v1/messages/:id', (req, res, next) => {
 app.post('/api/v1/ip', (req, res, next) => {
     try {
         const newIP = {
-            id: req.body.id,
-            ip: req.body.ip,
+            id: JSON.parse(req.body).id,
+            ip: JSON.parse(req.body).ip,
         };
         ip.push(newIP);
         fs.readFile('ip.json', 'utf8', function readFileCallback(err, data) {
@@ -52,7 +49,7 @@ app.post('/api/v1/ip', (req, res, next) => {
                 var obj = JSON.parse(data); //now it an object
                 obj.push(newIP); //add some data
                 var json = JSON.stringify(obj); //convert it back to json
-                fs.writeFile('ip.json', json, 'utf8'); // write it back 
+                fs.writeFile('ip.json', json, 'utf8', (error) => { console.log(error) }); // write it back 
             }
         });
         res.status(201).json(newIP);
