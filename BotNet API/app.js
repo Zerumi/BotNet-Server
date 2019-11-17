@@ -45,7 +45,6 @@ app.post('/api/v1/ip', (req, res, next) => {
         var sip = JSON.stringify(ip);
         fs.writeFileSync("ip.json",sip);
         res.status(201).json(newIP);
-        res.
     } catch (e) {
         next(e);
     }
