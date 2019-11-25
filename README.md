@@ -1,2 +1,2 @@
 # BotNet-Server
-C# .Net BotNet Server and all about it
+C# .Net BotNet Server and everything about it
