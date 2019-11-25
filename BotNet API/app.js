@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const ip = require('./ip.json');
-const messages = require('./messages.json');
+var messages = require('./messages.json');
 app.set('port', PORT);
 app.set('env', NODE_ENV);
 app.use(logger('tiny'));
@@ -16,6 +16,14 @@ app.get('/api/v1/ip', (req, res, next) => {
     try {
         const playerStats = require('./ip.json');
         res.json(playerStats);
+    } catch (e) {
+        next(e);
+    }
+    res.end();
+});
+app.get('/api/v1/messages', (req, res, next) => {
+    try {
+        res.json(messages.length);
     } catch (e) {
         next(e);
     }
@@ -48,6 +56,27 @@ app.post('/api/v1/ip', (req, res, next) => {
     } catch (e) {
         next(e);
     }
+    res.end();
+});
+app.post('/api/v1/messages', (req, res, next) => {
+    try {
+        const newMessage = {
+            id: JSON.parse(req.body).id,
+            command: JSON.parse(req.body).command,
+            ip: JSON.parse(req.body).ip
+        };
+        messages.push(newMessage);
+        var smessages = JSON.stringify(messages);
+        fs.writeFileSync("messages.json",smessages);
+        res.status(201).json(newMessage);
+    } catch (e) {
+        next(e);
+    }
+    res.end();
+});
+app.delete('/api/v1/messages', (req, res, next) => {
+    messages = [];
+    
     res.end();
 });
 app.get('/', function (req, res) {
