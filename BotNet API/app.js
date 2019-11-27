@@ -163,6 +163,11 @@ app.post('/api/v1/responses/:ip', (req, res, next) => {
     fs.writeFileSync("responses.json", sresponses);
     res.end();
 });
+app.delete('/api/v1/responses', (req, res, next) => {
+    responses = [];
+
+    res.end();
+});
 app.use((req, res, next) => {
     const err = new Error(`${req.method} ${req.url} Not Found`);
     err.status = 404;

@@ -14,7 +14,7 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class App : Application
     {
-        private async void AppClosed(object sender, ExitEventArgs e)
+        private void AppClosed(object sender, ExitEventArgs e)
         {
 
         }
