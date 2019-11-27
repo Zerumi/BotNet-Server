@@ -30,6 +30,20 @@ app.get('/api/v1/messages', (req, res, next) => {
     }
     res.end();
 });
+app.get('/api/v1/responses/:ip', (req, res, next) => {
+    try {
+        const resp = responses.find(_resp => _resp.ip === String(req.params.ip));
+        if (!resp) {
+            const err = new Error('ip not found');
+            err.status = 404;
+            throw err;
+        }
+        res.json(resp.responses.length);
+    }
+    catch (e) {
+        next(e);
+    }
+});
 app.get('/api/v1/messages/:id', (req, res, next) => {
     try {
         const playerStats = messages.find(message => message.id === Number(req.params.id));
@@ -95,19 +109,16 @@ app.get('/api', function (req, res) {
 });
 app.get('/api/v1/responses/:ip/:id', (req, res, next) => {
     var response;
-    try
-    {
+    try {
         const resp = responses.find(_resp => _resp.ip === String(req.params.ip));
-        if (!resp)
-        {
+        if (!resp) {
             const err = new Error('ip not found');
             err.status = 404;
             throw err;
         }
         response = resp.responses;
     }
-    catch (e)
-    {
+    catch (e) {
         next(e);
     }
     try {
@@ -119,10 +130,37 @@ app.get('/api/v1/responses/:ip/:id', (req, res, next) => {
         }
         res.json(ressponse);
     }
-    catch (e)
-    {
+    catch (e) {
         next(e);
     }
+    res.end();
+});
+app.post('/api/v1/responses/:ip', (req, res, next) => {
+    try {
+        const resp = responses.find(_resp => _resp.ip === String(req.params.ip));
+        if (!resp) {
+            responses.push({
+                ip: String(req.params.ip),
+                responses: [
+                    {
+                        id: 0,
+                        response: JSON.parse(req.body).response
+                    }
+                ]
+            });
+        }
+        else {
+            resp.responses.push({
+                id: resp.responses.length,
+                response: JSON.parse(req.body).response
+            });
+        }
+    }
+    catch (e) {
+        next(e);
+    }
+    var sresponses = JSON.stringify(responses);
+    fs.writeFileSync("responses.json", sresponses);
     res.end();
 });
 app.use((req, res, next) => {

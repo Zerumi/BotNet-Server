@@ -44,6 +44,6 @@
         <Label Content="Список клиентов:" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Height="24" Width="123"/>
         <TextBlock x:Name="ClientList" HorizontalAlignment="Left" Margin="10,93,0,0" TextWrapping="Wrap" Text="Loading..." VerticalAlignment="Top" Height="253" Width="123"/>
         <TextBlock x:Name="LogPanel" HorizontalAlignment="Left" Height="400" Margin="506,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="276" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" FontSize="14"/>
-        <Label x:Name="InfoLabel" Content="Loading..." HorizontalAlignment="Left" Height="48" Margin="10,0,0,0" VerticalAlignment="Top" Width="418" FontSize="10"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="123" Height="32" Click="Button_Click_1"/>
     </Grid>
 </Window>

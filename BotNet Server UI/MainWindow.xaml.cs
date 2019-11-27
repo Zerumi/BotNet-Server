@@ -110,8 +110,6 @@ namespace BotNet_Server_UI
                 res += arr[i].ip + "\n";
             }
             ClientList.Text = res;
-            var info = await ApiRequest.GetProductAsync<Info>("/api");
-            InfoLabel.Content = "Подключено к серверу: " + info.uri + "; API версии " + info.version + ".\nПрослушка по порту " + info.port + "; среда разработки " + info.environment + ".\nВсего клиентов " + info.clients + ". Всего сообщений " + info.messages;
         }
 
         private void Minus_Click(object sender, RoutedEventArgs e)
@@ -149,6 +147,15 @@ namespace BotNet_Server_UI
                     textBoxes[i].Visibility = Visibility.Hidden;
                 }
             }
+        }
+
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Response response = new Response()
+            {
+                response = "Успех!"
+            };
+            _ = await ApiRequest.CreateProductAsync(response, "responses/192.168.0.1");
         }
     }
 }
