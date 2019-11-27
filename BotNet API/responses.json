@@ -1,0 +1,24 @@
+[
+  {
+    "ip": "ip1",
+    "responses": [
+      {
+        "id": 0,
+        "response": "response1"
+      },
+      {
+        "id": 1,
+        "response": "response2"
+      }
+    ]
+  },
+  {
+    "ip": "ip2",
+    "responses": [
+      {
+        "id": 0,
+        "response": "response1"
+      }
+    ]
+  }
+]
