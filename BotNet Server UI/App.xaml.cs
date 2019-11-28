@@ -12,7 +12,7 @@ namespace BotNet_Server_UI
     /// <summary>
     /// Логика взаимодействия для App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class Application : System.Windows.Application
     {
         private void AppClosed(object sender, ExitEventArgs e)
         {

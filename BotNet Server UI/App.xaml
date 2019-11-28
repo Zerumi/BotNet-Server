@@ -1,8 +1,8 @@
-﻿<Application x:Class="BotNet_Server_UI.App"
+﻿<Application x:Class="BotNet_Server_UI.Application"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BotNet_Server_UI"
-             StartupUri="MainWindow.xaml" Exit="AppClosed">
+             StartupUri="DialogBox.xaml" Exit="AppClosed">
     <Application.Resources>
          
     </Application.Resources>

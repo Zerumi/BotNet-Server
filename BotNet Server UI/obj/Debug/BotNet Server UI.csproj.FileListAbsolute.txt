@@ -49,3 +49,6 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\o
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.csproj.CopyComplete
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.exe
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.pdb
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\DialogBox.g.cs
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI_MarkupCompile.lref
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\DialogBox.baml
