@@ -145,15 +145,19 @@ namespace BotNet_Server_UI
             }
         }
 
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            DialogBox dialogBox = new DialogBox();
-            dialogBox.Show();
+            StartListenResponsesAsync();
         }
 
         private async void StartListenAsync()
         {
             await Task.Run(() => ListenClients());
+            await Task.Run(() => ListenResponses());
+        }
+
+        private async void StartListenResponsesAsync()
+        {
             await Task.Run(() => ListenResponses());
         }
 
@@ -188,7 +192,10 @@ namespace BotNet_Server_UI
                 while (true)
                 {
                     Responses[] responses = await ApiRequest.GetProductAsync<Responses[]>("api/v1/responses");
-
+                    if (responses == null)
+                    {
+                        continue;
+                    }
                     if (isFirstIter)
                     {
                         isFirstIter = false;

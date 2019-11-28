@@ -10,9 +10,9 @@
             <TextBlock x:Name="LogPanel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" FontSize="14"/>
         </ScrollViewer>
         <TextBlock x:Name="ClientList" HorizontalAlignment="Left" Margin="10,93,0,0" TextWrapping="Wrap" Text="Loading..." VerticalAlignment="Top" Height="253" Width="123"/>
-        <TextBox x:Name="Command" HorizontalAlignment="Left" Height="23" Margin="63,387,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="358" KeyDown="Command_KeyDown"/>
-        <Button x:Name="SendButton" Content="Отправить" HorizontalAlignment="Left" Margin="426,387,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Label Content="Команда" HorizontalAlignment="Left" Margin="10,387,0,0" VerticalAlignment="Top" Height="22" Width="58" FontSize="10"/>
+        <TextBox x:Name="Command" HorizontalAlignment="Left" Height="23" Margin="63,0,0,10" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="358" KeyDown="Command_KeyDown"/>
+        <Button x:Name="SendButton" Content="Отправить" HorizontalAlignment="Left" Margin="426,0,0,10" VerticalAlignment="Bottom" Width="75" Click="Button_Click" Height="23"/>
+        <Label Content="Команда" HorizontalAlignment="Left" Margin="10,0,0,11" VerticalAlignment="Bottom" Height="22" Width="58" FontSize="10"/>
         <Label Content="IP-Адрес" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Height="22" Width="58" FontSize="10"/>
         <Button x:Name="Button_Plus" Content="+" HorizontalAlignment="Left" Margin="111,48,0,0" VerticalAlignment="Top" Width="22" Height="22" Click="Plus_Click"/>
         <Button x:Name="Button_Minus" Content="-" HorizontalAlignment="Left" Margin="63,48,0,0" VerticalAlignment="Top" Width="22" Height="22" Click="Minus_Click"/>
@@ -46,6 +46,6 @@
         <TextBox x:Name="IP27" HorizontalAlignment="Left" Height="23" Margin="283,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
         <TextBox x:Name="IP28" HorizontalAlignment="Left" Height="23" Margin="283,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
         <Label Content="Список клиентов:" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Height="24" Width="123"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="123" Height="32" Click="Button_Click_1"/>
+        <Button Content="Reload listen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="123" Height="32" Click="Button_Click_1"/>
     </Grid>
 </Window>

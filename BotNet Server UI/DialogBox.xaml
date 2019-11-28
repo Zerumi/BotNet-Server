@@ -8,7 +8,7 @@
         Title="Enter Password" Height="97" Width="170">
     <StackPanel>
         <TextBlock Text="Enter admin password" />
-        <TextBox x:Name="ResponseTextBox" />
-        <Button Content="OK" Click="OKButton_Click" />
+        <TextBox x:Name="ResponseTextBox" KeyDown="Field_KeyDown" />
+        <Button x:Name="AuthButton" Content="OK" Click="OKButton_Click" />
     </StackPanel>
 </Window>
