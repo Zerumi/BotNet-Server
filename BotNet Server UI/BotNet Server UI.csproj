@@ -62,7 +62,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GetListen.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="Responses.cs" />
     <Page Include="MainWindow.xaml">

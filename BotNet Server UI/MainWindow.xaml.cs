@@ -157,6 +157,7 @@ namespace BotNet_Server_UI
         private async void StartListenAsync()
         {
             await Task.Run(() => ListenClients());
+            await Task.Run(() => ListenResponses());
         }
 
         private async void ListenClients()
@@ -181,31 +182,44 @@ namespace BotNet_Server_UI
             }
         }
 
-        //private async void ListenResponses()
-        //{
-        //    while (true)
-        //    {
-        //        Responses[] responses = await ApiRequest.GetProductAsync<Responses[]>("api/v1/responses");
-        //        uint[] vars = new uint[responses.Length];
-        //        for (int i = 0; i < responses.Length; i++)
-        //        {
-        //            vars[i] = await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}");
-        //        }
-        //        for (int i = 0; i < responses.Length; i++)
-        //        {
-        //            uint var1 = await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}") - 1;
-        //            if (var1 != vars[i])
-        //            {
-        //                continue;
-        //            }
-        //            Response response = await ApiRequest.GetProductAsync<Response>($"api/v1/responses/{responses[i].ip}/{var1}");
-        //            if (response != null)
-        //            {
-        //                await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += response.response));
-        //            }
-        //        }
-        //        Thread.Sleep(1000);
-        //    }
-        //} // to delete
+        private async void ListenResponses()
+        {
+            bool isFirstIter = true;
+            List<uint> vars = new List<uint>();
+            while (true)
+            {
+                Responses[] responses = await ApiRequest.GetProductAsync<Responses[]>("api/v1/responses");
+
+                if (isFirstIter)
+                {
+                    isFirstIter = false;
+                    for (int i = 0; i < responses.Length; i++)
+                    {
+                        vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}") - 1);
+                    }
+                }
+                if (vars.Count != responses.Length)
+                {
+                    for (int i = vars.Count; i < responses.Length; i++)
+                    {
+                        vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}") - 1);
+                    }
+                }
+                for (int i = 0; i < responses.Length; i++)
+                {
+                    uint var1 = await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}") - 1;
+                    if (var1 == vars[i])
+                    {
+                        Response response = await ApiRequest.GetProductAsync<Response>($"api/v1/responses/{responses[i].ip}/{var1}");
+                        if (response != null)
+                        {
+                            await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += response.response + "\n"));
+                        }
+                        vars[i] = vars[i] + 1;
+                    }
+                }
+                Thread.Sleep(1000);
+            }
+        }
     }
 }
