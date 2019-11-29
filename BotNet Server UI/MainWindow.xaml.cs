@@ -1,22 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BotNet_Server_UI
 {
@@ -42,7 +30,6 @@ namespace BotNet_Server_UI
             {
                 Message message = new Message()
                 {
-                    id = await ApiRequest.GetProductAsync<uint>("/api/v1/messages"),
                     command = Command.Text,
                     ip = new string[Convert.ToInt32(IPCount.Content.ToString())]
                 };
@@ -51,11 +38,11 @@ namespace BotNet_Server_UI
                     message.ip[i] = textBoxes[i].Text;
                 }
                 var res = await ApiRequest.CreateProductAsync(message, "messages");
-                LogPanel.Text += $"Сообщение {message.command} (id: {message.id}) отправлено.\n";
+                LogPanel.Text += $"Команда {message.command} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages")}) отправлена.\n";
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -179,7 +166,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
         }
 

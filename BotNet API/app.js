@@ -81,7 +81,7 @@ app.post("/api/v1/ip", (req, res, next) => {
 app.post("/api/v1/messages", (req, res, next) => {
   try {
     const newMessage = {
-      id: JSON.parse(req.body).id,
+      id: messages.length,
       command: JSON.parse(req.body).command,
       ip: JSON.parse(req.body).ip
     };
@@ -171,15 +171,12 @@ app.delete("/api/v1/responses", (req, res, next) => {
 
   res.end();
 });
-app.get("/api/v1/admin/:password",(req,res,next) => {
-  if(process.env.SECRET === String(req.params.password))
-    {
-      res.json(true);
-    }
-  else
-    {
-      res.json(false);
-    }
+app.get("/api/v1/admin/:password", (req, res, next) => {
+  if (process.env.SECRET === String(req.params.password)) {
+    res.json(true);
+  } else {
+    res.json(false);
+  }
 });
 app.use((req, res, next) => {
   const err = new Error(`${req.method} ${req.url} Not Found`);
