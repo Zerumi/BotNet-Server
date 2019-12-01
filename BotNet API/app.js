@@ -9,6 +9,7 @@ const NODE_ENV = process.env.NODE_ENV || "development";
 const ip = require("./ip.json");
 var messages = require("./messages.json");
 var responses = require("./responses.json");
+var admin = false;
 app.set("port", PORT);
 app.set("env", NODE_ENV);
 app.use(logger("tiny"));
@@ -66,13 +67,13 @@ app.get("/api/v1/messages/:id", (req, res, next) => {
 app.post("/api/v1/ip", (req, res, next) => {
   try {
     const newIP = {
-      id: JSON.parse(req.body).id,
+      id: ip.length,
       ip: JSON.parse(req.body).ip
     };
     ip.push(newIP);
     var sip = JSON.stringify(ip);
     fs.writeFileSync("ip.json", sip);
-    res.status(201).json(newIP);
+    res.status(201).json(newIP.id);
   } catch (e) {
     next(e);
   }
@@ -170,6 +171,9 @@ app.delete("/api/v1/responses", (req, res, next) => {
   responses = [];
 
   res.end();
+});
+app.delete("api/v1/ip/:id", (req, res, next) => {
+  ip[req.params.id].ip = "";
 });
 app.get("/api/v1/admin/:password", (req, res, next) => {
   if (process.env.SECRET === String(req.params.password)) {
