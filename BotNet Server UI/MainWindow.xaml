@@ -4,19 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="BotNet Server UI by Zerumi" Height="450" Width="800" Loaded="Formloaded">
+        Title="BotNet Server UI by Zerumi" Height="450" Width="800" Loaded="Formloaded" SizeChanged="Size_Changed">
     <Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
         <ScrollViewer Margin="506,10,10,10" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
             <TextBlock x:Name="LogPanel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" FontSize="14"/>
         </ScrollViewer>
-        <TextBlock x:Name="ClientList" HorizontalAlignment="Left" Margin="10,93,0,0" TextWrapping="Wrap" Text="Loading..." VerticalAlignment="Top" Height="253" Width="123"/>
-        <TextBox x:Name="Command" HorizontalAlignment="Left" Height="23" Margin="63,0,0,10" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="358" KeyDown="Command_KeyDown"/>
+        <ScrollViewer x:Name="ClientScroll" Margin="9,116,659,51" MaxWidth="124" Grid.Column="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left" Width="115" VerticalScrollBarVisibility="Auto">
+            <TextBlock x:Name="ClientList" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Загрузка..." VerticalAlignment="Top"/>
+        </ScrollViewer>
+        <TextBox Grid.Row="1" x:Name="Command" HorizontalAlignment="Left" Height="23" Margin="63,0,0,10" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="358" KeyDown="Command_KeyDown"/>
         <Button x:Name="SendButton" Content="Отправить" HorizontalAlignment="Left" Margin="426,0,0,10" VerticalAlignment="Bottom" Width="75" Click="Button_Click" Height="23"/>
         <Label Content="Команда" HorizontalAlignment="Left" Margin="10,0,0,11" VerticalAlignment="Bottom" Height="22" Width="58" FontSize="10"/>
         <Label Content="IP-Адрес" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Height="22" Width="58" FontSize="10"/>
         <Button x:Name="Button_Plus" Content="+" HorizontalAlignment="Left" Margin="111,48,0,0" VerticalAlignment="Top" Width="22" Height="22" Click="Plus_Click"/>
         <Button x:Name="Button_Minus" Content="-" HorizontalAlignment="Left" Margin="63,48,0,0" VerticalAlignment="Top" Width="22" Height="22" Click="Minus_Click"/>
-        <Label x:Name="IPCount" Content="1" HorizontalAlignment="Left" Margin="85,48,0,0" VerticalAlignment="Top" Height="45" Width="26"/>
+        <Label x:Name="IPCount" Content="1" HorizontalAlignment="Left" Margin="85,48,0,0" VerticalAlignment="Top" Height="23" Width="26"/>
         <TextBox x:Name="IP1" HorizontalAlignment="Left" Height="23" Margin="138,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
         <TextBox x:Name="IP2" HorizontalAlignment="Left" Height="23" Margin="138,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
         <TextBox x:Name="IP3" HorizontalAlignment="Left" Height="23" Margin="138,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
@@ -45,7 +51,9 @@
         <TextBox x:Name="IP26" HorizontalAlignment="Left" Height="23" Margin="283,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
         <TextBox x:Name="IP27" HorizontalAlignment="Left" Height="23" Margin="283,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
         <TextBox x:Name="IP28" HorizontalAlignment="Left" Height="23" Margin="283,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
-        <Label Content="Список клиентов:" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Height="24" Width="123"/>
-        <Button Content="Reload listen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="123" Height="32" Click="Button_Click_1"/>
+        <Label Content="Список клиентов:" HorizontalAlignment="Left" Margin="4,93,0,0" VerticalAlignment="Top" Height="23" Width="129"/>
+        <Button Content="Reload Listen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="123" Height="32" Click="Button_Click_1"/>
+        <Button x:Name="IPSetButton" Content="Задать IP" HorizontalAlignment="Left" Margin="39,75,0,0" VerticalAlignment="Top" Width="94" Click="IPSetButton_Click"/>
+        <Label Content="или" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Height="22" Width="29" FontSize="10"/>
     </Grid>
 </Window>

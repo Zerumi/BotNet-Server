@@ -67,9 +67,16 @@
     <Compile Include="DialogBox.xaml.cs">
       <DependentUpon>DialogBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IPSet.xaml.cs">
+      <DependentUpon>IPSet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Response.cs" />
     <Compile Include="Responses.cs" />
     <Page Include="DialogBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="IPSet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
