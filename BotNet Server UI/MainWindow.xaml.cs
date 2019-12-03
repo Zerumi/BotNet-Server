@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CommandsLibrary;
 
 namespace BotNet_Server_UI
 {
@@ -58,9 +59,12 @@ namespace BotNet_Server_UI
 
         private void Command_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            for (int i = 0; i < Commands.commands.Length; i++)
             {
-                Send_Command();
+                if (Command.Text == Commands.commands[i])
+                {
+                    Arguments.arguments[i].
+                }
             }
         }
 
