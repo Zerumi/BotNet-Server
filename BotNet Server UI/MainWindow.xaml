@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="BotNet Server UI by Zerumi" Height="450" Width="800" Loaded="Formloaded" SizeChanged="Size_Changed">
-    <Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
+        Title="BotNet Server UI by Zerumi" Height="450" Width="800" Loaded="Formloaded">
+    <Grid x:Name="Grid" Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
@@ -16,7 +16,7 @@
         <ScrollViewer x:Name="ClientScroll" Margin="9,116,659,51" MaxWidth="124" Grid.Column="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left" Width="115" VerticalScrollBarVisibility="Auto">
             <TextBlock x:Name="ClientList" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Загрузка..." VerticalAlignment="Top"/>
         </ScrollViewer>
-        <TextBox x:Name="Command" HorizontalAlignment="Left" Height="23" Margin="63,0,0,10" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="83" KeyDown="Command_KeyDown"/>
+        <TextBox x:Name="Command" Text="" Margin="63,0,0,10" TextWrapping="Wrap" KeyDown="Command_KeyDown" TextChanged="Command_TextChanged" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="83"/>
         <Button x:Name="SendButton" Content="Отправить" HorizontalAlignment="Left" Margin="426,0,0,10" VerticalAlignment="Bottom" Width="75" Click="Button_Click" Height="23"/>
         <Label Content="Команда" HorizontalAlignment="Left" Margin="10,0,0,11" VerticalAlignment="Bottom" Height="22" Width="58" FontSize="10"/>
         <Label Content="IP-Адрес" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Height="22" Width="58" FontSize="10"/>

@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BotNet_Server_UI
 {
@@ -28,17 +17,20 @@ namespace BotNet_Server_UI
         {
             if (ResponseTextBox.Text == "null")
             {
-                ((MainWindow)Application.Current.Windows[0]).ips = false;
+                ((MainWindow)Application.Current.Windows[0]).ipsall = false;
+                ((MainWindow)Application.Current.Windows[0]).ips = null;
                 ((MainWindow)Application.Current.Windows[0]).UnblockTextIp();
             }
-            if (ResponseTextBox.Text == "all")
+            else if (ResponseTextBox.Text == "all")
             {
-                ((MainWindow)Application.Current.Windows[0]).ips = true;
+                ((MainWindow)Application.Current.Windows[0]).ipsall = true;
+                ((MainWindow)Application.Current.Windows[0]).ips = null;
                 ((MainWindow)Application.Current.Windows[0]).BlockTextIP();
             }
             else
             {
-                ((MainWindow)Application.Current.Windows[0]).ips = true;
+                ((MainWindow)Application.Current.Windows[0]).ipsall = false;
+                ((MainWindow)Application.Current.Windows[0]).ips = ResponseTextBox.Text.Split(' ');
                 ((MainWindow)Application.Current.Windows[0]).BlockTextIP();
             }
 
@@ -51,17 +43,20 @@ namespace BotNet_Server_UI
             {
                 if (ResponseTextBox.Text == "null")
                 {
-                    ((MainWindow)Application.Current.Windows[0]).ips = false;
+                    ((MainWindow)Application.Current.Windows[0]).ipsall = false;
+                    ((MainWindow)Application.Current.Windows[0]).ips = null;
                     ((MainWindow)Application.Current.Windows[0]).UnblockTextIp();
                 }
-                if (ResponseTextBox.Text == "all")
+                else if (ResponseTextBox.Text == "all")
                 {
-                    ((MainWindow)Application.Current.Windows[0]).ips = true;
+                    ((MainWindow)Application.Current.Windows[0]).ipsall = true;
+                    ((MainWindow)Application.Current.Windows[0]).ips = null;
                     ((MainWindow)Application.Current.Windows[0]).BlockTextIP();
                 }
                 else
                 {
-                    ((MainWindow)Application.Current.Windows[0]).ips = true;
+                    ((MainWindow)Application.Current.Windows[0]).ipsall = false;
+                    ((MainWindow)Application.Current.Windows[0]).ips = ResponseTextBox.Text.Split(' ');
                     ((MainWindow)Application.Current.Windows[0]).BlockTextIP();
                 }
 

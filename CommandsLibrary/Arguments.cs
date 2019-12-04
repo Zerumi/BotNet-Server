@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CommandsLibrary
+﻿namespace CommandsLibrary
 {
     public class Arguments : IArgument
     {
@@ -38,7 +32,7 @@ namespace CommandsLibrary
                 ArgumentCount = 2,
                 ArgumentsList = new string[]
                 {
-                    "Путь к файлу\\Файл для компирования",
+                    "Путь к файлу\\Файл для копирования",
                     "Путь к файлу\\Файл для вставки"
                 }
             },

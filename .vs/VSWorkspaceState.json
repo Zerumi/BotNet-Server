@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\BotNet API",
-    "\\BotNet Server UI"
+    "\\BotNet Server UI",
+    "\\CommandsLibrary"
   ],
-  "SelectedNode": "\\LICENSE",
+  "SelectedNode": "\\BotNet API\\app.js",
   "PreviewInSolutionExplorer": false
 }

