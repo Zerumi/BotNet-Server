@@ -6,10 +6,6 @@
         mc:Ignorable="d"
         Title="BotNet Server UI by Zerumi" Height="450" Width="800" Loaded="Formloaded">
     <Grid x:Name="Grid" Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
         <ScrollViewer Margin="506,10,10,10" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
             <TextBlock x:Name="LogPanel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" FontSize="14"/>
         </ScrollViewer>

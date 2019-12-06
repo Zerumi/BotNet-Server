@@ -1,4 +1,6 @@
-﻿using System;
+﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
+// (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -269,6 +271,19 @@ namespace BotNet_Server_UI
             {
                 if (Command.Text == Arguments.arguments[i].Command)
                 {
+                    if (Command.Text == "/screen")
+                    {
+                        Button button = new Button()
+                        {
+                            HorizontalAlignment = HorizontalAlignment.Stretch,
+                            VerticalAlignment = VerticalAlignment.Bottom,
+                            Height = 22,
+                            Width = 270,
+                            Margin = new Thickness(151, Application.Current.Windows[0].Height - 80, Application.Current.Windows[0].Width - 151 - 270, 11)
+                        };
+                        Grid.Children.Add(button);
+                        button.Click += Button_Click1;
+                    }
                     args = new TextBox[Arguments.arguments[i].ArgumentCount];
                     for (int j = 0; j < Arguments.arguments[i].ArgumentCount; j++)
                     {
@@ -292,6 +307,12 @@ namespace BotNet_Server_UI
             {
                 Grid.Children.Remove(args[i]);
             }
+        }
+
+        private void Button_Click1(object sender, RoutedEventArgs e)
+        {
+            Screens screenwindow = new Screens();
+            screenwindow.Show();
         }
     }
 }
