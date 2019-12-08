@@ -21,19 +21,16 @@ namespace BotNet_Server_UI
             {
                 ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                 ((MainWindow)Application.Current.Windows[0]).ips = null;
-                ((MainWindow)Application.Current.Windows[0]).UnblockTextIp();
             }
             else if (ResponseTextBox.Text == "all")
             {
                 ((MainWindow)Application.Current.Windows[0]).ipsall = true;
                 ((MainWindow)Application.Current.Windows[0]).ips = null;
-                ((MainWindow)Application.Current.Windows[0]).BlockTextIP();
             }
             else
             {
                 ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                 ((MainWindow)Application.Current.Windows[0]).ips = ResponseTextBox.Text.Split(' ');
-                ((MainWindow)Application.Current.Windows[0]).BlockTextIP();
             }
 
             Close();
@@ -47,19 +44,16 @@ namespace BotNet_Server_UI
                 {
                     ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                     ((MainWindow)Application.Current.Windows[0]).ips = null;
-                    ((MainWindow)Application.Current.Windows[0]).UnblockTextIp();
                 }
                 else if (ResponseTextBox.Text == "all")
                 {
                     ((MainWindow)Application.Current.Windows[0]).ipsall = true;
                     ((MainWindow)Application.Current.Windows[0]).ips = null;
-                    ((MainWindow)Application.Current.Windows[0]).BlockTextIP();
                 }
                 else
                 {
                     ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                     ((MainWindow)Application.Current.Windows[0]).ips = ResponseTextBox.Text.Split(' ');
-                    ((MainWindow)Application.Current.Windows[0]).BlockTextIP();
                 }
 
                 Close();

