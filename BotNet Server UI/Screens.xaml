@@ -3,70 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BotNet_Server_UI"
         mc:Ignorable="d"
-        Title="Screens" Height="250" Width="400">
-    <Window.Resources>
-        <Style TargetType="{x:Type RepeatButton}"  x:Key="repeatStyle">
-            <Setter Property="Visibility" Value="Visible" />
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=scrollViewerInactive,Path=ComputedHorizontalScrollBarVisibility }" Value="Collapsed">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=scrollViewerInactive,Path=ComputedHorizontalScrollBarVisibility }" Value="Hidden">
-                    <Setter Property="Visibility" Value="Hidden" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <DataTemplate x:Key="listBoxItemTemplate">
-            <TextBlock Text="{Binding LastName}"/>
-        </DataTemplate>
-        <ItemsPanelTemplate x:Key="itemsPanelTemplate">
-            <VirtualizingStackPanel Orientation="Horizontal"/>
-        </ItemsPanelTemplate>
-    </Window.Resources>
+        Title="Screens" Height="250" Width="200" Loaded="ScrForm_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <RepeatButton x:Name="LineLeftButton" 
-                    Grid.Column="0"
-                    Grid.Row="1"
-                    Style="{StaticResource ResourceKey=repeatStyle}"
-                    Content="&lt;"      
-                    Command="{x:Static ScrollBar.LineLeftCommand}"      
-                    CommandTarget="{Binding ElementName=scrollViewerActive}"/>
-        <RepeatButton x:Name="LineRightButton" 
-                    Grid.Column="2"
-                    Grid.Row="1"
-                    Style="{StaticResource ResourceKey=repeatStyle}"
-                    Content="&gt;" 
-                    Command="{x:Static ScrollBar.LineRightCommand}"      
-                    CommandTarget="{Binding ElementName=scrollViewerActive}"/>
-        <ScrollViewer Grid.Column="1" Grid.Row="0" x:Name="scrollViewerInactive" VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Auto" >
-            <ListBox 
-            VerticalAlignment="Stretch"   
-            ItemsSource="{Binding Path=Customers}"
-            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-            ScrollViewer.VerticalScrollBarVisibility="Hidden"
-            ItemsPanel="{StaticResource itemsPanelTemplate}"
-            ItemTemplate="{StaticResource listBoxItemTemplate}"/>
-        </ScrollViewer>
-        <ScrollViewer Grid.Column="1" Grid.Row="1"  x:Name="scrollViewerActive" VerticalScrollBarVisibility="Hidden"  HorizontalScrollBarVisibility="Hidden" >
-            <ListBox 
-            Margin="0,0,0,0"
-            VerticalAlignment="Stretch"   
-            ItemsSource="{Binding Path=Customers}"
-            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-            ScrollViewer.VerticalScrollBarVisibility="Hidden"
-            ItemsPanel="{StaticResource itemsPanelTemplate}"
-            ItemTemplate="{StaticResource listBoxItemTemplate}"/>
-        </ScrollViewer>
+        <ListBox x:Name="ListScrenns" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        </ListBox>
     </Grid>
 </Window>

@@ -183,26 +183,25 @@ namespace BotNet_Server_UI
                             Content = "Открыть скриншот панель",
                             HorizontalAlignment = HorizontalAlignment.Stretch,
                             VerticalAlignment = VerticalAlignment.Bottom,
-                            Height = 22,
-                            Width = 270,
-                            Margin = new Thickness(151, Application.Current.Windows[0].Height - 80, Application.Current.Windows[0].Width - 151 - 270, 11)
+                            Margin = new Thickness(10, 10, 10, 18)
                         };
+                        button.SetValue(Grid.ColumnProperty, 2);
+                        button.SetValue(Grid.RowProperty, 2);
                         Grid.Children.Add(button);
                         button.Click += Button_Click1;
                     }
                     args = new TextBox[Arguments.arguments[i].ArgumentCount];
-                    for (int j = 0; j < Arguments.arguments[i].ArgumentCount; j++)
+                    for (int j = 0, k = Arguments.arguments[i].ArgumentCount; j < Arguments.arguments[i].ArgumentCount; j++)
                     {
                         args[j] = new TextBox()
                         {
                             Name = $"Argument{j + 1}",
-                            TextWrapping = TextWrapping.Wrap,
-                            VerticalAlignment = VerticalAlignment.Bottom,
-                            HorizontalAlignment = HorizontalAlignment.Left,
-                            Height = 22,
-                            Width = 270 / Arguments.arguments[i].ArgumentCount,
-                            Margin = new Thickness(151 + j * (270 / Arguments.arguments[i].ArgumentCount), Application.Current.Windows[0].Height - 80, Application.Current.Windows[0].Height - (151 + (Arguments.arguments[i].ArgumentCount - 1) * (270 / Arguments.arguments[i].ArgumentCount)), 11)
+                            TextWrapping = TextWrapping.NoWrap,
+                            HorizontalAlignment = HorizontalAlignment.Stretch,
+                            Margin = new Thickness(10 + j * (270 / Arguments.arguments[i].ArgumentCount), 10, 10 + --k * (270 / Arguments.arguments[i].ArgumentCount), 18),
                         };
+                        args[j].SetValue(Grid.ColumnProperty, 2);
+                        args[j].SetValue(Grid.RowProperty, 2);
                         Grid.Children.Add(args[j]);
                         args[j].KeyDown += Command_KeyDown;
                     }

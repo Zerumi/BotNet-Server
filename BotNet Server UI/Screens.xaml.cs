@@ -23,5 +23,17 @@ namespace BotNet_Server_UI
         {
             InitializeComponent();
         }
+
+        private void ScrForm_Loaded(object sender, RoutedEventArgs e)
+        {
+            ListScrenns.Items.Add(new Button()
+            {
+
+            });
+            //for (int i = 0; i < *Length*; i++)
+            //{
+
+            //}
+        }
     }
 }
