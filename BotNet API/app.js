@@ -1,4 +1,6 @@
-﻿const express = require("express");
+﻿// This code is licensed under the isc license. You can improve the code by keeping this comments
+// (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const fs = require("fs");
@@ -7,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const ip = require("./ip.json");
+const screens = require("./screens.json");
 var messages = require("./messages.json");
 var responses = require("./responses.json");
 var admin = false;
@@ -14,6 +17,37 @@ app.set("port", PORT);
 app.set("env", NODE_ENV);
 app.use(logger("tiny"));
 app.use(bodyParser.text());
+app.post("/api/v1/screens", (req, res, next) => {
+  try {
+    const newScreen = {
+      id: JSON.parse(req.body).id,
+      bytes: JSON.parse(req.body).bytes
+    };
+    screens.push(newScreen);
+    var smessages = JSON.stringify(screens);
+    fs.writeFileSync("screens.json", smessages);
+    res.status(201).json(newScreen);
+  } catch (e) {
+    next(e);
+  }
+  res.end();
+});
+app.get("/api/v1/screens/:id", (req, res, next) => {
+  try {
+    const playerStats = screens.find(
+      screens => screens.id === Number(req.params.id)
+    );
+    if (!playerStats) {
+      const err = new Error("screens not found");
+      err.status = 404;
+      throw err;
+    }
+    res.json(playerStats);
+  } catch (e) {
+    next(e);
+  }
+  res.end();
+});
 app.get("/api/v1/ip", (req, res, next) => {
   try {
     const playerStats = require("./ip.json");

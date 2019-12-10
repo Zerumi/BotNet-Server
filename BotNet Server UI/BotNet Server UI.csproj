@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="Response.cs" />
     <Compile Include="Responses.cs" />
+    <Compile Include="Screen.cs" />
     <Compile Include="Screens.xaml.cs">
       <DependentUpon>Screens.xaml</DependentUpon>
     </Compile>
