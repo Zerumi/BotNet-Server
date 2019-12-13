@@ -12,25 +12,35 @@ const ip = require("./ip.json");
 const screens = require("./screens.json");
 var messages = require("./messages.json");
 var responses = require("./responses.json");
-var admin = false;
 app.set("port", PORT);
 app.set("env", NODE_ENV);
 app.use(logger("tiny"));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ limit: '50mb' }));
-app.post("/api/v1/screens", (req, res, next) => {
+app.post("/api/v1/screens/:id", (req, res, next) => {
     try {
-        const newScreen = {
-            id: JSON.parse(req.body).id,
-            bytes: JSON.parse(req.body).bytes
-        };
-        screens.push(newScreen);
-        var smessages = JSON.stringify(screens);
-        fs.writeFileSync("screens.json", smessages);
-        res.status(201).json(newScreen);
+        const screen = screens.find(_screen => _screen.ip === String(req.params.id));
+        if (!screen) {
+            screens.push({
+                ip: String(req.params.ip),
+                bytes: [
+                    {
+                        id: 0,
+                        response: JSON.parse(req.body).bytes
+                    }
+                ]
+            });
+        } else {
+            screen.responses.push({
+                id: screen.responses.length,
+                bytes: JSON.parse(req.body).bytes
+            });
+        }
     } catch (e) {
         next(e);
     }
+    var sscreens = JSON.stringify(screens);
+    fs.writeFileSync("screens.json", sscreens);
     res.end();
 });
 app.get("/api/v1/screens/:id", (req, res, next) => {
@@ -108,7 +118,7 @@ app.post("/api/v1/ip", (req, res, next) => {
         ip.push(newIP);
         var sip = JSON.stringify(ip);
         fs.writeFileSync("ip.json", sip);
-        res.status(201).json(newIP.id);
+        res.status(201).json(ip.length - 1);
     } catch (e) {
         next(e);
     }

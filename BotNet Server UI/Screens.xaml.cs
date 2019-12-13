@@ -47,7 +47,7 @@ namespace BotNet_Server_UI
             {
                 buttons.Add(new Button()
                 {
-                    Name = "" + ip[i].id,
+                    Name = Convert.ToString(ip[i].id),
                     Content = "Скриншоты " + ip[i].ip
                 });
                 buttons[i].Click += Screens_Click;
