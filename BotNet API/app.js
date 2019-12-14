@@ -19,20 +19,20 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.post("/api/v1/screens/:id", (req, res, next) => {
     try {
-        const screen = screens.find(_screen => _screen.ip === String(req.params.id));
+        const screen = screens.find(_screen => _screen.id === String(req.params.id));
         if (!screen) {
             screens.push({
-                ip: String(req.params.ip),
-                bytes: [
+                id: String(req.params.id),
+                screens: [
                     {
                         id: 0,
-                        response: JSON.parse(req.body).bytes
+                        bytes: JSON.parse(req.body).bytes
                     }
                 ]
             });
         } else {
-            screen.responses.push({
-                id: screen.responses.length,
+            screen.screens.push({
+                sid: screen.screens.length,
                 bytes: JSON.parse(req.body).bytes
             });
         }

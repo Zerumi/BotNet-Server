@@ -8,7 +8,7 @@
         Title="ScreenBox" Height="450" Width="800">
     <Grid>
         <Image x:Name="Image" HorizontalAlignment="Stretch" Margin="50,0,50,0" VerticalAlignment="Stretch" />
-        <Button Content="&lt;-" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="50"/>
-        <Button Content="-&gt;" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="50"/>
+        <Button Content="&lt;-" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="50" Click="Minus_Button_Click"/>
+        <Button Content="-&gt;" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="50" Click="Plus_Button_Click"/>
     </Grid>
 </Window>

@@ -5,6 +5,6 @@ namespace BotNet_Server_UI
     class Screen
     {
         public uint id { get; set; }
-        public byte[] bytes { get; set; }
+        public ScreenByte[] screens { get; set; }
     }
 }

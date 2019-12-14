@@ -22,10 +22,13 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class ScreenBox : Window
     {
-        public ScreenBox(byte[] ibytes)
+        public int screenid = 0;
+        ScreenByte[] screenBytes { get; set; }
+        public ScreenBox(ScreenByte[] screenBytes)
         {
+            this.screenBytes = screenBytes;
             InitializeComponent();
-            var image = LoadImage(ibytes);
+            var image = LoadImage(screenBytes[screenid].bytes);
             Image.Source = image;
         }
         private static BitmapImage LoadImage(byte[] imageData)
@@ -44,6 +47,24 @@ namespace BotNet_Server_UI
             }
             image.Freeze();
             return image;
+        }
+
+        private void Plus_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (screenid++ == screenBytes.Length)
+            {
+                return;
+            }
+            Image.Source = LoadImage(screenBytes[screenid].bytes);
+        }
+
+        private void Minus_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (screenid-- == 0)
+            {
+                return;
+            }
+            Image.Source = LoadImage(screenBytes[screenid].bytes);
         }
     }
 }

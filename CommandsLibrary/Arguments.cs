@@ -7,6 +7,7 @@ namespace CommandsLibrary
         public string Command { get; set; }
         public int ArgumentCount { get; set; }
         public string[] ArgumentsList { get ; set; }
+        public string ArgumentType { get; set; }
 
         public static IArgument[] arguments =
         {
@@ -17,7 +18,8 @@ namespace CommandsLibrary
                 ArgumentsList = new string[]
                 {
                     "Путь к файлу\\Файл"
-                }
+                },
+                ArgumentType = "TextBox"
             },
             new Arguments()
             {
@@ -26,7 +28,8 @@ namespace CommandsLibrary
                 ArgumentsList = new string[]
                 {
                     "Путь к файлу\\Файл"
-                }
+                },
+                ArgumentType = "TextBox"
             },
             new Arguments()
             {
@@ -36,7 +39,8 @@ namespace CommandsLibrary
                 {
                     "Путь к файлу\\Файл для копирования",
                     "Путь к файлу\\Файл для вставки"
-                }
+                },
+                ArgumentType = "TextBox"
             },
             new Arguments()
             {
@@ -45,7 +49,8 @@ namespace CommandsLibrary
                 ArgumentsList = new string[]
                 {
                     "Путь к файлу\\Файл"
-                }
+                },
+                ArgumentType = "TextBox"
             },
             new Arguments()
             {
@@ -54,7 +59,8 @@ namespace CommandsLibrary
                 ArgumentsList = new string[]
                 {
                     "Путь к файлу\\Файл"
-                }
+                },
+                ArgumentType = "TextBox"
             },
             new Arguments()
             {
@@ -65,8 +71,12 @@ namespace CommandsLibrary
             new Arguments()
             {
                 Command = "/screen",
-                ArgumentCount = 0,
-                ArgumentsList = null
+                ArgumentCount = 1,
+                ArgumentsList = new string[]
+                {
+                    "Открыть скриншот панель"
+                },
+                ArgumentType = "Button"
             }
         };
     }
