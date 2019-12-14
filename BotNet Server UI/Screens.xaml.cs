@@ -38,11 +38,7 @@ namespace BotNet_Server_UI
             }
             for (int j = 0; j < arr.Length; j++)
             {
-                if (arr[j].ip == "")
-                {
-                    continue;
-                }
-                else if (await ApiRequest.GetProductAsync<Screen>("/api/v1/screens/" + arr[j].id) == default(Screen))
+                if (await ApiRequest.GetProductAsync<Screen>("/api/v1/screens/" + arr[j].id) == default(Screen))
                 {
                     continue;
                 }

@@ -22,10 +22,10 @@ app.post("/api/v1/screens/:id", (req, res, next) => {
         const screen = screens.find(_screen => _screen.id === String(req.params.id));
         if (!screen) {
             screens.push({
-                id: String(req.params.id),
+                id: Number(req.params.id),
                 screens: [
                     {
-                        id: 0,
+                        sid: 0,
                         bytes: JSON.parse(req.body).bytes
                     }
                 ]
@@ -41,6 +41,17 @@ app.post("/api/v1/screens/:id", (req, res, next) => {
     }
     var sscreens = JSON.stringify(screens);
     fs.writeFileSync("screens.json", sscreens);
+    res.json(screens.length - 1);
+    res.end();
+});
+app.post("/api/v1/screens/:id/:sid", (req, res, next) => {
+    const screen = screens.find(_screen => _screen.id === Number(req.params.id));
+    if (!screen) {
+        const err = new Error("you must create screen first")
+        throw err;
+    }
+    const sbscreen = screen.screens.find(_screens => _screens.sid === Number(req.params.sid))
+    sbscreen.bytes.push(JSON.parse(req.body).bytes);
     res.end();
 });
 app.get("/api/v1/screens/:id", (req, res, next) => {
