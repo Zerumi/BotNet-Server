@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Окно ввода" Height="97" Width="375">
     <StackPanel>
-        <TextBlock Text="Введите все IP через пробел (all для всех, null - очистить)" />
+        <TextBlock Text="Введите все ID через пробел (all для всех, null - очистить)" />
         <TextBox x:Name="ResponseTextBox" KeyDown="Field_KeyDown" />
         <Button x:Name="OKButton" Content="OK" Click="OKButton_Click" />
     </StackPanel>

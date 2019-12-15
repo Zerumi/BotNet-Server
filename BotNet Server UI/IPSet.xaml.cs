@@ -1,5 +1,6 @@
 ﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -26,16 +27,19 @@ namespace BotNet_Server_UI
             {
                 ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                 ((MainWindow)Application.Current.Windows[0]).ips = null;
+                ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "ID не заданы"));
             }
             else if (ResponseTextBox.Text == "all")
             {
                 ((MainWindow)Application.Current.Windows[0]).ipsall = true;
                 ((MainWindow)Application.Current.Windows[0]).ips = null;
+                ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "Заданы все ID"));
             }
             else
             {
                 ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                 ((MainWindow)Application.Current.Windows[0]).ips = ResponseTextBox.Text.Split(' ');
+                ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "Заданные ID: " + ResponseTextBox.Text));
             }
 
             if (isSendFrom)
@@ -54,16 +58,19 @@ namespace BotNet_Server_UI
                 {
                     ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                     ((MainWindow)Application.Current.Windows[0]).ips = null;
+                    ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "ID не заданы"));
                 }
                 else if (ResponseTextBox.Text == "all")
                 {
                     ((MainWindow)Application.Current.Windows[0]).ipsall = true;
                     ((MainWindow)Application.Current.Windows[0]).ips = null;
+                    ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "Заданы все ID"));
                 }
                 else
                 {
                     ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                     ((MainWindow)Application.Current.Windows[0]).ips = ResponseTextBox.Text.Split(' ');
+                    ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "Заданные ID: " + ResponseTextBox.Text));
                 }
 
                 if (isSendFrom)
