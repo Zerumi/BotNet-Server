@@ -18,6 +18,7 @@ app.use(logger("tiny"));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.post("/api/v1/screens/:id", (req, res, next) => {
+    var _sid = 0;
     try {
         const screen = screens.find(_screen => _screen.id === String(req.params.id));
         if (!screen) {
@@ -25,12 +26,13 @@ app.post("/api/v1/screens/:id", (req, res, next) => {
                 id: Number(req.params.id),
                 screens: [
                     {
-                        sid: 0,
+                        sid: _sid,
                         bytes: JSON.parse(req.body).bytes
                     }
                 ]
             });
         } else {
+            _sid = screen.screens.length;
             screen.screens.push({
                 sid: screen.screens.length,
                 bytes: JSON.parse(req.body).bytes
@@ -41,18 +43,29 @@ app.post("/api/v1/screens/:id", (req, res, next) => {
     }
     var sscreens = JSON.stringify(screens);
     fs.writeFileSync("screens.json", sscreens);
-    res.json(screens.length - 1);
+    res.json(_sid);
     res.end();
 });
 app.post("/api/v1/screens/:id/:sid", (req, res, next) => {
-    const screen = screens.find(_screen => _screen.id === Number(req.params.id));
-    if (!screen) {
-        const err = new Error("you must create screen first")
-        throw err;
+    try {
+        const screen = screens.find(_screen => _screen.id === Number(req.params.id));
+        if (!screen) {
+            const err = new Error("you must create screen first")
+            throw err;
+        }
+        const sbscreen = screen.screens.find(_screens => _screens.sid === Number(req.params.sid))
+        if (!sbscreen) {
+            const err = new Error("screen not found");
+            throw err;
+        }
+        for (var i = 0; i < JSON.parse(req.body).bytes.length; i++) {
+            sbscreen.bytes.push(JSON.parse(req.body).bytes[i]);
+        }
+        res.end();
     }
-    const sbscreen = screen.screens.find(_screens => _screens.sid === Number(req.params.sid))
-    sbscreen.bytes.push(JSON.parse(req.body).bytes);
-    res.end();
+    catch (e) {
+        next(e);
+    }
 });
 app.get("/api/v1/screens/:id", (req, res, next) => {
     try {
@@ -230,6 +243,8 @@ app.delete("/api/v1/responses", (req, res, next) => {
 });
 app.delete("/api/v1/ip/:id", (req, res, next) => {
     ip[req.params.id].ip = "";
+
+    res.end();
 });
 app.get("/api/v1/admin/:password", (req, res, next) => {
     if (process.env.SECRET === String(req.params.password)) {
