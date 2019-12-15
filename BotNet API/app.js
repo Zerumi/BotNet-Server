@@ -81,7 +81,7 @@ app.get("/api/v1/screens/:id", (req, res, next) => {
     }
     res.end();
 });
-app.get("/api/v1/ip", (req, res, next) => {
+app.get("/api/v1/client", (req, res, next) => {
     try {
         const playerStats = require("./ip.json");
         res.json(playerStats);
@@ -102,11 +102,11 @@ app.get("/api/v1/responses", (req, res, next) => {
     res.json(responses);
     res.end();
 });
-app.get("/api/v1/responses/:ip", (req, res, next) => {
+app.get("/api/v1/responses/:id", (req, res, next) => {
     try {
-        const resp = responses.find(_resp => _resp.ip === String(req.params.ip));
+        const resp = responses.find(_resp => _resp.id === Number(req.params.id));
         if (!resp) {
-            const err = new Error("ip not found");
+            const err = new Error("client not found");
             err.status = 404;
             throw err;
         }
@@ -131,11 +131,11 @@ app.get("/api/v1/messages/:id", (req, res, next) => {
     }
     res.end();
 });
-app.post("/api/v1/ip", (req, res, next) => {
+app.post("/api/v1/client", (req, res, next) => {
     try {
         const newIP = {
             id: ip.length,
-            ip: JSON.parse(req.body).ip
+            nameofpc: JSON.parse(req.body).nameofpc
         };
         ip.push(newIP);
         var sip = JSON.stringify(ip);
@@ -151,7 +151,7 @@ app.post("/api/v1/messages", (req, res, next) => {
         const newMessage = {
             id: messages.length,
             command: JSON.parse(req.body).command,
-            ip: JSON.parse(req.body).ip
+            ids: JSON.parse(req.body).ids
         };
         messages.push(newMessage);
         var smessages = JSON.stringify(messages);
@@ -180,12 +180,12 @@ app.get("/api", function (req, res) {
 
     res.end();
 });
-app.get("/api/v1/responses/:ip/:id", (req, res, next) => {
+app.get("/api/v1/responses/:id/:rid", (req, res, next) => {
     var response;
     try {
-        const resp = responses.find(_resp => _resp.ip === String(req.params.ip));
+        const resp = responses.find(_resp => _resp.id === Number(req.params.id));
         if (!resp) {
-            const err = new Error("ip not found");
+            const err = new Error("client not found");
             err.status = 404;
             throw err;
         }
@@ -195,7 +195,7 @@ app.get("/api/v1/responses/:ip/:id", (req, res, next) => {
     }
     try {
         const ressponse = response.find(
-            _resp => _resp.id === Number(req.params.id)
+            _resp => _resp.rid === Number(req.params.rid)
         );
         if (!ressponse) {
             const err = new Error("response not found");
@@ -208,22 +208,22 @@ app.get("/api/v1/responses/:ip/:id", (req, res, next) => {
     }
     res.end();
 });
-app.post("/api/v1/responses/:ip", (req, res, next) => {
+app.post("/api/v1/responses/:id", (req, res, next) => {
     try {
-        const resp = responses.find(_resp => _resp.ip === String(req.params.ip));
+        const resp = responses.find(_resp => _resp.id === Number(req.params.id));
         if (!resp) {
             responses.push({
-                ip: String(req.params.ip),
+                id: Number(req.params.id),
                 responses: [
                     {
-                        id: 0,
+                        rid: 0,
                         response: JSON.parse(req.body).response
                     }
                 ]
             });
         } else {
             resp.responses.push({
-                id: resp.responses.length,
+                rid: resp.responses.length,
                 response: JSON.parse(req.body).response
             });
         }
@@ -239,9 +239,9 @@ app.delete("/api/v1/responses", (req, res, next) => {
 
     res.end();
 });
-app.delete("/api/v1/ip/:id", (req, res, next) => {
-    ip[req.params.id].ip = "";
-  
+app.delete("/api/v1/client/:id", (req, res, next) => {
+    ip[req.params.id].nameofpc = "";
+
     res.end();
 });
 app.get("/api/v1/admin/:password", (req, res, next) => {

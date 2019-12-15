@@ -31,7 +31,7 @@ namespace BotNet_Server_UI
         {
             List<Button> buttons = new List<Button>();
             linkarrip:
-            IP[] arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/ip");
+            IP[] arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/client");
             if (arr == null)
             {
                 goto linkarrip;
@@ -50,7 +50,7 @@ namespace BotNet_Server_UI
                 buttons.Add(new Button()
                 {
                     Name = "b" + name,
-                    Content = "Скриншоты " + ip[i].ip
+                    Content = "Скриншоты " + ip[i].nameofpc
                 });
                 buttons[i].Click += Screens_Click;
                 ListScrenns.Items.Add(buttons[i]);

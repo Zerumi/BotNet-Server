@@ -6,6 +6,6 @@ namespace BotNet_Server_UI
     {
         public uint id { get; set; }
         public string command { get; set; }
-        public string[] ip { get; set; }
+        public string[] ids { get; set; }
     }
 }
