@@ -23,6 +23,16 @@ namespace CommandsLibrary
             },
             new Arguments()
             {
+                Command = "/createwrite",
+                ArgumentCount = 2,
+                ArgumentsList = new string[]
+                {
+                    "Путь к файлу\\Файл"
+                },
+                ArgumentType = "TextBox"
+            },
+            new Arguments()
+            {
                 Command = "/delete",
                 ArgumentCount =  1,
                 ArgumentsList = new string[]
