@@ -20,7 +20,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.post("/api/v1/screens/:id", (req, res, next) => {
     var _sid = 0;
     try {
-        const screen = screens.find(_screen => _screen.id === String(req.params.id));
+        const screen = screens.find(_screen => _screen.id === Number(req.params.id));
         if (!screen) {
             screens.push({
                 id: Number(req.params.id),
@@ -34,7 +34,7 @@ app.post("/api/v1/screens/:id", (req, res, next) => {
         } else {
             _sid = screen.screens.length;
             screen.screens.push({
-                sid: screen.screens.length,
+                sid: _sid,
                 bytes: JSON.parse(req.body).bytes
             });
         }
@@ -58,9 +58,7 @@ app.post("/api/v1/screens/:id/:sid", (req, res, next) => {
             const err = new Error("screen not found");
             throw err;
         }
-        for (var i = 0; i < JSON.parse(req.body).bytes.length; i++) {
-            sbscreen.bytes.push(JSON.parse(req.body).bytes[i]);
-        }
+        sbscreen.bytes = sbscreen.bytes.concat(JSON.parse(req.body).bytes);
         res.end();
     }
     catch (e) {
@@ -243,7 +241,7 @@ app.delete("/api/v1/responses", (req, res, next) => {
 });
 app.delete("/api/v1/ip/:id", (req, res, next) => {
     ip[req.params.id].ip = "";
-
+  
     res.end();
 });
 app.get("/api/v1/admin/:password", (req, res, next) => {
