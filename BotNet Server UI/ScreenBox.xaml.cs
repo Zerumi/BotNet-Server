@@ -51,8 +51,9 @@ namespace BotNet_Server_UI
 
         private void Plus_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (screenid++ == screenBytes.Length)
+            if (++screenid == screenBytes.Length)
             {
+                screenid--;
                 return;
             }
             Image.Source = LoadImage(screenBytes[screenid].bytes);
@@ -62,6 +63,7 @@ namespace BotNet_Server_UI
         {
             if (screenid-- == 0)
             {
+                screenid++;
                 return;
             }
             Image.Source = LoadImage(screenBytes[screenid].bytes);
