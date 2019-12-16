@@ -32,5 +32,8 @@
         </ScrollViewer>
         <Label Content="Список килентов: " HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Grid.ColumnSpan="2" Width="163"/>
         <Label x:Name="ID_Status" Content="ID не заданы" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,1,0,0" Width="290"/>
+        <Label x:Name="CPULabel" Content="Запуск средств подсчета производительности..." Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="270"/>
+        <Label x:Name="RAMLabel" Content="Запуск средств подсчета производительности..." Grid.Column="2" HorizontalAlignment="Left" Margin="10,37,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="270"/>
+        <Label x:Name="TMGLabel" Content="Запуск средств подсчета производительности..." Grid.Column="2" HorizontalAlignment="Left" Margin="10,64,0,0" Grid.Row="1" VerticalAlignment="Top" Width="270"/>
     </Grid>
 </Window>

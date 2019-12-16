@@ -2,12 +2,14 @@
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using CommandsLibrary;
 
 namespace BotNet_Server_UI
@@ -17,14 +19,30 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        PerformanceCounter myAppCPU = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName, true);
+        PerformanceCounter myAppRAM = new PerformanceCounter("Process", "Working Set", Process.GetCurrentProcess().ProcessName, true);
+        PerformanceCounter myAppTMG = new PerformanceCounter("Process", "Elapsed Time", Process.GetCurrentProcess().ProcessName, true);
+
         public bool ipsall;
         public string[] ips;
         dynamic[] args = new dynamic[0];
         string argtype = null;
         IP[] arr;
+
         public MainWindow()
         {
             InitializeComponent();
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            CPULabel.Content = $"CPU = {myAppCPU.NextValue()}%";
+            RAMLabel.Content = $"RAM = {myAppRAM.NextValue() / 1024f / 1024f}MB";
+            TMGLabel.Content = $"Программа работает {(int)myAppTMG.NextValue()}с";
         }
 
         public async void Send_Command()
@@ -61,7 +79,7 @@ namespace BotNet_Server_UI
                     ids = ipsall ? arr.Select(x => x.id.ToString()).ToArray() : ips
                 };
                 Uri res = await ApiRequest.CreateProductAsync(message, "messages");
-                LogPanel.Text += $"Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages") - 1}) отправлена.\n";
+                LogPanel.Text += $"({DateTime.Now.ToLongTimeString()}) Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages") - 1}) отправлена.\n";
             }
             catch (Exception ex)
             {
@@ -169,7 +187,7 @@ namespace BotNet_Server_UI
                             Response response = await ApiRequest.GetProductAsync<Response>($"api/v1/responses/{responses[i].id}/{var1}");
                             if (response != null)
                             {
-                                await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += response.response + "\n"));
+                                await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") " + response.response + "\n"));
                             }
                             vars[i] = vars[i] + 1;
                         }
