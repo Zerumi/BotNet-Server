@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 using CommandsLibrary;
 
@@ -19,15 +20,16 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        PerformanceCounter myAppCPU = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName, true);
-        PerformanceCounter myAppRAM = new PerformanceCounter("Process", "Working Set", Process.GetCurrentProcess().ProcessName, true);
-        PerformanceCounter myAppTMG = new PerformanceCounter("Process", "Elapsed Time", Process.GetCurrentProcess().ProcessName, true);
+        readonly PerformanceCounter myAppCPU = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName, true);
+        readonly PerformanceCounter myAppRAM = new PerformanceCounter("Process", "Working Set", Process.GetCurrentProcess().ProcessName, true);
+        readonly PerformanceCounter myAppTMG = new PerformanceCounter("Process", "Elapsed Time", Process.GetCurrentProcess().ProcessName, true);
 
         public bool ipsall;
         public string[] ips;
         dynamic[] args = new dynamic[0];
         string argtype = null;
         IP[] arr;
+        public ulong TotalMem = new Memory().GetAllMemory();
 
         public MainWindow()
         {
@@ -40,9 +42,34 @@ namespace BotNet_Server_UI
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            CPULabel.Content = $"CPU = {myAppCPU.NextValue()}%";
-            RAMLabel.Content = $"RAM = {myAppRAM.NextValue() / 1024f / 1024f}MB";
+            var CPUnow = myAppCPU.NextValue();
+            var RAMnow = myAppRAM.NextValue();
+            CPULabel.Content = $"CPU = {CPUnow}%";
+            RAMLabel.Content = $"RAM = {RAMnow / (1024f * 1024f)}MB / {TotalMem / (1024f * 1024f)}MB";
             TMGLabel.Content = $"Программа работает {(int)myAppTMG.NextValue()}с";
+            LinearGradientBrush CPULinearGradientBrush =
+            new LinearGradientBrush
+            {
+                StartPoint = new Point(0, 0),
+                EndPoint = new Point(1, 0)
+            };
+            CPULinearGradientBrush.GradientStops.Add(
+                new GradientStop(Colors.LightGreen, CPUnow/100));
+            CPULinearGradientBrush.GradientStops.Add(
+                new GradientStop(Colors.LightGray, CPUnow/100));
+            CPURectangle.Fill = CPULinearGradientBrush;
+
+            LinearGradientBrush RAMLinearGradientBrush =
+            new LinearGradientBrush
+            {
+                StartPoint = new Point(0, 0),
+                EndPoint = new Point(1, 0)
+            };
+            RAMLinearGradientBrush.GradientStops.Add(
+                new GradientStop(Colors.LightGreen, RAMnow / TotalMem));
+            RAMLinearGradientBrush.GradientStops.Add(
+                new GradientStop(Colors.LightGray, RAMnow / TotalMem));
+            RAMRectangle.Fill = RAMLinearGradientBrush;
         }
 
         public async void Send_Command()
@@ -141,13 +168,10 @@ namespace BotNet_Server_UI
                     Thread.Sleep(7000);
                 }
             }
-            catch (TaskCanceledException)
-            {
-                await Task.Run(() => ListenClients());
-            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                await Task.Run(() => ListenClients());
             }
         }
 
@@ -195,13 +219,10 @@ namespace BotNet_Server_UI
                     Thread.Sleep(1000);
                 }
             }
-            catch (TaskCanceledException)
-            {
-                await Task.Run(() => ListenResponses());
-            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString()); 
+                await Task.Run(() => ListenResponses());
             }
         }
 

@@ -71,6 +71,7 @@
     <Compile Include="IPSet.xaml.cs">
       <DependentUpon>IPSet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MemoryStatusEx.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="Responses.cs" />
     <Compile Include="Screen.cs" />
