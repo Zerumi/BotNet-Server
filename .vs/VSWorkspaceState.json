@@ -5,6 +5,6 @@
     "\\BotNet Server UI",
     "\\CommandsLibrary"
   ],
-  "SelectedNode": "\\BotNet Server UI\\MainWindow.xaml",
+  "SelectedNode": "\\BotNet Server UI\\MainWindow.xaml.cs",
   "PreviewInSolutionExplorer": false
 }

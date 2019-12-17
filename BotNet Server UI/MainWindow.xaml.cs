@@ -54,7 +54,7 @@ namespace BotNet_Server_UI
                 EndPoint = new Point(1, 0)
             };
             CPULinearGradientBrush.GradientStops.Add(
-                new GradientStop(Colors.LightGreen, CPUnow/100));
+                new GradientStop(CPUnow/100 < 0.8 ? Colors.LightGreen : Colors.Red, CPUnow/100));
             CPULinearGradientBrush.GradientStops.Add(
                 new GradientStop(Colors.LightGray, CPUnow/100));
             CPURectangle.Fill = CPULinearGradientBrush;
@@ -66,7 +66,7 @@ namespace BotNet_Server_UI
                 EndPoint = new Point(1, 0)
             };
             RAMLinearGradientBrush.GradientStops.Add(
-                new GradientStop(Colors.LightGreen, RAMnow / TotalMem));
+                new GradientStop(RAMnow / TotalMem < 0.8 ? Colors.LightGreen : Colors.Red, RAMnow / TotalMem));
             RAMLinearGradientBrush.GradientStops.Add(
                 new GradientStop(Colors.LightGray, RAMnow / TotalMem));
             RAMRectangle.Fill = RAMLinearGradientBrush;
@@ -107,6 +107,7 @@ namespace BotNet_Server_UI
                 };
                 Uri res = await ApiRequest.CreateProductAsync(message, "messages");
                 LogPanel.Text += $"({DateTime.Now.ToLongTimeString()}) Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages") - 1}) отправлена.\n";
+                ListenInfo();
             }
             catch (Exception ex)
             {
@@ -165,6 +166,7 @@ namespace BotNet_Server_UI
                         res += "Id: " + arr[i].id + " - " + arr[i].nameofpc + "\n";
                     }
                     await ClientList.Dispatcher.BeginInvoke(new Action(() => ClientList.Text = res));
+                    ListenInfo();
                     Thread.Sleep(7000);
                 }
             }
@@ -212,6 +214,7 @@ namespace BotNet_Server_UI
                             if (response != null)
                             {
                                 await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") " + response.response + "\n"));
+                                ListenInfo();
                             }
                             vars[i] = vars[i] + 1;
                         }
@@ -281,6 +284,17 @@ namespace BotNet_Server_UI
             {
                 Grid.Children.Remove(args[i]);
             }
+        }
+
+        private async void ListenInfo()
+        {
+            linkinfo:
+            var Info = await ApiRequest.GetProductAsync<Info>("/api");
+            if (Info == null)
+            {
+                goto linkinfo;
+            }
+            await InfoBlock.Dispatcher.BeginInvoke(new Action(() => InfoBlock.Text = "Подключено к " + Info.uri + "\nПорт: " + Info.port + "\nAPI версии " + Info.version + " / Среда разработки " + Info.environment + "\nВсего клиентов: " + Info.clients + " / Всего сообщений: " + Info.messages));
         }
 
         private void Button_Click1(object sender, RoutedEventArgs e)

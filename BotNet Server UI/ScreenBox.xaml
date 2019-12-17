@@ -5,10 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BotNet_Server_UI"
         mc:Ignorable="d"
-        Title="ScreenBox" Height="450" Width="800">
+        Title="ScreenPanel" Height="450" Width="800">
     <Grid>
-        <Image x:Name="Image" HorizontalAlignment="Stretch" Margin="50,0,50,0" VerticalAlignment="Stretch" />
-        <Button Content="&lt;-" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="50" Click="Minus_Button_Click"/>
-        <Button Content="-&gt;" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="50" Click="Plus_Button_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="26"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="Image" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Stretch" />
+        <Button Content="&lt;-" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Minus_Button_Click"/>
+        <Button Content="-&gt;" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Plus_Button_Click"/>
+        <Button x:Name="DownloadButton" Content="⇓" Grid.Column="0" Grid.Row="1" Click="DownloadButton_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
     </Grid>
 </Window>

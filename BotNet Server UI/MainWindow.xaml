@@ -49,5 +49,6 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
+        <TextBlock x:Name="InfoBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="10,155,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Получение информации..." VerticalAlignment="Top" Height="70" Width="270"/>
     </Grid>
 </Window>

