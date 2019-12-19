@@ -307,5 +307,21 @@ namespace BotNet_Server_UI
         {
             Application.Current.Shutdown();
         }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CommadsInfo_Click(object sender, RoutedEventArgs e)
+        {
+            CommandsInfo commands = new CommandsInfo();
+            commands.Show();
+        }
+
+        private void Diagnostic1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

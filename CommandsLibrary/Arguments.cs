@@ -8,6 +8,7 @@ namespace CommandsLibrary
         public int ArgumentCount { get; set; }
         public string[] ArgumentsList { get ; set; }
         public string ArgumentType { get; set; }
+        public string CommandInfo { get; set; }
 
         public static IArgument[] arguments =
         {
@@ -19,7 +20,8 @@ namespace CommandsLibrary
                 {
                     "Путь к файлу\\Файл"
                 },
-                ArgumentType = "TextBox"
+                ArgumentType = "TextBox",
+                CommandInfo = "Создает файл по указанному пути на системе"
             },
             new Arguments()
             {
@@ -27,9 +29,11 @@ namespace CommandsLibrary
                 ArgumentCount = 2,
                 ArgumentsList = new string[]
                 {
-                    "Путь к файлу\\Файл"
+                    "Путь к файлу\\Файл",
+                    "Содержимое файла"
                 },
-                ArgumentType = "TextBox"
+                ArgumentType = "TextBox",
+                CommandInfo = "Создает файл по указанному пути на системе и записывает туда информацию"
             },
             new Arguments()
             {
@@ -39,7 +43,8 @@ namespace CommandsLibrary
                 {
                     "Путь к файлу\\Файл"
                 },
-                ArgumentType = "TextBox"
+                ArgumentType = "TextBox",
+                CommandInfo = "Удаляет файл по указанному пути"
             },
             new Arguments()
             {
@@ -50,7 +55,8 @@ namespace CommandsLibrary
                     "Путь к файлу\\Файл для копирования",
                     "Путь к файлу\\Файл для вставки"
                 },
-                ArgumentType = "TextBox"
+                ArgumentType = "TextBox",
+                CommandInfo = "Копирует файл из одного пути на системе в другой (поддерживается пересоздание)"
             },
             new Arguments()
             {
@@ -60,7 +66,8 @@ namespace CommandsLibrary
                 {
                     "Путь к файлу\\Файл"
                 },
-                ArgumentType = "TextBox"
+                ArgumentType = "TextBox",
+                CommandInfo = "Запускает исполняемый файл на системе по указанному пути"
             },
             new Arguments()
             {
@@ -70,13 +77,15 @@ namespace CommandsLibrary
                 {
                     "Путь к файлу\\Файл"
                 },
-                ArgumentType = "TextBox"
+                ArgumentType = "TextBox",
+                CommandInfo = "Запускает исполняемый файл на системе по указанному пути и пытается скрыть активное окно программы (не работает на всех программах)"
             },
             new Arguments()
             {
                 Command = "/nameofpc",
                 ArgumentCount = 0,
-                ArgumentsList = null
+                ArgumentsList = null,
+                CommandInfo = "Возвращает имя активного пользователя системы"
             },
             new Arguments()
             {
@@ -86,7 +95,8 @@ namespace CommandsLibrary
                 {
                     "Открыть скриншот панель"
                 },
-                ArgumentType = "Button"
+                ArgumentType = "Button",
+                CommandInfo = "Возвращает текущий снимок экрана на системе"
             }
         };
     }

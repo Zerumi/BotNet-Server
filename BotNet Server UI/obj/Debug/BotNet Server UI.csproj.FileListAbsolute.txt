@@ -60,3 +60,5 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\o
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\Screens.baml
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\ScreenBox.g.cs
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\ScreenBox.baml
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\CommandsInfo.g.cs
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\CommandsInfo.baml

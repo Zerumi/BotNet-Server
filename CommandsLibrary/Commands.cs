@@ -7,6 +7,7 @@ namespace CommandsLibrary
         public static string[] commands =
         {
             "/create",
+            "/createwrite",
             "/delete",
             "/copy",
             "/start",

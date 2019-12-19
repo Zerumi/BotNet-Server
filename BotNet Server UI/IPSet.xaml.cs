@@ -11,7 +11,7 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class IPSet : Window
     {
-        bool isSendFrom = false;
+        readonly bool isSendFrom = false;
         public IPSet()
         {
             InitializeComponent();
@@ -25,6 +25,16 @@ namespace BotNet_Server_UI
         {
             if (ResponseTextBox.Text == "null")
             {
+                if (isSendFrom && string.IsNullOrWhiteSpace(ResponseTextBox.Text))
+                {
+                    MessageBox.Show("(4) Полю недопустимо быть пустым в данном контексте");
+                    ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "ID не заданы"));
+                    return;
+                }
+                else
+                {
+                    ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "Заданные ID: " + ResponseTextBox.Text));
+                }
                 ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                 ((MainWindow)Application.Current.Windows[0]).ips = null;
                 ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "ID не заданы"));
@@ -37,9 +47,18 @@ namespace BotNet_Server_UI
             }
             else
             {
+                if (isSendFrom && string.IsNullOrWhiteSpace(ResponseTextBox.Text))
+                {
+                    MessageBox.Show("(4) Полю недопустимо быть пустым в данном контексте");
+                    ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "ID не заданы"));
+                    return;
+                }
+                else
+                {
+                    ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "Заданные ID: " + ResponseTextBox.Text));
+                }
                 ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                 ((MainWindow)Application.Current.Windows[0]).ips = ResponseTextBox.Text.Split(' ');
-                ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "Заданные ID: " + ResponseTextBox.Text));
             }
 
             if (isSendFrom)
@@ -56,6 +75,11 @@ namespace BotNet_Server_UI
             {
                 if (ResponseTextBox.Text == "null")
                 {
+                    if (isSendFrom)
+                    {
+                        MessageBox.Show("(4) Полю недопустимо быть пустым в данном контексте");
+                        return;
+                    }
                     ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                     ((MainWindow)Application.Current.Windows[0]).ips = null;
                     ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "ID не заданы"));
@@ -68,6 +92,11 @@ namespace BotNet_Server_UI
                 }
                 else
                 {
+                    if (isSendFrom && string.IsNullOrWhiteSpace(ResponseTextBox.Text))
+                    {
+                        MessageBox.Show("(4) Полю недопустимо быть пустым в данном контексте");
+                        return;
+                    }
                     ((MainWindow)Application.Current.Windows[0]).ipsall = false;
                     ((MainWindow)Application.Current.Windows[0]).ips = ResponseTextBox.Text.Split(' ');
                     ((MainWindow)Application.Current.Windows[0]).ID_Status.Dispatcher.BeginInvoke(new Action(() => ((MainWindow)Application.Current.Windows[0]).ID_Status.Content = "Заданные ID: " + ResponseTextBox.Text));
