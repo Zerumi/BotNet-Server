@@ -54,9 +54,12 @@
             </MenuItem>
             <MenuItem Header="Диагностика">
                 <MenuItem Header="Инструмент проверки целостности" Click="Diagnostic1_Click"/>
+                <MenuItem Header="Информация о работе программы"/>
+                <MenuItem Header="Диагностика API"/>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="Помощь по командам" Click="CommadsInfo_Click"/>
+                <MenuItem Header="Информация о программе"/>
             </MenuItem>
         </Menu>
     </Grid>

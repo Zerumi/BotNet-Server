@@ -7,6 +7,9 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class Application : System.Windows.Application
     {
-
+        private void App_Startup(object sender, System.Windows.StartupEventArgs e)
+        {
+            m3md2_startup.StartupManager.Main();
+        }
     }
 }
