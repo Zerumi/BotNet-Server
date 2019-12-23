@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BotNet_Server_UI"
         mc:Ignorable="d"
-        Title="Settings" Height="440" Width="620">
-    <Grid>
+        Title="Settings" Height="440" Width="620" WindowState="Normal" ResizeMode="CanMinimize">
+    <Grid x:Name="Grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="205*"/>
             <ColumnDefinition Width="407*"/>
         </Grid.ColumnDefinitions>
-        <TreeView x:Name="SettingsView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0"/>
-        
+        <TreeView x:Name="SettingsView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Loaded="Setting_Load"/>
+        <Button x:Name="Apply" Content="Применить и выйти" Grid.Column="1" HorizontalAlignment="Left" Margin="273,378,0,0" VerticalAlignment="Top" Visibility="Hidden" Width="124"/>
     </Grid>
 </Window>

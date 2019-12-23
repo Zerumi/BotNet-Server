@@ -54,9 +54,9 @@ namespace BotNet_Server_UI
                 EndPoint = new Point(1, 0)
             };
             CPULinearGradientBrush.GradientStops.Add(
-                new GradientStop(CPUnow/100 < 0.8 ? Colors.LightGreen : Colors.Red, CPUnow/100));
+                new GradientStop(CPUnow / 100 < 0.8 ? Colors.LightGreen : Colors.Red, CPUnow / 100));
             CPULinearGradientBrush.GradientStops.Add(
-                new GradientStop(Colors.LightGray, CPUnow/100));
+                new GradientStop(Colors.LightGray, CPUnow / 100));
             CPURectangle.Fill = CPULinearGradientBrush;
 
             LinearGradientBrush RAMLinearGradientBrush =
@@ -132,17 +132,20 @@ namespace BotNet_Server_UI
         {
             _ = await ApiRequest.DeleteProductsAsync("api/v1/messages");
             _ = await ApiRequest.DeleteProductsAsync("api/v1/responses");
-            StartListenAsync();
         }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            StartListenAsync();
-        }
+
+        bool CanListen = true;
 
         private async void StartListenAsync()
         {
+            CanListen = true;
             await Task.Run(() => ListenClients());
             await Task.Run(() => ListenResponses());
+        }
+
+        private void StopListen()
+        {
+            CanListen = false;
         }
 
         private async void ListenClients()
@@ -151,6 +154,10 @@ namespace BotNet_Server_UI
             {
                 while (true)
                 {
+                    if (!CanListen)
+                    {
+                        return;
+                    }
                     arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/client");
                     if (arr == null)
                     {
@@ -181,10 +188,15 @@ namespace BotNet_Server_UI
         {
             try
             {
+
                 bool isFirstIter = true;
                 List<uint> vars = new List<uint>();
                 while (true)
                 {
+                    if (!CanListen)
+                    {
+                        return;
+                    }
                     Responses[] responses = await ApiRequest.GetProductAsync<Responses[]>("api/v1/responses");
                     if (responses == null)
                     {
@@ -224,7 +236,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString()); 
+                MessageBox.Show(ex.ToString());
                 await Task.Run(() => ListenResponses());
             }
         }
@@ -288,7 +300,7 @@ namespace BotNet_Server_UI
 
         private async void ListenInfo()
         {
-            linkinfo:
+        linkinfo:
             var Info = await ApiRequest.GetProductAsync<Info>("/api");
             if (Info == null)
             {
@@ -310,7 +322,8 @@ namespace BotNet_Server_UI
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-
+            Settings settings = new Settings();
+            settings.Show();
         }
 
         private void CommadsInfo_Click(object sender, RoutedEventArgs e)
@@ -322,6 +335,21 @@ namespace BotNet_Server_UI
         private void Diagnostic1_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e) // open folder
+        {
+            Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory);
+        }
+
+        private void MenuItem_Checked(object sender, RoutedEventArgs e) // infinity listener
+        {
+            StartListenAsync();
+        }
+
+        private void MenuItem_Unchecked(object sender, RoutedEventArgs e) // infinity listener
+        {
+            StopListen();
         }
     }
 }

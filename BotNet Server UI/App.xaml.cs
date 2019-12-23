@@ -9,7 +9,9 @@ namespace BotNet_Server_UI
     {
         private void App_Startup(object sender, System.Windows.StartupEventArgs e)
         {
-            m3md2_startup.StartupManager.Main();
+            string colortheme = "";
+            m3md2_startup.StartupManager.Main(ref colortheme);
+            m3md2.StaticVariables.Settings.ColorTheme = colortheme;
         }
     }
 }

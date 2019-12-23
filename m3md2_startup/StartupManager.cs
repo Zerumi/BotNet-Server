@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
+// (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System.Configuration;
-using System.Windows;
 
 namespace m3md2_startup
 {
     public class StartupManager
     {
-        public static void Main()
+        public static void Main(ref string colortheme)
         {
             var appSettings = ConfigurationManager.AppSettings;
-            var colortheme = appSettings.Get("ColorTheme");
+            colortheme = appSettings.Get("ColorTheme");
         }
     }
 }

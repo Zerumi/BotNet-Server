@@ -51,11 +51,13 @@
             <MenuItem Header="Управление">
                 <MenuItem Header="Задать IP" Click="IPSetButton_Click"/>
                 <MenuItem Header="Настройки" Click="Settings_Click"/>
+                <MenuItem Header="Открыть в проводнике" Click="MenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Диагностика">
                 <MenuItem Header="Инструмент проверки целостности" Click="Diagnostic1_Click"/>
                 <MenuItem Header="Информация о работе программы"/>
                 <MenuItem Header="Диагностика API"/>
+                <MenuItem Header="Вечная прослушка" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked" IsChecked="True" IsCheckable="True"/>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="Помощь по командам" Click="CommadsInfo_Click"/>
