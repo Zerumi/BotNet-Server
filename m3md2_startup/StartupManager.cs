@@ -1,15 +1,16 @@
 ﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System.Configuration;
+using m3md2;
 
 namespace m3md2_startup
 {
     public class StartupManager
     {
-        public static void Main(ref string colortheme)
+        public static void Main()
         {
             var appSettings = ConfigurationManager.AppSettings;
-            colortheme = appSettings.Get("ColorTheme");
+            StaticVariables.Settings.ColorTheme = appSettings.Get("ColorTheme");
         }
     }
 }

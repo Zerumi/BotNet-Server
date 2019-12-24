@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Configuration;
 
 namespace BotNet_Server_UI
 {
@@ -13,6 +14,31 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class Settings : Window
     {
+        public RoutedEventHandler[] methods =
+        {
+            new RoutedEventHandler((object sender, RoutedEventArgs e) =>
+            {
+                foreach (var item in Application.Current.Windows)
+                {
+                    if((item as Window).Name == "settings")
+                    {
+                        var combobox = m3md2.WinHelper.FindChild<ComboBox>(item as Window, "ColorChoose");
+                        var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                        foreach (var u2 in appSettings.AppSettings.Settings)
+                        {
+                            if ((u2 as KeyValueConfigurationElement).Key == "ColorTheme")
+                            {
+                                (u2 as KeyValueConfigurationElement).Value = combobox.Text;
+	                        }
+	                    }
+                        appSettings.Save(ConfigurationSaveMode.Minimal);
+                        ConfigurationManager.RefreshSection("appSettings");
+                        MessageBox.Show($"{ConfigurationManager.AppSettings.Get("ColorTheme")} / {combobox.Text}");
+                    }
+	            }
+            })
+        };
+
         public Settings()
         {
             InitializeComponent();
@@ -44,9 +70,9 @@ namespace BotNet_Server_UI
                     Grid.Children.Add(element);
                 }
                 Apply.Visibility = Visibility.Visible;
-                Apply.Click += m3md2_startup.Settings.methods[items.IndexOf(sender as TreeViewItem)];
+                Apply.Click += methods[items.IndexOf(sender as TreeViewItem)];
             }
-            catch (ArgumentException)
+            catch (Exception)
             {
                 MessageBox.Show("(5) Возможно вы уже выбрали этот элемент");
             }

@@ -10,13 +10,6 @@ namespace m3md2_startup
     {
         public string Setting { get; set; }
         public object[] SettingObjects { get; set; }
-        public static RoutedEventHandler[] methods =
-        {
-            new RoutedEventHandler((object sender, RoutedEventArgs e) =>
-            {
-                MessageBox.Show(ConfigurationManager.AppSettings.Get("ColorTheme")); // rewrite
-            })
-        };
         public static string[] SettingsList =
         {
             "Цветовая тема"
@@ -36,6 +29,7 @@ namespace m3md2_startup
                     },
                     new ComboBox()
                     {
+                        Name = "ColorChoose",
                         ItemsSource = new string[]
                         {
                             "Standard",

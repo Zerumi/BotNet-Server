@@ -3,7 +3,9 @@
     "",
     "\\BotNet API",
     "\\BotNet Server UI",
-    "\\CommandsLibrary"
+    "\\CommandsLibrary",
+    "\\m3md2",
+    "\\m3md2_startup"
   ],
   "SelectedNode": "\\BotNet Server UI\\MainWindow.xaml",
   "PreviewInSolutionExplorer": false
