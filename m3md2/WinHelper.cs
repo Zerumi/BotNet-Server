@@ -1,4 +1,6 @@
 ﻿// find child code from https://stackoverflow.com/questions/636383/how-can-i-find-wpf-controls-by-name-or-type
+// find all childs by type code from https://stackoverflow.com/questions/974598/find-all-controls-in-wpf-window-by-type
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 
@@ -57,6 +59,31 @@ namespace m3md2
             }
 
             return foundChild;
+        }
+        /// <summary>
+        /// Find all elements by type
+        /// </summary>
+        /// <typeparam name="T">Type of element</typeparam>
+        /// <param name="depObj">Parent of elements</param>
+        /// <returns>Ienumerable collection of this elements</returns>
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
         }
     }
 }

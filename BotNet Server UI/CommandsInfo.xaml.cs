@@ -2,9 +2,11 @@
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using CommandsLibrary;
 
 namespace BotNet_Server_UI
@@ -17,6 +19,8 @@ namespace BotNet_Server_UI
         public CommandsInfo()
         {
             InitializeComponent();
+            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[0]);
+            Grid.Background = brush;
         }
 
         private void Label_Click(object sender, MouseButtonEventArgs e)

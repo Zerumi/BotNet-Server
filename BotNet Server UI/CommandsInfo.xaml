@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BotNet_Server_UI"
         mc:Ignorable="d"
         Title="CommandsInfo" Height="450" Width="600" Loaded="CommInf_Loaded">
-    <Grid>
+    <Grid x:Name="Grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="235"/>
             <ColumnDefinition Width="*"/>

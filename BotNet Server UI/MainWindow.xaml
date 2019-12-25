@@ -20,14 +20,14 @@
         </Grid.ColumnDefinitions>
         <Button x:Name="SendButton" Content="Отправить" Grid.Row="2" Grid.Column="3" Margin="0,10,10,18" Click="Button_Click"/>
         <Label Grid.Row="2" Grid.Column="0" Content="Команда:" Margin="10,9,0,19" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" FontSize="11"/>
-        <ScrollViewer Grid.Column="4" Grid.Row="1" Grid.RowSpan="4" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
+        <ScrollViewer x:Name="ScrollLog" Grid.Column="4" Grid.Row="1" Grid.RowSpan="4" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
             <TextBlock x:Name="LogPanel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="14"/>
         </ScrollViewer>
         <TextBox x:Name="Command" Grid.Row="2" Grid.Column="1" Text="" Margin="0,10,0,18" KeyDown="Command_KeyDown" TextChanged="Command_TextChanged"/>
         <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="10,37,0,0" VerticalScrollBarVisibility="Auto">
-            <TextBlock Text="Загрузка..." TextWrapping="Wrap" x:Name="ClientList"></TextBlock>
+            <TextBlock Text="Загрузка..." TextWrapping="Wrap" x:Name="ClientList"/>
         </ScrollViewer>
-        <Label Content="Список килентов: " HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Grid.ColumnSpan="2" Width="163"/>
+        <Label x:Name="Label_Client" Content="Список килентов: " HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Grid.ColumnSpan="2" Width="163"/>
         <Label x:Name="ID_Status" Content="ID не заданы" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Height="26" Grid.Row="1" Margin="5,308,0,0"/>
         <Label x:Name="CPULabel" Content="Запуск средств подсчета производительности..." Grid.Column="2" Margin="10,36,10,0" Grid.Row="1" VerticalAlignment="Top" Height="27"/>
         <Label x:Name="RAMLabel" Content="Запуск средств подсчета производительности..." Grid.Column="2" Margin="10,80,10,0" Grid.Row="1" VerticalAlignment="Top" Height="27"/>
@@ -57,7 +57,7 @@
                 <MenuItem Header="Инструмент проверки целостности" Click="Diagnostic1_Click"/>
                 <MenuItem Header="Информация о работе программы"/>
                 <MenuItem Header="Диагностика API"/>
-                <MenuItem Header="Вечная прослушка" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked" IsChecked="True" IsCheckable="True"/>
+                <MenuItem x:Name="InfinityListenMenuItem" Header="Вечная прослушка" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked" IsChecked="True" IsCheckable="True"/>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="Помощь по командам" Click="CommadsInfo_Click"/>

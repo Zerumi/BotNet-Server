@@ -13,5 +13,9 @@ namespace m3md2
         {
             public static string ColorTheme { get; set; }
         }
+        public static class Windows
+        {
+            public static string InfinityListen { get; set; }
+        }
     }
 }

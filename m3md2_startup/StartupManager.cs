@@ -11,6 +11,7 @@ namespace m3md2_startup
         {
             var appSettings = ConfigurationManager.AppSettings;
             StaticVariables.Settings.ColorTheme = appSettings.Get("ColorTheme");
+            StaticVariables.Windows.InfinityListen = appSettings.Get("InfnityListen");
         }
     }
 }

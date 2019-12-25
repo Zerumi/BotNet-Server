@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Configuration;
+using System.Windows.Media;
 
 namespace BotNet_Server_UI
 {
@@ -33,7 +34,6 @@ namespace BotNet_Server_UI
 	                    }
                         appSettings.Save(ConfigurationSaveMode.Minimal);
                         ConfigurationManager.RefreshSection("appSettings");
-                        MessageBox.Show($"{ConfigurationManager.AppSettings.Get("ColorTheme")} / {combobox.Text}");
                     }
 	            }
             })
@@ -42,6 +42,8 @@ namespace BotNet_Server_UI
         public Settings()
         {
             InitializeComponent();
+            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[0]);
+            Grid.Background = brush;
         }
 
         readonly List<TreeViewItem> items = new List<TreeViewItem>();
