@@ -74,6 +74,12 @@
     <Compile Include="CommandsInfo.xaml.cs">
       <DependentUpon>CommandsInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Diagnostic1.xaml.cs">
+      <DependentUpon>Diagnostic1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostic2.xaml.cs">
+      <DependentUpon>Diagnostic2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DialogBox.xaml.cs">
       <DependentUpon>DialogBox.xaml</DependentUpon>
     </Compile>
@@ -95,6 +101,14 @@
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Page Include="CommandsInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Diagnostic1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Diagnostic2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

