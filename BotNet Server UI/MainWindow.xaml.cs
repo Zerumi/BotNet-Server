@@ -34,11 +34,12 @@ namespace BotNet_Server_UI
 
         public MainWindow()
         {
+            m3md2_startup.StartupManager.Main();
             InitializeComponent();
             InfinityListenMenuItem.IsChecked = Convert.ToBoolean(m3md2.StaticVariables.Windows.InfinityListen);
-            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[0]);
-            SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[1]);
-            SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[2]);
+            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+            SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
+            SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
             Grid.Background = brush;
             ScrollLog.Background = brush1;
             foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid as DependencyObject))
@@ -336,7 +337,21 @@ namespace BotNet_Server_UI
 
         private void Main_Closed(object sender, EventArgs e)
         {
-            Application.Current.Shutdown();
+            foreach (var window in Application.Current.Windows)
+            {
+                if ((window as Window) != null)
+                {
+                    (window as Window).Close();
+                }
+            }
+        }
+
+        public void Close_All()
+        {
+            foreach (var item in Application.Current.Windows)
+            {
+                (item as Window).Close();
+            }
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)

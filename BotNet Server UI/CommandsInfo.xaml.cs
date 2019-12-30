@@ -2,7 +2,6 @@
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,8 +18,23 @@ namespace BotNet_Server_UI
         public CommandsInfo()
         {
             InitializeComponent();
-            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[0]);
+            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+            SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
+            SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
             Grid.Background = brush;
+            CommandsPanel.Background = brush1;
+            foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid as DependencyObject))
+            {
+                label.Foreground = brush2;
+            }
+            foreach (var textBlock in m3md2.WinHelper.FindVisualChildren<TextBlock>(Grid as DependencyObject))
+            {
+                textBlock.Foreground = brush2;
+            }
+            foreach (var scrollViewer in m3md2.WinHelper.FindVisualChildren<ScrollViewer>(Grid as DependencyObject))
+            {
+                scrollViewer.Foreground = brush2;
+            }
         }
 
         private void Label_Click(object sender, MouseButtonEventArgs e)
@@ -38,7 +52,8 @@ namespace BotNet_Server_UI
             }
             CmdDescription.Text = argument.CommandInfo;
         }
-        List<Label> labels = new List<Label>();
+
+        readonly List<Label> labels = new List<Label>();
 
         private void CommInf_Loaded(object sender, RoutedEventArgs e)
         {
@@ -46,6 +61,7 @@ namespace BotNet_Server_UI
             {
                 labels.Add(new Label()
                 {
+                    Foreground = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]),
                     Content = Commands.commands[i]
                 });
                 labels[i].PreviewMouseDown += Label_Click;

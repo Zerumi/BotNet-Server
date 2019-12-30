@@ -30,12 +30,24 @@ namespace BotNet_Server_UI
                             if ((u2 as KeyValueConfigurationElement).Key == "ColorTheme")
                             {
                                 (u2 as KeyValueConfigurationElement).Value = combobox.Text;
-	                        }
-	                    }
+                            }
+                        }
                         appSettings.Save(ConfigurationSaveMode.Minimal);
                         ConfigurationManager.RefreshSection("appSettings");
+                        MessageBox.Show("Для применения изменений программа будет перезапущена без ввода пароля", "Настройки", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                        Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                        foreach (var window in Application.Current.Windows)
+                        {
+                            if ((window as MainWindow) != null)
+                            {
+                                (window as MainWindow).Close();
+	                        }
+	                    }
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Show();
+                        Application.Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
                     }
-	            }
+                }
             })
         };
 
@@ -43,6 +55,8 @@ namespace BotNet_Server_UI
         {
             InitializeComponent();
             SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[0]);
+            SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
+            SettingsView.Background = brush1;
             Grid.Background = brush;
         }
 
@@ -54,6 +68,7 @@ namespace BotNet_Server_UI
             {
                 items.Add(new TreeViewItem()
                 {
+                    Foreground = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]),
                     Header = m3md2_startup.Settings.SettingsList[i]
                 });
                 items[i].PreviewMouseDown += Settings_PreviewMouseDown;

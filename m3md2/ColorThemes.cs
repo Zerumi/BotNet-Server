@@ -18,43 +18,43 @@ namespace m3md2
             Color[] colors = null;
             foreach (var item in colorthemes)
             {
-                if (item.name == name)
+                if (item.Name == name)
                 {
-                    colors = item.colors;
+                    colors = item.Colors;
                 }
             }
             return colors;
         }
-        static List<ColorTheme> colorthemes = new List<ColorTheme>()
+        static readonly List<ColorTheme> colorthemes = new List<ColorTheme>()
         {
             new ColorTheme
             {
-                name = "Standard",
-                colors = new Color[]
+                Name = "Standard",
+                Colors = new Color[]
                 {
-                    SystemColors.InfoColor,
-                    Color.FromRgb(255,255,255),
-                    Color.FromRgb(0,0,0)
+                    SystemColors.InfoColor, // main color
+                    Color.FromRgb(255,255,255), // second color
+                    Color.FromRgb(0,0,0) // font color
                 }
             },
             new ColorTheme
             {
-                name = "Pinkerity",
-                colors = new Color[]
+                Name = "Pinkerity",
+                Colors = new Color[]
                 {
-                    Color.FromRgb(247,0,206),
-                    Color.FromRgb(0,255,238),
-                    Color.FromRgb(255,255,255)
+                    Color.FromRgb(255,171,214), // main color
+                    Color.FromRgb(171,255,177), // second color
+                    Color.FromRgb(255,0,128) // font color
                 }
             },
             new ColorTheme
             {
-                name = "Hackerman",
-                colors = new Color[]
+                Name = "Hackerman",
+                Colors = new Color[]
                 {
-                    Color.FromRgb(91,247,0),
-                    Color.FromRgb(0,255,238),
-                    Color.FromRgb(255,255,255)
+                    Color.FromRgb(158,240,146), // main color
+                    Color.FromRgb(235,255,232), // second color
+                    Color.FromRgb(0,0,0) // font color
                 }
             }
         };

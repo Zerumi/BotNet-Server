@@ -30,8 +30,7 @@ namespace m3md2
             {
                 var child = VisualTreeHelper.GetChild(parent, i);
                 // If the child is not of the request child type child
-                T childType = child as T;
-                if (childType == null)
+                if (!(child is T))
                 {
                     // recursively drill down the tree
                     foundChild = FindChild<T>(child, childName);
@@ -41,14 +40,14 @@ namespace m3md2
                 }
                 else if (!string.IsNullOrEmpty(childName))
                 {
-                    var frameworkElement = child as FrameworkElement;
                     // If the child's name is set for search
-                    if (frameworkElement != null && frameworkElement.Name == childName)
+                    if (child is FrameworkElement frameworkElement && frameworkElement.Name == childName)
                     {
                         // if the child's name is of the request name
                         foundChild = (T)child;
                         break;
                     }
+                    continue;
                 }
                 else
                 {

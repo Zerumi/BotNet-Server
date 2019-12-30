@@ -6,7 +6,7 @@ namespace m3md2
 {
     class ColorTheme
     {
-        public string name { get; set; }
-        public Color[] colors { get; set; }
+        public string Name { get; set; }
+        public Color[] Colors { get; set; }
     }
 }
