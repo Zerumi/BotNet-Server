@@ -8,12 +8,16 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
             <TextBlock x:Name="LogPanel"/>
         </ScrollViewer>
+        <Button x:Name="StopListen" Content="Остановить прослушку событий" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="StopListen_Click"/>
+        <Button x:Name="Download" Content="Выгрузить в .txt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Download_Click"/>
     </Grid>
 </Window>
