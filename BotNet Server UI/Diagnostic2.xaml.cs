@@ -1,6 +1,7 @@
 ﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,7 +31,24 @@ namespace BotNet_Server_UI
                     {
                         return;
                     }
-                    await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text = m3md2.StaticVariables.Diagnostics.ProgramInfo + "// Обнавляется каждую секунду."));
+                    Stopwatch stopwatch = new Stopwatch();
+                    await LogPanel.Dispatcher.BeginInvoke(new Action(async() =>
+                    {
+                        stopwatch.Start();
+                        LogPanel.Text = m3md2.StaticVariables.Diagnostics.ProgramInfo + "// Обнавляется каждую секунду.";
+                        stopwatch.Stop(); 
+                        if (stopwatch.Elapsed > new TimeSpan(0, 0, 1))
+                        {
+                            CanListen = false;
+                            await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text.Replace("// Обнавляется каждую секунду.", "")));
+                            MessageBox.Show("Обновление большого количества информации может нарушить высокую производительность системы. Мы приостановили вечное обновление информации, но вы можете всегда выгрузить информацию аудита в текстовый файл", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                            await StopListen.Dispatcher.BeginInvoke(new Action(() => {
+                                StopListen.Content = "Обновление невозможно";
+                                StopListen.IsEnabled = false;
+                            }));
+                        }
+
+                    }));
                     Thread.Sleep(1000);
                 }
             }));
@@ -58,6 +76,11 @@ namespace BotNet_Server_UI
             string filepatch = $@"{dirpath}\Logs{DateTime.Now.Ticks}.txt";
             File.Create(filepatch).Close();
             File.WriteAllText(filepatch, LogPanel.Text);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            CanListen = false;
         }
     }
 }

@@ -1,0 +1,103 @@
+14:04:40(MainWindow StartListen method) Значение CanListen установлено на True
+14:04:40(MainWindow StartListen method) Запускаю прослушку клиетов
+14:04:40(MainWindow ListenClients) Отправлен ApiRequest.Get на api/v1/client
+14:04:41(MainWindow) MainWindow загружен
+14:04:41(MainWindow) Режим вечной прослушки установлен на True
+14:04:41(MainWindow) Кисть brush настроена на #FFFFFFE1 / #FFFFFFE1 (из цветовой темы Standard)
+14:04:41(MainWindow) Кисть brush настроена на #FFFFFFFF / #FFFFFFFF (из цветовой темы Standard)
+14:04:41(MainWindow) Кисть brush настроена на #FF000000 / #FF000000 (из цветовой темы Standard)
+14:04:41(MainWindow) Grid.Background этого окна установлен на brush
+14:04:41(MainWindow) ScrollLog.Background этого окна установлен на brush1
+14:04:41(MainWindow) Все элементы Label этого окна: Foreground установлен на brush2
+14:04:41(MainWindow) Все элементы Textblock этого окна: Foreground устаовлен на brush2
+14:04:41(MainWindow) Все элементы ScrollViewer этого окна: Foreground установлен на brush2
+14:04:41(MainWindow) Установлен таймер для обновления счетчиков производительности
+14:04:41(MainWindow) Установлено событие DispatcherTimer_Tick
+14:04:41(MainWindow) Задержка таймера установлена на 1 секунду
+14:04:41(MainWindow) Таймер запущен
+14:04:41(MainWindow loaded event) Форма загружена
+14:04:41(MainWIndow loaded event) Отправлен ApiRequest.Delete на api/v1/messages
+14:04:41(MainWindow StartListen method) Запускаю прослушку ответов
+14:04:41(MainWindow ListenResponses) Отправлен ApiRequest.Get на api/v1/responses
+14:04:41(MainWindow ListenClients) Запускаю перебор всех клиентов
+14:04:41(MainWindow ListenClients) Клиент с id 0 отключился от сети, мы не включаем его в список
+14:04:41(MainWindow ListenClients) Итерация 1: клиент Андрій добавлен в список
+14:04:41(MainWindow ListenClients) Итерация 2: клиент what? добавлен в список
+14:04:41(MainWindow ListenClients) Полю ClientList.Text этого окна задано на Id: 1 - Андрій
+Id: 2 - what?
+
+14:04:41(MainWindow ListenClients) Обновлена информация API
+14:04:41(MainWindow loaded event) Отправлен ApiRequest.Delete на api/v1/responses
+14:04:41(MainWindow ListenResponses) Это первая итерация прослушки
+14:04:41(MainWindow ListenResponses) В массив responses добавляется ApiRequest.Get по api/v1/responses/0
+14:04:42(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на 0
+14:04:42(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на 5,737677E+07
+14:04:42(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на CPU = 0%
+14:04:42(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на RAM = 54,71875MB / 4043,859MB
+14:04:42(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже Программа работает 0с
+14:04:42(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)
+14:04:42(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)
+14:04:43(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на 5,940581
+14:04:43(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на 6,20585E+07
+14:04:43(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на CPU = 5,940581%
+14:04:43(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на RAM = 59,18359MB / 4043,859MB
+14:04:43(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже Программа работает 19с
+14:04:43(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)
+14:04:43(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)
+14:04:43(MainWindow ListenResponses) Отправлен ApiRequest.Get на api/v1/responses
+14:04:44(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на 4,615406
+14:04:44(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на 6,252544E+07
+14:04:44(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на CPU = 4,615406%
+14:04:44(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на RAM = 59,62891MB / 4043,859MB
+14:04:44(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже Программа работает 20с
+14:04:44(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)
+14:04:44(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)
+14:04:45(MainWindow ListenResponses) Отправлен ApiRequest.Get на api/v1/responses
+14:04:45(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на 0
+14:04:45(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на 6,272614E+07
+14:04:45(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на CPU = 0%
+14:04:45(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на RAM = 59,82031MB / 4043,859MB
+14:04:45(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже Программа работает 21с
+14:04:45(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)
+14:04:45(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)
+14:04:46(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на 0
+14:04:46(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на 6,277939E+07
+14:04:46(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на CPU = 0%
+14:04:46(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на RAM = 59,87109MB / 4043,859MB
+14:04:46(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже Программа работает 22с
+14:04:46(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)
+14:04:46(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)
+14:04:46(MainWindow ListenResponses) Отправлен ApiRequest.Get на api/v1/responses
+14:04:47(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на 3,076937
+14:04:47(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на 6,148506E+07
+14:04:47(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на CPU = 3,076937%
+14:04:47(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на RAM = 58,63672MB / 4043,859MB
+14:04:47(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже Программа работает 23с
+14:04:47(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)
+14:04:47(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)
+14:04:47(MainWindow ListenResponses) Отправлен ApiRequest.Get на api/v1/responses
+14:04:48(MainWindow ListenClients) Отправлен ApiRequest.Get на api/v1/client
+14:04:48(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на 13,84622
+14:04:48(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на 6,252954E+07
+14:04:48(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на CPU = 13,84622%
+14:04:48(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на RAM = 59,63281MB / 4043,859MB
+14:04:48(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже Программа работает 24с
+14:04:48(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)
+14:04:48(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)
+14:04:48(MainWindow ListenClients) Запускаю перебор всех клиентов
+14:04:48(MainWindow ListenClients) Клиент с id 0 отключился от сети, мы не включаем его в список
+14:04:48(MainWindow ListenClients) Итерация 1: клиент Андрій добавлен в список
+14:04:48(MainWindow ListenClients) Итерация 2: клиент what? добавлен в список
+14:04:48(MainWindow ListenClients) Полю ClientList.Text этого окна задано на Id: 1 - Андрій
+Id: 2 - what?
+
+14:04:48(MainWindow ListenClients) Обновлена информация API
+14:04:49(MainWindow ListenResponses) Отправлен ApiRequest.Get на api/v1/responses
+14:04:49(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на 10,72469
+14:04:49(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на 6,494618E+07
+14:04:49(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на CPU = 10,72469%
+14:04:49(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на RAM = 61,9375MB / 4043,859MB
+14:04:49(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже Программа работает 25с
+14:04:49(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)
+14:04:49(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)
+// Обнавляется каждую секунду.
