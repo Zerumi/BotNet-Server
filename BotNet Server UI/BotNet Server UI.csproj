@@ -77,6 +77,9 @@
     <Compile Include="Diagnostic1.xaml.cs">
       <DependentUpon>Diagnostic1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Diagnostic3.xaml.cs">
+      <DependentUpon>Diagnostic3.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Diagnostic2.xaml.cs">
       <DependentUpon>Diagnostic2.xaml</DependentUpon>
     </Compile>
@@ -105,6 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Diagnostic1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Diagnostic3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

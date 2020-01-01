@@ -61,7 +61,7 @@
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="Помощь по командам" Click="CommadsInfo_Click"/>
-                <MenuItem Header="Информация о программе"/>
+                <MenuItem Header="Информация о программе" Click="AppInfo_Click"/>
             </MenuItem>
         </Menu>
     </Grid>

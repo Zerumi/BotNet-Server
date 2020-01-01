@@ -36,106 +36,126 @@ namespace BotNet_Server_UI
 
         public MainWindow()
         {
-            InitializeComponent(); 
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) MainWindow загружен\r\n";
-            InfinityListenMenuItem.IsChecked = Convert.ToBoolean(m3md2.StaticVariables.Windows.InfinityListen);
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Режим вечной прослушки установлен на {InfinityListenMenuItem.IsChecked}\r\n";
-            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush.ToString()} / {brush.Color.ToString()} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\r\n";
-            SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush1.ToString()} / {brush1.Color.ToString()} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\r\n";
-            SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush2.ToString()} / {brush2.Color.ToString()} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\r\n";
-            Grid.Background = brush;
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Grid.Background этого окна установлен на brush\r\n";
-            ScrollLog.Background = brush1;
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) ScrollLog.Background этого окна установлен на brush1\r\n";
-            foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid as DependencyObject))
+            try
             {
-                label.Foreground = brush2;
+                InitializeComponent();
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) MainWindow загружен\r\n";
+                InfinityListenMenuItem.IsChecked = Convert.ToBoolean(m3md2.StaticVariables.Windows.InfinityListen);
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Режим вечной прослушки установлен на {InfinityListenMenuItem.IsChecked}\r\n";
+                SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush.ToString()} / {brush.Color.ToString()} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\r\n";
+                SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush1.ToString()} / {brush1.Color.ToString()} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\r\n";
+                SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush2.ToString()} / {brush2.Color.ToString()} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\r\n";
+                Grid.Background = brush;
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Grid.Background этого окна установлен на brush\r\n";
+                ScrollLog.Background = brush1;
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) ScrollLog.Background этого окна установлен на brush1\r\n";
+                foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid as DependencyObject))
+                {
+                    label.Foreground = brush2;
+                }
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы Label этого окна: Foreground установлен на brush2\r\n";
+                foreach (var textBlock in m3md2.WinHelper.FindVisualChildren<TextBlock>(Grid as DependencyObject))
+                {
+                    textBlock.Foreground = brush2;
+                }
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы Textblock этого окна: Foreground устаовлен на brush2\r\n";
+                foreach (var scrollViewer in m3md2.WinHelper.FindVisualChildren<ScrollViewer>(Grid as DependencyObject))
+                {
+                    scrollViewer.Foreground = brush2;
+                }
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы ScrollViewer этого окна: Foreground установлен на brush2\r\n";
+                DispatcherTimer dispatcherTimer = new DispatcherTimer();
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Установлен таймер для обновления счетчиков производительности\r\n";
+                dispatcherTimer.Tick += DispatcherTimer_Tick;
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Установлено событие DispatcherTimer_Tick\r\n";
+                dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Задержка таймера установлена на 1 секунду\r\n";
+                dispatcherTimer.Start();
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Таймер запущен\r\n";
             }
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы Label этого окна: Foreground установлен на brush2\r\n";
-            foreach (var textBlock in m3md2.WinHelper.FindVisualChildren<TextBlock>(Grid as DependencyObject))
+            catch (Exception ex)
             {
-                textBlock.Foreground = brush2;
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
             }
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы Textblock этого окна: Foreground устаовлен на brush2\r\n";
-            foreach (var scrollViewer in m3md2.WinHelper.FindVisualChildren<ScrollViewer>(Grid as DependencyObject))
-            {
-                scrollViewer.Foreground = brush2;
-            }
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы ScrollViewer этого окна: Foreground установлен на brush2\r\n";
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Установлен таймер для обновления счетчиков производительности\r\n";
-            dispatcherTimer.Tick += DispatcherTimer_Tick;
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Установлено событие DispatcherTimer_Tick\r\n";
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Задержка таймера установлена на 1 секунду\r\n";
-            dispatcherTimer.Start();
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Таймер запущен\r\n";
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            var CPUnow = myAppCPU.NextValue();
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на {CPUnow}\r\n";
-            var RAMnow = myAppRAM.NextValue();
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на {RAMnow}\r\n";
-            CPULabel.Content = $"CPU = {CPUnow}%";
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на {CPULabel.Content}\r\n";
-            RAMLabel.Content = $"RAM = {RAMnow / (1024f * 1024f)}MB / {TotalMem / (1024f * 1024f)}MB";
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на {RAMLabel.Content}\r\n";
-            TMGLabel.Content = $"Программа работает {(int)myAppTMG.NextValue()}с";
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже {TMGLabel.Content}\r\n";
-            LinearGradientBrush CPULinearGradientBrush =
-            new LinearGradientBrush
+            try
             {
-                StartPoint = new Point(0, 0),
-                EndPoint = new Point(1, 0)
-            };
-            CPULinearGradientBrush.GradientStops.Add(
-                new GradientStop(CPUnow / 100 < 0.8 ? Colors.LightGreen : Colors.Red, CPUnow / 100));
-            CPULinearGradientBrush.GradientStops.Add(
-                new GradientStop(Colors.LightGray, CPUnow / 100));
-            CPURectangle.Fill = CPULinearGradientBrush;
+                var CPUnow = myAppCPU.NextValue();
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на {CPUnow}\r\n";
+                var RAMnow = myAppRAM.NextValue();
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на {RAMnow}\r\n";
+                CPULabel.Content = $"CPU = {CPUnow}%";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на {CPULabel.Content}\r\n";
+                RAMLabel.Content = $"RAM = {RAMnow / (1024f * 1024f)}MB / {TotalMem / (1024f * 1024f)}MB";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на {RAMLabel.Content}\r\n";
+                TMGLabel.Content = $"Программа работает {(int)myAppTMG.NextValue()}с";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже {TMGLabel.Content}\r\n";
+                LinearGradientBrush CPULinearGradientBrush =
+                new LinearGradientBrush
+                {
+                    StartPoint = new Point(0, 0),
+                    EndPoint = new Point(1, 0)
+                };
+                CPULinearGradientBrush.GradientStops.Add(
+                    new GradientStop(CPUnow / 100 < 0.8 ? Colors.LightGreen : Colors.Red, CPUnow / 100));
+                CPULinearGradientBrush.GradientStops.Add(
+                    new GradientStop(Colors.LightGray, CPUnow / 100));
+                CPURectangle.Fill = CPULinearGradientBrush;
 
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)\r\n";
-            LinearGradientBrush RAMLinearGradientBrush =
-            new LinearGradientBrush
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)\r\n";
+                LinearGradientBrush RAMLinearGradientBrush =
+                new LinearGradientBrush
+                {
+                    StartPoint = new Point(0, 0),
+                    EndPoint = new Point(1, 0)
+                };
+                RAMLinearGradientBrush.GradientStops.Add(
+                    new GradientStop(RAMnow / TotalMem < 0.8 ? Colors.LightGreen : Colors.Red, RAMnow / TotalMem));
+                RAMLinearGradientBrush.GradientStops.Add(
+                    new GradientStop(Colors.LightGray, RAMnow / TotalMem));
+                RAMRectangle.Fill = RAMLinearGradientBrush;
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)\r\n";
+            }
+            catch (Exception ex)
             {
-                StartPoint = new Point(0, 0),
-                EndPoint = new Point(1, 0)
-            };
-            RAMLinearGradientBrush.GradientStops.Add(
-                new GradientStop(RAMnow / TotalMem < 0.8 ? Colors.LightGreen : Colors.Red, RAMnow / TotalMem));
-            RAMLinearGradientBrush.GradientStops.Add(
-                new GradientStop(Colors.LightGray, RAMnow / TotalMem));
-            RAMRectangle.Fill = RAMLinearGradientBrush;
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)\r\n";
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         public async void Send_Command()
         {
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Начата отправка команды\r\n";
-            if (Command.Text == "")
-            {
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Ошибка: поле с командой пустое\r\n";
-                MessageBox.Show("(2) Постарайтесь ввести все значения правильно!");
-                return;
-            }
-            if (!ipsall)
-            {
-                if (ips == null)
-                {
-                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Программа запустилось впервые и не имеет заданного списка ID\r\n";
-                    IPSet iPSet = new IPSet(true);
-                    iPSet.Show();
-                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Запущено IDSet окно\r\n";
-                    return;
-                }
-            }
             try
             {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Начата отправка команды\r\n";
+                if (Command.Text == "")
+                {
+                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Ошибка: поле с командой пустое\r\n";
+                    MessageBox.Show("(2) Постарайтесь ввести все значения правильно!");
+                    return;
+                }
+                if (!ipsall)
+                {
+                    if (ips == null)
+                    {
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Программа запустилось впервые и не имеет заданного списка ID\r\n";
+                        IPSet iPSet = new IPSet(true);
+                        iPSet.Show();
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Запущено IDSet окно\r\n";
+                        return;
+                    }
+                }
                 string showcommand = Command.Text;
                 string command = Command.Text;
                 if (argtype == "TextBox")
@@ -152,7 +172,7 @@ namespace BotNet_Server_UI
                     command = command,
                     ids = ipsall ? arr.Select(x => x.id.ToString()).ToArray() : ips
                 };
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Создан экземпляр Message: Команда {message.command} / ID {message.ids}\r\n"; 
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Создан экземпляр Message: Команда {message.command} / ID {message.ids}\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Отправлен ApiRequest.Create(message) на messages\r\n";
                 Uri res = await ApiRequest.CreateProductAsync(message, "messages");
                 LogPanel.Text += $"({DateTime.Now.ToLongTimeString()}) Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages") - 1}) отправлена.\r\n";
@@ -163,51 +183,102 @@ namespace BotNet_Server_UI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) В программе возникло исключение: {ex.Message} / {ex.InnerException} ({ex.HResult})\r\n";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
                 m3md2.StaticVariables.Diagnostics.ExceptionCount++;
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Send_Command();
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / SendButton_Click event) Нажата кнопка \"Отправить\", вызываю Send_Command\r\n";
+            try
+            {
+                Send_Command();
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / SendButton_Click event) Нажата кнопка \"Отправить\", вызываю Send_Command\r\n";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void Command_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            try
             {
-                Send_Command();
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Command_keyDown event) Нажата клавиша Enter в поле для ввода команды/аргумента, вызываю Send_Command\r\n";
+                if (e.Key == Key.Enter)
+                {
+                    Send_Command();
+                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Command_keyDown event) Нажата клавиша Enter в поле для ввода команды/аргумента, вызываю Send_Command\r\n";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
             }
         }
 
         private async void Formloaded(object sender, RoutedEventArgs e)
         {
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow loaded event) Форма загружена\r\n";
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWIndow loaded event) Отправлен ApiRequest.Delete на api/v1/messages\r\n";
-            _ = await ApiRequest.DeleteProductsAsync("api/v1/messages");
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow loaded event) Отправлен ApiRequest.Delete на api/v1/responses\r\n";
-            _ = await ApiRequest.DeleteProductsAsync("api/v1/responses");
+            try
+            {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow loaded event) Форма загружена\r\n";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWIndow loaded event) Отправлен ApiRequest.Delete на api/v1/messages\r\n";
+                _ = await ApiRequest.DeleteProductsAsync("api/v1/messages");
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow loaded event) Отправлен ApiRequest.Delete на api/v1/responses\r\n";
+                _ = await ApiRequest.DeleteProductsAsync("api/v1/responses");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         bool CanListen = true;
 
         private async void StartListenAsync()
         {
-            CanListen = true;
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow StartListen method) Значение CanListen установлено на {CanListen}\r\n";
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow StartListen method) Запускаю прослушку клиетов\r\n";
-            await Task.Run(() => ListenClients());
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow StartListen method) Запускаю прослушку ответов\r\n";
-            await Task.Run(() => ListenResponses());
+            try
+            {
+                CanListen = true;
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow StartListen method) Значение CanListen установлено на {CanListen}\r\n";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow StartListen method) Запускаю прослушку клиетов\r\n";
+                await Task.Run(() => ListenClients());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow StartListen method) Запускаю прослушку ответов\r\n";
+                await Task.Run(() => ListenResponses());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void StopListen()
         {
-            CanListen = false;
-            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow StorListen method) Зачение CanListen установлено на {CanListen}\r\n";
+            try
+            {
+                CanListen = false;
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow StorListen method) Зачение CanListen установлено на {CanListen}\r\n";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private async void ListenClients()
@@ -249,8 +320,8 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenClients) В программе возникло исключение: {ex.Message} / {ex.InnerException} ({ex.HResult})\r\n";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
                 m3md2.StaticVariables.Diagnostics.ExceptionCount++;
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenClients) Перезапускаю прослушку клиентов...\r\n";
                 await Task.Run(() => ListenClients());
@@ -291,21 +362,27 @@ namespace BotNet_Server_UI
                     {
                         for (int i = vars.Count; i < responses.Length; i++)
                         {
+                            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) В ответах системы обнаружен новый ответ, добавляем в массив\r\n";
                             vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].id}") - 1);
                         }
                     }
                     for (int i = 0; i < responses.Length; i++)
                     {
                         uint var1 = await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].id}") - 1;
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Переменная var1 равна {var1}\r\n";
                         if (var1 == vars[i])
                         {
+                            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Обнаружен новый ответ от клиента. Подгатавливаем его вывод...\r\n";
                             Response response = await ApiRequest.GetProductAsync<Response>($"api/v1/responses/{responses[i].id}/{var1}");
                             if (response != null)
                             {
                                 await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") " + response.response + "\n"));
+                                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) К LogPanel этого окна добавлено ({DateTime.Now.ToLongTimeString()}) {response.response}\r\n";
                                 ListenInfo();
+                                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Обновлена информация API\r\n";
+                                vars[i] = vars[i] + 1;
+                                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Следующий ответ будет под id {vars[i]}\r\n";
                             }
-                            vars[i] = vars[i] + 1;
                         }
                     }
                     Thread.Sleep(1000);
@@ -313,167 +390,335 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
                 MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Перезапускаю прослушку ответов...\r\n";
                 await Task.Run(() => ListenResponses());
             }
         }
 
         private void IPSetButton_Click(object sender, RoutedEventArgs e)
         {
-            IPSet iPSet = new IPSet();
-            iPSet.Show();
+            try
+            {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / IDSetButton_Click event) Запускаю откно задачи ID для отправки комманд\r\n";
+                IPSet iPSet = new IPSet();
+                iPSet.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
         private void Command_TextChanged(object sender, TextChangedEventArgs e)
         {
-            for (int i = 0; i < Arguments.arguments.Length; i++)
+            try
             {
-                if (Command.Text == Arguments.arguments[i].Command)
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) Набирается команда, проверяю на совпадение\r\n";
+                for (int i = 0; i < Arguments.arguments.Length; i++)
                 {
-                    argtype = Arguments.arguments[i].ArgumentType;
-                    if (argtype == "TextBox")
+                    if (Command.Text == Arguments.arguments[i].Command)
                     {
-                        args = new TextBox[Arguments.arguments[i].ArgumentCount];
-                    }
-                    else if (argtype == "Button")
-                    {
-                        args = new Button[Arguments.arguments[i].ArgumentCount];
-                    }
-                    for (int j = 0, k = Arguments.arguments[i].ArgumentCount; j < Arguments.arguments[i].ArgumentCount; j++)
-                    {
-                        if (Arguments.arguments[i].ArgumentType == "TextBox")
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) Команда {Command.Text} распознана\r\n";
+                        argtype = Arguments.arguments[i].ArgumentType;
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) Тип аргументов {argtype}\r\n";
+                        if (argtype == "TextBox")
                         {
-                            args[j] = new TextBox()
-                            {
-                                Name = $"Argument{j + 1}",
-                                TextWrapping = TextWrapping.NoWrap,
-                                HorizontalAlignment = HorizontalAlignment.Stretch,
-                                Margin = new Thickness(10 + j * (270 / Arguments.arguments[i].ArgumentCount), 10, 10 + --k * (270 / Arguments.arguments[i].ArgumentCount), 18),
-                            };
-                            args[j].KeyDown += new KeyEventHandler(Command_KeyDown);
+                            args = new TextBox[Arguments.arguments[i].ArgumentCount];
                         }
-                        else if (Arguments.arguments[i].ArgumentType == "Button")
+                        else if (argtype == "Button")
                         {
-                            args[j] = new Button()
-                            {
-                                Content = Arguments.arguments[i].ArgumentsList[j],
-                                HorizontalAlignment = HorizontalAlignment.Stretch,
-                                VerticalAlignment = VerticalAlignment.Bottom,
-                                Margin = new Thickness(10, 10, 10, 18)
-                            };
-                            args[j].Click += new RoutedEventHandler(Button_Click1);
+                            args = new Button[Arguments.arguments[i].ArgumentCount];
                         }
-                        args[j].SetValue(Grid.ColumnProperty, 2);
-                        args[j].SetValue(Grid.RowProperty, 2);
-                        Grid.Children.Add(args[j]);
+                        for (int j = 0, k = Arguments.arguments[i].ArgumentCount; j < Arguments.arguments[i].ArgumentCount; j++)
+                        {
+                            if (Arguments.arguments[i].ArgumentType == "TextBox")
+                            {
+                                args[j] = new TextBox()
+                                {
+                                    Name = $"Argument{j + 1}",
+                                    TextWrapping = TextWrapping.NoWrap,
+                                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                                    Margin = new Thickness(10 + j * (270 / Arguments.arguments[i].ArgumentCount), 10, 10 + --k * (270 / Arguments.arguments[i].ArgumentCount), 18),
+                                };
+                                args[j].KeyDown += new KeyEventHandler(Command_KeyDown);
+                            }
+                            else if (Arguments.arguments[i].ArgumentType == "Button")
+                            {
+                                args[j] = new Button()
+                                {
+                                    Content = Arguments.arguments[i].ArgumentsList[j],
+                                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                                    VerticalAlignment = VerticalAlignment.Bottom,
+                                    Margin = new Thickness(10, 10, 10, 18)
+                                };
+                                args[j].Click += new RoutedEventHandler(Button_Click1);
+                            }
+                            args[j].SetValue(Grid.ColumnProperty, 2);
+                            args[j].SetValue(Grid.RowProperty, 2);
+                            Grid.Children.Add(args[j]);
+                            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) В поле с аргументами добавлен {argtype} {Arguments.arguments[i].ArgumentsList[j]}\r\n";
+                        }
+                        return;
                     }
-                    return;
+                }
+                for (int i = 0; i < args.Length; i++)
+                {
+                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) Удаляю {args[i]} так как команда была стерта\r\n";
+                    Grid.Children.Remove(args[i]);
                 }
             }
-            for (int i = 0; i < args.Length; i++)
+            catch (Exception ex)
             {
-                Grid.Children.Remove(args[i]);
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
             }
         }
 
         private async void ListenInfo()
         {
-        linkinfo:
-            var Info = await ApiRequest.GetProductAsync<Info>("/api");
-            if (Info == null)
+            try
             {
-                goto linkinfo;
+            linkinfo:
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenInfo) Отправлен ApiRequest.Get на api\r\n";
+                var Info = await ApiRequest.GetProductAsync<Info>("/api");
+                if (Info == null)
+                {
+                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenInfo) Что-то пошло не так и Api вернула null, повторяю запрос...\r\n";
+                    goto linkinfo;
+                }
+                await InfoBlock.Dispatcher.BeginInvoke(new Action(() => InfoBlock.Text = "Подключено к " + Info.uri + "\nПорт: " + Info.port + "\nAPI версии " + Info.version + " / Среда разработки " + Info.environment + "\nВсего клиентов: " + Info.clients + " / Всего сообщений: " + Info.messages));
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenInfo) Обновляю InfoBlock данного окна на полученный экземпляр класса Info\r\n";
             }
-            await InfoBlock.Dispatcher.BeginInvoke(new Action(() => InfoBlock.Text = "Подключено к " + Info.uri + "\nПорт: " + Info.port + "\nAPI версии " + Info.version + " / Среда разработки " + Info.environment + "\nВсего клиентов: " + Info.clients + " / Всего сообщений: " + Info.messages));
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void Button_Click1(object sender, RoutedEventArgs e)
         {
-            Screens screenwindow = new Screens();
-            screenwindow.Show();
+            try
+            {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ScreenClick event) Открываю окно списка клиентов со скриншотами\r\n";
+                Screens screenwindow = new Screens();
+                screenwindow.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void Main_Closed(object sender, EventArgs e)
         {
-            foreach (var window in Application.Current.Windows)
+            try
             {
-                if ((window as Window) != null)
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Главное окно закрывается...\r\n";
+                foreach (var window in Application.Current.Windows)
                 {
-                    (window as Window).Close();
+                    if ((window as Window) != null)
+                    {
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Закрываю окно {window.ToString()}\r\n";
+                        (window as Window).Close();
+                    }
                 }
             }
-        }
-
-        public void Close_All()
-        {
-            foreach (var item in Application.Current.Windows)
+            catch (Exception ex)
             {
-                (item as Window).Close();
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
             }
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            Settings settings = new Settings();
-            settings.Show();
+            try
+            {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / CommandsInfo_Click event) Открываю окно настроек приложения\r\n";
+                Settings settings = new Settings();
+                settings.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void CommadsInfo_Click(object sender, RoutedEventArgs e)
         {
-            CommandsInfo commands = new CommandsInfo();
-            commands.Show();
+            try
+            {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / CommandsInfo_Click event) Запускаю окно помощи по командам...\r\n";
+                CommandsInfo commands = new CommandsInfo();
+                commands.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e) // open folder
         {
-            Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory);
+            try
+            {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItemOpenFolder_Click event) Открываю проводник с основной директорией этого приложения\r\n";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItemOpenFolder_Click event) Открывается директория {AppDomain.CurrentDomain.BaseDirectory}\r\n";
+                Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void MenuItem_Checked(object sender, RoutedEventArgs e) // infinity listener
         {
-            StartListenAsync(); 
-            var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            foreach (var u2 in appSettings.AppSettings.Settings)
+            try
             {
-                if ((u2 as KeyValueConfigurationElement).Key == "InfnityListen")
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Запускаю прослушку...\r\n";
+                StartListenAsync();
+                var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Получаем нынешнюю конфигурацию приложения\r\n";
+                foreach (var u2 in appSettings.AppSettings.Settings)
                 {
-                    (u2 as KeyValueConfigurationElement).Value = "True";
+                    if ((u2 as KeyValueConfigurationElement).Key == "InfnityListen")
+                    {
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Найден ключ InfinityListen и устанавливаем его значение на true\r\n";
+                        (u2 as KeyValueConfigurationElement).Value = "True";
+                    }
                 }
+                appSettings.Save(ConfigurationSaveMode.Minimal);
+                ConfigurationManager.RefreshSection("appSettings");
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Конфигурация сохранена и обновлена\r\n";
             }
-            appSettings.Save(ConfigurationSaveMode.Minimal);
-            ConfigurationManager.RefreshSection("appSettings");
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void MenuItem_Unchecked(object sender, RoutedEventArgs e) // infinity listener
         {
-            StopListen(); 
-            var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            foreach (var u2 in appSettings.AppSettings.Settings)
+            try
             {
-                if ((u2 as KeyValueConfigurationElement).Key == "InfnityListen")
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Останавливаю прослушку...\r\n";
+                StopListen();
+                var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Получаем нынешнюю конфигурацию приложения\r\n";
+                foreach (var u2 in appSettings.AppSettings.Settings)
                 {
-                    (u2 as KeyValueConfigurationElement).Value = "False";
+                    if ((u2 as KeyValueConfigurationElement).Key == "InfnityListen")
+                    {
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Найден ключ InfinityListen и устанавливаем его значение на false\r\n";
+                        (u2 as KeyValueConfigurationElement).Value = "False";
+                    }
                 }
+                appSettings.Save(ConfigurationSaveMode.Minimal);
+                ConfigurationManager.RefreshSection("appSettings");
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Конфигурация сохранена и обновлена\r\n";
             }
-            appSettings.Save(ConfigurationSaveMode.Minimal);
-            ConfigurationManager.RefreshSection("appSettings");
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void Diagnostic1_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow Diagnostic1_Click event) Открываю окно показа всех исключений приложения...\r\n";
+                Diagnostic1 diagnostic1 = new Diagnostic1();
+                diagnostic1.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void Diagnostic2_Click(object sender, RoutedEventArgs e)
         {
-            Diagnostic2 diagnostic2 = new Diagnostic2();
-            diagnostic2.Show();
+            try
+            {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow Diagnostic2_Click event) Открываю окно показа всех действий приложения\r\n";
+                Diagnostic2 diagnostic2 = new Diagnostic2();
+                diagnostic2.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
 
         private void Diagnostic3_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow Diagnoctic3_Click event) Запускаю окно диагностики API\r\n";
+                Diagnostic3 diagnostic3 = new Diagnostic3();
+                diagnostic3.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
+        }
 
+        private void AppInfo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.4.0 beta 15\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
         }
     }
 }

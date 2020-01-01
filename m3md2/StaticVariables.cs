@@ -1,5 +1,8 @@
 ﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+using System;
+using System.Collections.Generic;
+
 namespace m3md2
 {
     public static partial class StaticVariables
@@ -7,7 +10,8 @@ namespace m3md2
         public static class Diagnostics
         {
             public static string ProgramInfo { get; set; }
-            public static int ExceptionCount { get; set; }
+            public static int ExceptionCount = 0;
+            public static List<Exception> exceptions = new List<Exception>();
         }
         public static class Settings
         {

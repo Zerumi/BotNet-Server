@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BotNet_Server_UI"
         mc:Ignorable="d"
-        Title="Enter Password" Height="97" Width="170">
+        Title="Enter Password" Height="97" Width="170" WindowState="Normal" ResizeMode="CanMinimize">
     <StackPanel>
         <TextBlock Text="Enter admin password" />
         <TextBox x:Name="ResponseTextBox" KeyDown="Field_KeyDown" />

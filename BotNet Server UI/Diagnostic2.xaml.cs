@@ -37,7 +37,7 @@ namespace BotNet_Server_UI
                         stopwatch.Start();
                         LogPanel.Text = m3md2.StaticVariables.Diagnostics.ProgramInfo + "// Обнавляется каждую секунду.";
                         stopwatch.Stop(); 
-                        if (stopwatch.Elapsed > new TimeSpan(0, 0, 1))
+                        if (LogPanel.Text.Length >= 100000)
                         {
                             CanListen = false;
                             await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text.Replace("// Обнавляется каждую секунду.", "")));

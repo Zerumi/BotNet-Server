@@ -1,18 +1,17 @@
-﻿<Window x:Class="BotNet_Server_UI.Screens"
+﻿<Window x:Class="BotNet_Server_UI.Diagnostic3"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Screens" Height="250" Width="200" Loaded="ScrForm_Loaded" WindowState="Normal" ResizeMode="CanMinimize">
+        Title="Инструмент диагностики API" Height="240" Width="480" WindowState="Normal" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <ListBox x:Name="ListScrenns" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
-        </ListBox>
+        <ProgressBar HorizontalAlignment="Left" Height="35" Margin="10,167,0,0" VerticalAlignment="Top" Width="454"/>
     </Grid>
 </Window>
