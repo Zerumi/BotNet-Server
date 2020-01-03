@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Инструмент диагностики API" Height="240" Width="480" WindowState="Normal" ResizeMode="CanMinimize">
+        Title="Инструмент диагностики API" Height="240" Width="480" WindowState="Normal" ResizeMode="CanMinimize" Loaded="FormLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ProgressBar HorizontalAlignment="Left" Height="35" Margin="10,167,0,0" VerticalAlignment="Top" Width="454"/>
+        <ProgressBar x:Name="Progress" HorizontalAlignment="Left" Height="35" Margin="10,167,0,0" VerticalAlignment="Top" Width="454"/>
+        <TextBlock x:Name="LogPanel" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="152" Width="454"/>
     </Grid>
 </Window>

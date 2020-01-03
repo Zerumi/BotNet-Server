@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Configuration;
 using System.Windows.Media;
+using System.Windows.Controls.Primitives;
 
 namespace BotNet_Server_UI
 {
@@ -34,22 +35,68 @@ namespace BotNet_Server_UI
                         }
                         appSettings.Save(ConfigurationSaveMode.Minimal);
                         ConfigurationManager.RefreshSection("appSettings");
+                        m3md2.StaticVariables.Settings.ColorTheme = combobox.Text;
                         MessageBox.Show("Для применения изменений программа будет перезапущена без ввода пароля", "Настройки", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                        Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
                         Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                         foreach (var window in Application.Current.Windows)
                         {
                             if ((window as MainWindow) != null)
                             {
                                 (window as MainWindow).Close();
-	                        }
-	                    }
+                            }
+                        }
                         MainWindow mainWindow = new MainWindow();
                         mainWindow.Show();
                         Application.Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
                     }
                 }
+            }),
+            new RoutedEventHandler((object sender, RoutedEventArgs e) =>
+            {
+                foreach (var item in Application.Current.Windows)
+                {
+                    if((item as Window).Name == "settings")
+                    {
+                        var checkbox = m3md2.WinHelper.FindChild<CheckBox>(item as Window, "CheckThis");
+                        var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                        foreach (var u2 in appSettings.AppSettings.Settings)
+                        {
+                            if ((u2 as KeyValueConfigurationElement).Key == "IgnoreBigLog")
+                            {
+                                (u2 as KeyValueConfigurationElement).Value = checkbox.IsChecked.GetValueOrDefault().ToString();
+                            }
+                        }
+                        appSettings.Save(ConfigurationSaveMode.Minimal);
+                        ConfigurationManager.RefreshSection("appSettings");
+                        m3md2.StaticVariables.Settings.IgnoreBigLog = checkbox.IsChecked.GetValueOrDefault();
+                        Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
+                    }
+                }
             })
         };
+
+        private static void Close_Settings(Grid Grid)
+        {
+        linkforech:
+            foreach (UIElement control in Grid.Children)
+            {
+                if (Grid.GetColumn(control) == 1)
+                {
+                    if ((control as Button) != null)
+                    {
+                        if ((control as Button).Name == "Apply")
+                        {
+                            (control as Button).Visibility = Visibility.Hidden;
+                            continue;
+                        }
+                    }
+                    Grid.Children.Remove(control);
+                    goto linkforech;
+                }
+            }
+
+        }
 
         public Settings()
         {
@@ -80,18 +127,31 @@ namespace BotNet_Server_UI
         {
             try
             {
+                Close_Settings(Grid);
                 for (int i = 0; i < m3md2_startup.Settings.settings[items.IndexOf(sender as TreeViewItem)].SettingObjects.Length; i++)
                 {
                     var element = m3md2_startup.Settings.settings[items.IndexOf(sender as TreeViewItem)].SettingObjects[i] as UIElement;
                     element.SetValue(Grid.ColumnProperty, 1);
+                    if (LogicalTreeHelper.GetParent(element as DependencyObject) != null)
+                    {
+                        var Parent = (Grid)LogicalTreeHelper.GetParent(element as DependencyObject);
+                        Parent.Children.Remove(element);
+                    }
                     Grid.Children.Add(element);
                 }
                 Apply.Visibility = Visibility.Visible;
+                foreach (var method in methods)
+                {
+                    Apply.RemoveHandler(ButtonBase.ClickEvent, method);
+                }
                 Apply.Click += methods[items.IndexOf(sender as TreeViewItem)];
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("(5) Возможно вы уже выбрали этот элемент");
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
             }
         }
     }

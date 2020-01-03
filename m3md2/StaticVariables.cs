@@ -16,6 +16,7 @@ namespace m3md2
         public static class Settings
         {
             public static string ColorTheme { get; set; }
+            public static bool IgnoreBigLog { get; set; }
         }
         public static class Windows
         {

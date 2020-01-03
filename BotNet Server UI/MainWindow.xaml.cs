@@ -14,8 +14,6 @@ using System.Windows.Threading;
 using System.Configuration;
 using CommandsLibrary;
 
-//             m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}() \r\n";
-// экземпляр ввода информации в статистическое поле
 namespace BotNet_Server_UI
 {
     /// <summary>
@@ -710,7 +708,7 @@ namespace BotNet_Server_UI
         {
             try
             {
-                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.4.0 beta 15\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.4.0 beta 16\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

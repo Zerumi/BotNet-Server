@@ -12,7 +12,8 @@ namespace m3md2_startup
         public object[] SettingObjects { get; set; }
         public static string[] SettingsList =
         {
-            "Цветовая тема"
+            "Цветовая тема",
+            "Предупреждения"
         };
         public static Settings[] settings =
         {
@@ -38,6 +39,19 @@ namespace m3md2_startup
                         },
                         SelectedIndex = 0,
                         Margin = new Thickness(40,65,240,315)
+                    }
+                }
+            },
+            new Settings()
+            {
+                Setting = "Предупреждения",
+                SettingObjects = new object[]
+                {
+                    new CheckBox()
+                    {
+                        Name = "CheckThis",
+                        Content = "Игнорировать предупреждение о выской длине лога программы",
+                        Margin = new Thickness(10,10,10,370)
                     }
                 }
             }

@@ -37,7 +37,7 @@ namespace BotNet_Server_UI
                         stopwatch.Start();
                         LogPanel.Text = m3md2.StaticVariables.Diagnostics.ProgramInfo + "// Обнавляется каждую секунду.";
                         stopwatch.Stop(); 
-                        if (LogPanel.Text.Length >= 100000)
+                        if (LogPanel.Text.Length >= 100000 && !m3md2.StaticVariables.Settings.IgnoreBigLog)
                         {
                             CanListen = false;
                             await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text.Replace("// Обнавляется каждую секунду.", "")));
@@ -75,7 +75,7 @@ namespace BotNet_Server_UI
             Directory.CreateDirectory(dirpath);
             string filepatch = $@"{dirpath}\Logs{DateTime.Now.Ticks}.txt";
             File.Create(filepatch).Close();
-            File.WriteAllText(filepatch, LogPanel.Text);
+            File.WriteAllText(filepatch, m3md2.StaticVariables.Diagnostics.ProgramInfo);
         }
 
         private void Window_Closed(object sender, EventArgs e)
