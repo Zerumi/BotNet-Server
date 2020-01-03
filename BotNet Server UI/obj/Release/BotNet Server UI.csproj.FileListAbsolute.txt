@@ -27,3 +27,17 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\o
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\ScreenBox.g.cs
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Screens.g.cs
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\ScreenBox.baml
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\bin\Release\m3md2.dll
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\bin\Release\m3md2_startup.dll
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\bin\Release\m3md2.pdb
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\bin\Release\m3md2_startup.pdb
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Diagnostic3.baml
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Diagnostic2.baml
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\CommandsInfo.g.cs
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Diagnostic1.g.cs
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Diagnostic3.g.cs
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Diagnostic2.g.cs
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Settings.g.cs
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\CommandsInfo.baml
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Diagnostic1.baml
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Settings.baml

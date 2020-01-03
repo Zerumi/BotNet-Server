@@ -49,7 +49,7 @@
         <TextBlock x:Name="InfoBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="10,155,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Получение информации..." VerticalAlignment="Top" Height="70" Width="270"/>
         <Menu HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.ColumnSpan="5">
             <MenuItem Header="Управление">
-                <MenuItem Header="Задать IP" Click="IPSetButton_Click"/>
+                <MenuItem Header="Задать ID" Click="IPSetButton_Click"/>
                 <MenuItem Header="Настройки" Click="Settings_Click"/>
                 <MenuItem Header="Открыть в проводнике" Click="MenuItem_Click"/>
             </MenuItem>
