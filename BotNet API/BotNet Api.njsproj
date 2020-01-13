@@ -46,6 +46,9 @@
     <Content Include="screens.json">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="update.json">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

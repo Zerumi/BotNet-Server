@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const ip = require("./ip.json");
 const screens = require("./screens.json");
+const update = require("./update.json");
 var messages = require("./messages.json");
 var responses = require("./responses.json");
 app.set("port", PORT);
@@ -65,7 +66,9 @@ app.post("/api/v1/screens/:id/:sid", (req, res, next) => {
       throw err;
     }
     sbscreen.bytes = sbscreen.bytes.concat(JSON.parse(req.body).bytes);
-    res.end();
+    var supdate = JSON.stringify();
+    var sscreens = JSON.stringify(screens);
+    fs.writeFileSync("screens.json", sscreens);
   } catch (e) {
     next(e);
   }
@@ -289,6 +292,35 @@ app.post("/api/v1/sandbox", (req, res, next) => {
 app.delete("/sandbox", (req, res, next) => {
   res.json("Deleted!");
   res.end();
+});
+app.post("/api/v1/update", (req, res, next) => {
+    try {
+        update.filename = JSON.parse(req.body).filename;
+        update.filebytes = JSON.parse(req.body).filebytes;
+        var supdate = JSON.stringify(update);
+        fs.writeFileSync("update.json", supdate);
+    } catch (e) {
+        next(e);
+    }
+    res.end();
+});
+app.post("/api/v1/nextupdate", (req, res, next) => {
+    try {
+        update.filebytes = update.filebytes.concat(JSON.parse(req.body).filebytes);
+        var supdate = JSON.stringify(update);
+        fs.writeFileSync("update.json", supdate);
+    } catch (e) {
+        next(e);
+    }
+    res.end();
+});
+app.get("/api/v1/update", (req, res, next) => {
+    try {
+        res.json(update);
+    } catch (e) {
+        next(e);
+    }
+    res.end();
 });
 app.use((req, res, next) => {
   const err = new Error(`${req.method} ${req.url} Not Found`);
