@@ -59,6 +59,7 @@ namespace BotNet_Server_UI
                     if((item as Window).Name == "settings")
                     {
                         var checkbox = m3md2.WinHelper.FindChild<CheckBox>(item as Window, "CheckThis");
+                        var checkbox1 = m3md2.WinHelper.FindChild<CheckBox>(item as Window, "Expect100Continue");
                         var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                         foreach (var u2 in appSettings.AppSettings.Settings)
                         {
@@ -66,6 +67,10 @@ namespace BotNet_Server_UI
                             {
                                 (u2 as KeyValueConfigurationElement).Value = checkbox.IsChecked.GetValueOrDefault().ToString();
                             }
+                            else if ((u2 as KeyValueConfigurationElement).Key == "Expect100Continue")
+                            {
+                                (u2 as KeyValueConfigurationElement).Value = (!checkbox1.IsChecked.GetValueOrDefault()).ToString();
+	                        }
                         }
                         appSettings.Save(ConfigurationSaveMode.Minimal);
                         ConfigurationManager.RefreshSection("appSettings");

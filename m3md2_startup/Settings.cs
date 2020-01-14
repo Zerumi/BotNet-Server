@@ -52,6 +52,12 @@ namespace m3md2_startup
                         Name = "CheckThis",
                         Content = "Игнорировать предупреждение о выской длине лога программы",
                         Margin = new Thickness(10,10,10,370)
+                    },
+                    new CheckBox()
+                    {
+                        Name = "Expect100Continue",
+                        Content = "Игнорировать ожидание (Может помочь, если не работает отправка команд)",
+                        Margin = new Thickness(10,30,10,350)
                     }
                 }
             }
