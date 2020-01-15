@@ -97,6 +97,17 @@ namespace CommandsLibrary
                 },
                 ArgumentType = "Button",
                 CommandInfo = "Возвращает текущий снимок экрана на системе"
+            },
+            new Arguments()
+            {
+                Command = "/update",
+                ArgumentCount = 1,
+                ArgumentsList = new string[]
+                {
+                    "Загрузить файл"
+                },
+                ArgumentType = "Button",
+                CommandInfo = "Загружает/Пересоздает в основную папку клиента загруженный вами файл (используется для обновления .dll)"
             }
         };
     }

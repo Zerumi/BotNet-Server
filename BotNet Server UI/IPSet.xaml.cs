@@ -11,7 +11,7 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class IPSet : Window
     {
-        readonly bool isSendFrom = false;
+        public bool isSendFrom = false;
         public IPSet()
         {
             InitializeComponent();

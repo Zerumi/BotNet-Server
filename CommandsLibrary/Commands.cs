@@ -13,7 +13,8 @@ namespace CommandsLibrary
             "/start",
             "/startinvis",
             "/nameofpc",
-            "/screen"
+            "/screen",
+            "/update"
         };
     }
 }
