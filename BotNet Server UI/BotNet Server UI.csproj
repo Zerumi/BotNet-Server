@@ -103,6 +103,7 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UpdateCenterRequest.cs" />
     <Compile Include="UpdateFile.cs" />
     <Page Include="CommandsInfo.xaml">
       <SubType>Designer</SubType>

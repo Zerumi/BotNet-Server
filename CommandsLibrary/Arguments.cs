@@ -7,8 +7,9 @@ namespace CommandsLibrary
         public string Command { get; set; }
         public int ArgumentCount { get; set; }
         public string[] ArgumentsList { get ; set; }
-        public string ArgumentType { get; set; }
+        public string[] ArgumentType { get; set; }
         public string CommandInfo { get; set; }
+        public bool IsForServer { get; set; }
 
         public static IArgument[] arguments =
         {
@@ -20,8 +21,12 @@ namespace CommandsLibrary
                 {
                     "Путь к файлу\\Файл"
                 },
-                ArgumentType = "TextBox",
-                CommandInfo = "Создает файл по указанному пути на системе"
+                ArgumentType = new string[]
+                {
+                    "TextBox"
+                },
+                CommandInfo = "Создает файл по указанному пути на системе",
+                IsForServer = false
             },
             new Arguments()
             {
@@ -32,8 +37,13 @@ namespace CommandsLibrary
                     "Путь к файлу\\Файл",
                     "Содержимое файла"
                 },
-                ArgumentType = "TextBox",
-                CommandInfo = "Создает файл по указанному пути на системе и записывает туда информацию"
+                ArgumentType = new string[] 
+                { 
+                    "TextBox",
+                    "TextBox" 
+                },
+                CommandInfo = "Создает файл по указанному пути на системе и записывает туда информацию",
+                IsForServer = false
             },
             new Arguments()
             {
@@ -43,8 +53,12 @@ namespace CommandsLibrary
                 {
                     "Путь к файлу\\Файл"
                 },
-                ArgumentType = "TextBox",
-                CommandInfo = "Удаляет файл по указанному пути"
+                ArgumentType = new string[]
+                {
+                    "TextBox",
+                },
+                CommandInfo = "Удаляет файл по указанному пути",
+                IsForServer = false
             },
             new Arguments()
             {
@@ -55,8 +69,13 @@ namespace CommandsLibrary
                     "Путь к файлу\\Файл для копирования",
                     "Путь к файлу\\Файл для вставки"
                 },
-                ArgumentType = "TextBox",
-                CommandInfo = "Копирует файл из одного пути на системе в другой (поддерживается пересоздание)"
+                ArgumentType = new string[] 
+                {
+                    "TextBox",
+                    "TextBox"
+                },
+                CommandInfo = "Копирует файл из одного пути на системе в другой (поддерживается пересоздание)",
+                IsForServer = false
             },
             new Arguments()
             {
@@ -66,8 +85,12 @@ namespace CommandsLibrary
                 {
                     "Путь к файлу\\Файл"
                 },
-                ArgumentType = "TextBox",
-                CommandInfo = "Запускает исполняемый файл на системе по указанному пути"
+                ArgumentType = new string[]
+                {
+                    "TextBox" 
+                },
+                CommandInfo = "Запускает исполняемый файл на системе по указанному пути",
+                IsForServer = false
             },
             new Arguments()
             {
@@ -77,15 +100,20 @@ namespace CommandsLibrary
                 {
                     "Путь к файлу\\Файл"
                 },
-                ArgumentType = "TextBox",
-                CommandInfo = "Запускает исполняемый файл на системе по указанному пути и пытается скрыть активное окно программы (не работает на всех программах)"
+                ArgumentType = new string[] 
+                {
+                    "TextBox" 
+                },
+                CommandInfo = "Запускает исполняемый файл на системе по указанному пути и пытается скрыть активное окно программы (не работает на всех программах)",
+                IsForServer = false
             },
             new Arguments()
             {
                 Command = "/nameofpc",
                 ArgumentCount = 0,
                 ArgumentsList = null,
-                CommandInfo = "Возвращает имя активного пользователя системы"
+                CommandInfo = "Возвращает имя активного пользователя системы",
+                IsForServer = false
             },
             new Arguments()
             {
@@ -95,8 +123,12 @@ namespace CommandsLibrary
                 {
                     "Открыть скриншот панель"
                 },
-                ArgumentType = "Button",
-                CommandInfo = "Возвращает текущий снимок экрана на системе"
+                ArgumentType = new string[] 
+                {
+                    "Button" 
+                },
+                CommandInfo = "Возвращает текущий снимок экрана на системе",
+                IsForServer = false
             },
             new Arguments()
             {
@@ -106,8 +138,61 @@ namespace CommandsLibrary
                 {
                     "Загрузить файл"
                 },
-                ArgumentType = "Button",
-                CommandInfo = "Загружает/Пересоздает в основную папку клиента загруженный вами файл (используется для обновления .dll)"
+                ArgumentType = new string[] 
+                { 
+                    "Button"
+                },
+                CommandInfo = "Загружает/Пересоздает в основную папку клиента загруженный вами файл (используется для обновления .dll)",
+                IsForServer = false
+            },
+            new Arguments()
+            {
+                Command = "/minescript add",
+                ArgumentCount = 2,
+                ArgumentsList = new string[]
+                {
+                    "Путь к файлу на сервере",
+                    "Загрузить файл"
+                },
+                ArgumentType = new string[]
+                {
+                    "TextBox",
+                    "Button"
+                },
+                CommandInfo = "Добавляет скрипт на Mineweb сервер",
+                IsForServer = true
+            },
+            new Arguments()
+            {
+                Command = "/minescript update",
+                ArgumentCount = 2,
+                ArgumentsList = new string[]
+                {
+                    "Путь к файлу на сервере",
+                    "Загрузить файл"
+                },
+                ArgumentType = new string[]
+                {
+                    "TextBox",
+                    "Button"
+                },
+                CommandInfo = "Обновляет скрипт с Mineweb сервера",
+                IsForServer = true
+            },
+            new Arguments()
+            {
+                Command = "/minescript remove",
+                ArgumentCount = 1,
+                ArgumentsList = new string[]
+                {
+                    "Путь к файлу на сервере"
+                },
+                ArgumentType = new string[]
+                {
+                    "TextBox"
+                },
+                CommandInfo = "Удаляет скрипт с Mineweb сервера",
+                IsForServer = true
             }
         };
     }

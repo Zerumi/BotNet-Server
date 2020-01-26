@@ -14,7 +14,10 @@ namespace CommandsLibrary
             "/startinvis",
             "/nameofpc",
             "/screen",
-            "/update"
+            "/update",
+            "/minescript add",
+            "/minescript update",
+            "/minescript remove"
         };
     }
 }
