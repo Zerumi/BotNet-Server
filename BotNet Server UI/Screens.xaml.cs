@@ -55,10 +55,10 @@ namespace BotNet_Server_UI
             var element = e.OriginalSource as FrameworkElement;
             var name = element?.Name;
             var screen = await ApiRequest.GetProductAsync<Screen>("/api/v1/screens/" + name.Remove(0, 1));
-            nameofpc = ip[Convert.ToInt32(name.Remove(0, 1))].nameofpc;
+            nameofpc = ip.Find(x=>x.id == Convert.ToInt32(name.Remove(0,1))).nameofpc;
             ScreenBox screenBox = new ScreenBox(screen.screens, nameofpc)
             {
-                Title = "Скриншоты " + ip[Convert.ToInt32(name.Remove(0, 1))].nameofpc
+                Title = "Скриншоты " + nameofpc
             };
             screenBox.Show();
         }

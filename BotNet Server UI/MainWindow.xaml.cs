@@ -15,6 +15,8 @@ using System.Configuration;
 using CommandsLibrary;
 using System.IO;
 
+// add name of buttons for switching
+// add api integrate for add scripts
 namespace BotNet_Server_UI
 {
     /// <summary>
@@ -146,7 +148,24 @@ namespace BotNet_Server_UI
                 }
                 if (!ipsall)
                 {
-                    if (ips == null)
+                    bool isArrayValid = false;
+                    try
+                    {
+                        Array.ConvertAll(ips, x => int.Parse(x));
+                        isArrayValid = true;
+                    }
+                    catch (Exception)
+                    {
+                        if (ips[0] == null)
+                        {
+                            
+                        }
+                        else if (ips[0] == "all" || ips[0] == "null")
+                        {
+                            isArrayValid = true;
+                        }
+                    }
+                    if (ips == null || !isArrayValid)
                     {
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Программа запустилось впервые и не имеет заданного списка ID\r\n";
                         IPSet iPSet = new IPSet(true);
