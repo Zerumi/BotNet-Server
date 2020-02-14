@@ -145,7 +145,7 @@ namespace CommandsLibrary
                 CommandInfo = "Загружает/Пересоздает в основную папку клиента загруженный вами файл (используется для обновления .dll)",
                 IsForServer = false
             },
-            new Arguments()
+            /*new Arguments()
             {
                 Command = "/minescript add",
                 ArgumentCount = 2,
@@ -193,7 +193,7 @@ namespace CommandsLibrary
                 },
                 CommandInfo = "Удаляет скрипт с Mineweb сервера",
                 IsForServer = true
-            }
+            }*/
         };
     }
 }

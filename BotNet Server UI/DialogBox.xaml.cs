@@ -35,7 +35,6 @@ namespace BotNet_Server_UI
                 {
                     m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Authorization) Пароль неправильный, возвращаю окно в исходное положение\r\n";
                     MessageBox.Show("Неправильный пароль");
-                    AuthButton.IsEnabled = true;
                 }
             }
             catch (Exception ex)
@@ -44,6 +43,10 @@ namespace BotNet_Server_UI
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
                 m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
                 m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
+            finally
+            {
+                AuthButton.IsEnabled = true;
             }
         }
 
@@ -66,7 +69,6 @@ namespace BotNet_Server_UI
                     {
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Authorization) Пароль неправильный, возвращаю окно в исходное положение\r\n";
                         MessageBox.Show("Неправильный пароль");
-                        AuthButton.IsEnabled = true;
                     }
                 }
             }
@@ -76,6 +78,10 @@ namespace BotNet_Server_UI
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
                 m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
                 m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
+            finally
+            {
+                AuthButton.IsEnabled = true;
             }
         }
     }

@@ -156,7 +156,7 @@ namespace BotNet_Server_UI
                     }
                     catch (Exception)
                     {
-                        if (ips[0] == null)
+                        if (ips == null)
                         {
                             
                         }
@@ -819,7 +819,7 @@ namespace BotNet_Server_UI
         {
             try
             {
-                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.5.0 beta 1\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.4.2 release 3\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
