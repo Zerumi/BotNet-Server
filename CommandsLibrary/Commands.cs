@@ -15,9 +15,10 @@ namespace CommandsLibrary
             "/nameofpc",
             "/screen",
             "/update",
-            /*"/minescript add",
+            "/minescript add",
             "/minescript update",
-            "/minescript remove"*/
+            "/minescript remove",
+            "/testcontrol"
         };
     }
 }

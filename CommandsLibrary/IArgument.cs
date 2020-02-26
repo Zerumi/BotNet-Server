@@ -7,7 +7,9 @@ namespace CommandsLibrary
         public string Command { get; set; }
         public int ArgumentCount { get; set; }
         public string[] ArgumentsList { get; set; }
-        public string[] ArgumentType { get; set; }
+        public string[] ArgumentsName { get; set; }
+        public System.Type[] ArgumentType { get; set; }
+        //public object[][] ArgumentArgs { get; set; }
         public bool IsForServer { get; set; }
         public string CommandInfo { get; set; }
     }
