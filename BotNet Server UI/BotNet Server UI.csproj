@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="UpdateCenterRequest.cs" />
     <Compile Include="UpdateFile.cs" />
+    <Compile Include="VerifyVersion.cs" />
     <Page Include="CommandsInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,6 +187,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CommandsLibrary\CommandsLibrary.csproj">
       <Project>{059beffe-0000-4660-9e1c-fb2fc393a4c8}</Project>
       <Name>CommandsLibrary</Name>
@@ -198,9 +202,6 @@
       <Project>{fcbef22d-1ac8-431a-8c72-3ae8186b013a}</Project>
       <Name>m3md2_startup</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

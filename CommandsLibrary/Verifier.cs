@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CommandsLibrary
 {
-    class Verifier
+    public static class Verifier
     {
-        public const string version = "2.1";
-        public static (string, int) Verify()
+        public static string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static (string, string) Verify()
         {
-            return (version, 0);
+            return ("cmdlib",version);
         }
     }
 }

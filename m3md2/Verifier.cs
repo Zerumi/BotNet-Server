@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace m3md2
 {
-    class Verifier
+    public static class Verifier
     {
-        public const string version = "1.3";
-        public static (string, int) Verify()
+        public static string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static (string, string) Verify()
         {
-            return (version, 0);
+            return ("m3md2",version);
         }
     }
 }
