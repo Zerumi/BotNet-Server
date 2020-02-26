@@ -50,6 +50,7 @@
     <Compile Include="IArgument.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Verifier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
