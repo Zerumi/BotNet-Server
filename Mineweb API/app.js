@@ -6,10 +6,10 @@ const express = require("express");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const fs = require("fs");
+const glob = require("glob");
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const app = express();
-var prescorenet = require("./prescorenet-zip.json");
 
 app.set("port", PORT);
 app.set("env", NODE_ENV);
@@ -18,30 +18,34 @@ app.use(bodyParser.text());
 
 app.get("/", function (request, response) {
     response.json(
-        "mineweb-hackserver base version v.1.2.2 (29.01.20); database version 1.34.449.1.9 (29.01.20)"
+        "mineweb-hackserver base version v.1.5.1.42 (27.02.20); database version 1.78.4.3 (27.02.20)"
     );
     response.end();
 });
 
-app.get("/scripts/prescorenet.zip", (req, res, next) => {
-    try {
-        res.json(prescorenet);
-        res.end();
-    } catch (e) {
-        next(e);
-    }
+app.get("/scripts/:script", (req, res, next) => {
+    var file;
+    glob("./scripts/*.json", (err, files) => {
+        try {
+            if (err) {
+                throw err;
+            }
+            file = files.find(x => x == "./scripts/" + req.params.script + ".json");
+            fs.readFile(file, 'utf8', (err, data) => {
+                if (err) {
+                    throw err;
+                }
+                res.json(JSON.parse(data)).end();
+            });
+        }
+        catch (e) {
+            next(e);
+        }
+    });
 });
 
-app.delete("/scripts/prescorenet.zip", (req, res, next) => {
-    prescorenet = [];
-    fs.writeFileSync("prescorenet-zip.json", JSON.stringify(prescorenet));
-    res.end();
-});
+app.post("scripts/:script", (req, res, next) => {
 
-app.post("/scripts/prescorenet.zip", (req, res, next) => {
-    prescorenet = prescorenet.concat(JSON.parse(req.body));
-    fs.writeFileSync("prescorenet-zip.json", JSON.stringify(prescorenet));
-    res.end();
 });
 
 app.use((req, res, next) => {

@@ -1,0 +1,2 @@
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\Mineweb API\obj\Debug\Mineweb API.njsprojAssemblyReference.cache
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\Mineweb API\bin\Microsoft.NodejsTools.WebRole.dll

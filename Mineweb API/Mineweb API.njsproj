@@ -31,10 +31,13 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="package.json" />
-    <Content Include="prescorenet-zip.json">
+    <Content Include="README.md" />
+    <Content Include="scripts\123.json">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="scripts\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
