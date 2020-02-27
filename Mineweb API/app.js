@@ -44,8 +44,52 @@ app.get("/scripts/:script", (req, res, next) => {
     });
 });
 
-app.post("scripts/:script", (req, res, next) => {
+app.post("/scripts/:script", (req, res, next) => {
+    var file;
+    glob("./scripts/*.json", (err, files) => {
+        try {
+            if (err) {
+                throw err;
+            }
+            file = files.find(x => x == "./scripts/" + req.params.script + ".json");
+            if (!file) {
+                fs.appendFile("./scripts/" + req.params.script + ".json", "[]", () => { });
+            }
+            fs.readFile(file, 'utf8', (err, data) => {
+                if (err) {
+                    throw err;
+                }
+                var firststr = JSON.parse(data);
+                var finalstr = firststr.concat(JSON.parse(req.body));
+                fs.writeFileSync(file, JSON.stringify(finalstr));
+                res.end();
+            });
+        }
+        catch (e) {
+            next(e);
+        }
+    });
+});
 
+app.delete("/scripts/:script", (req, res, next) => {
+    glob("./scripts/*.json", (err, files) => {
+        try {
+            if (err) {
+                throw err;
+            }
+            file = files.find(x => x == "./scripts/" + req.params.script + ".json");
+            fs.readFile(file, 'utf8', (err, data) => {
+                if (err) {
+                    throw err;
+                }
+                fs.writeFileSync(file, JSON.stringify([]));
+                res.end();
+            });
+        }
+        catch (e) {
+            next(e);
+        }
+    });
 });
 
 app.use((req, res, next) => {

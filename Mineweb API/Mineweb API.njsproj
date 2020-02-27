@@ -32,9 +32,6 @@
     <Content Include="app.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <Content Include="scripts\123.json">
-      <SubType>Code</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="scripts\" />
