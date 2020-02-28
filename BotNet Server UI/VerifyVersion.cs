@@ -5,6 +5,9 @@ namespace BotNet_Server_UI
     class VerifyVersion
     {
         public string version { get; set; }
+        public bool isDeprecated { get; set; }
+        public bool isUpdateNeeded { get; set; }
+        public bool isNotLatest { get; set; }
         public string[] cmdlib { get; set; }
         public string[] m3md2 { get; set; }
         public string[] m3md2_startup { get; set; }

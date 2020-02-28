@@ -30,10 +30,22 @@ namespace BotNet_Server_UI
                 _ = Assembly.Load("m3md2");
                 _ = Assembly.Load("m3md2_startup");
                 _ = Assembly.Load("CommandsLibrary");
+                VerifyVersion version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/v1/support/versions/{Assembly.GetExecutingAssembly().GetName().Version.ToString()}");
+                if (version.isDeprecated)
+                {
+                    throw new NotSupportedException("Данная версия программы устарела. Пожалуйста, загрузите новую версию в разделе Releases");
+                }
+                else if (version.isUpdateNeeded)
+                {
+                    System.Windows.MessageBox.Show("Данная версия программы скоро устареет. Пожалуйста, загрузите новую версию программы в разделе Releases", "", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                }
+                else if (version.isNotLatest)
+                {
+                    System.Windows.MessageBox.Show("Доступно обновление для этой программы, которое содержит множество исправлений и улучшений, вы можете загрузить его в разделе Releases", "", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                }
                 var cmdlib = CommandsLibrary.Verifier.Verify();
                 var m3md = m3md2.Verifier.Verify();
                 var m3md_startup = m3md2_startup.Verifier.Verify();
-                VerifyVersion version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/v1/support/versions/{Assembly.GetExecutingAssembly().GetName().Version.ToString()}");
                 if (!(version.cmdlib.Contains(cmdlib.Item2) && version.m3md2.Contains(m3md.Item2) && version.m3md2_startup.Contains(m3md_startup.Item2)))
                 {
                     throw new PlatformNotSupportedException("Данная версия библиотеки не поддерживается этим экземпляром оболочки");
