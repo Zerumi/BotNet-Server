@@ -47,7 +47,7 @@ namespace BotNet_Server_UI
             {
                 for (int i = 0; i < argument.ArgumentsList.Length; i++)
                 {
-                    ArgListBox.Text += argument.ArgumentsList[i] + " - " + argument.ArgumentType[i] + "\n";
+                    ArgListBox.Text += argument.ArgumentsList[i] + " - " + argument.ArgumentType[i].Name + "\n";
                 }
             }
             CmdDescription.Text = argument.CommandInfo;
