@@ -207,41 +207,22 @@ namespace CommandsLibrary
             },
             new Arguments()
             {
-                Command = "/minescript update",
+                Command = "/minescript remove",
                 ArgumentCount = 2,
                 ArgumentsList = new string[]
                 {
                     "Путь к файлу на сервере",
-                    "Загрузить файл"
+                    "Удалить"
                 },
                 ArgumentsName = new string[]
                 {
-                    "mines_update_FilePath",
-                    "minesupdate_Download"
+                    "mines_remove_FilePath",
+                    "mines_remove_bRemove"
                 },
                 ArgumentType = new Type[]
                 {
                     typeof(TextBox),
                     typeof(Button)
-                },
-                CommandInfo = "Обновляет скрипт с Mineweb сервера",
-                IsForServer = true
-            },
-            new Arguments()
-            {
-                Command = "/minescript remove",
-                ArgumentCount = 1,
-                ArgumentsList = new string[]
-                {
-                    "Путь к файлу на сервере"
-                },
-                ArgumentsName = new string[]
-                {
-                    "mines_remove_FilePath"
-                },
-                ArgumentType = new Type[]
-                {
-                    typeof(TextBox)
                 },
                 CommandInfo = "Удаляет скрипт с Mineweb сервера",
                 IsForServer = true

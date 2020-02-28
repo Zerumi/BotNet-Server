@@ -14,8 +14,8 @@ namespace BotNet_Server_UI
 
         public string ResponseText
         {
-            get { return ResponseTextBox.Text; }
-            set { ResponseTextBox.Text = value; }
+            get { return ResponseTextBox.Password; }
+            set { ResponseTextBox.Password = value; }
         }
 
         private async void OKButton_Click(object sender, RoutedEventArgs e)
@@ -82,6 +82,21 @@ namespace BotNet_Server_UI
             finally
             {
                 AuthButton.IsEnabled = true;
+            }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
             }
         }
     }

@@ -617,6 +617,79 @@ namespace BotNet_Server_UI
                                 SendButton.IsEnabled = true;
                                 break;
                             }
+                        case "mines_add_Download":
+                            {
+                                foreach (var window in Application.Current.Windows)
+                                {
+                                    if (window is IPSet)
+                                    {
+                                        (window as IPSet).isSendFrom = false;
+                                    }
+                                }
+                                Command.IsEnabled = false;
+                                SendButton.IsEnabled = false;
+                                item.IsEnabled = false;
+                                m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_add_FilePath").IsEnabled = false;
+                                byte[] fileContent = new byte[0];
+                                var filePath = string.Empty;
+                                var fileName = string.Empty;
+                                using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
+                                {
+                                    openFileDialog.InitialDirectory = "c:\\";
+                                    openFileDialog.Filter = "All files (*.*)|*.*";
+                                    openFileDialog.FilterIndex = 1;
+                                    openFileDialog.RestoreDirectory = true;
+
+                                    if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                    {
+                                        //Get the path of specified file
+                                        filePath = openFileDialog.FileName;
+                                        fileName = openFileDialog.FileName.Split('\\').LastOrDefault();
+                                        //Read the bytes
+                                        fileContent = File.ReadAllBytes(filePath);
+                                    }
+                                }
+                                fileContent = File.ReadAllBytes(filePath);
+                                List<byte[]> btlist = new List<byte[]>();
+                                int value = 0;
+                                for (int i = 0; i < Math.Ceiling(fileContent.Length / 20000d); i++)//bt это исходный массив байтов
+                                {
+                                    if (fileContent.Length - value > 20000)
+                                    {
+                                        byte[] btt = new byte[20000];
+                                        btlist.Add(btt);
+                                        Array.ConstrainedCopy(fileContent, value, btlist[i], 0, 20000);//копирует элементы одного массива в другой, с указанием начального индекса и количества элементов для копирования
+                                        value += 20000;//счетчик, сколько байтов уже отсчитано
+                                    }
+                                    else
+                                    {
+                                        byte[] btt = new byte[fileContent.Length - value];
+                                        btlist.Add(btt);
+                                        Array.ConstrainedCopy(fileContent, value, btlist[i], 0, fileContent.Length - value);
+                                    }
+                                }
+                                var spath = m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_add_FilePath").Text;
+                                _ = await UpdateCenterRequest.DeleteProductAsync($"{spath}");
+                                int j = 0;
+                                foreach (var item1 in btlist)
+                                {
+                                    _ = await UpdateCenterRequest.CreateProductAsync(item1, spath);
+                                    item.Content = $"Загрузить файл ({++j}/{btlist.Count})";
+                                }
+                                item.Content = "Загрузить файл";
+                                item.IsEnabled = true;
+                                Command.IsEnabled = true;
+                                SendButton.IsEnabled = true;
+                                m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_add_FilePath").IsEnabled = true;
+                                break;
+                            }
+                        case "mines_remove_bRemove":
+                            {
+                                var spath = m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_remove_FilePath").Text;
+                                var code = await UpdateCenterRequest.DeleteProductAsync($"{spath}");
+                                MessageBox.Show($"Запрос на удаление завершен с кодом {code}");
+                                break;
+                            }
 		                default:
                             break;
 	                }
@@ -818,7 +891,7 @@ namespace BotNet_Server_UI
         {
             try
             {
-                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.5.0 beta 21\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.5.0 beta 26\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

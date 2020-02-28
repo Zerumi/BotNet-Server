@@ -33,7 +33,7 @@ namespace BotNet_Server_UI
                 string json = new JavaScriptSerializer().Serialize(product);
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Экземпляр класса преобразован в JSON строку {json}\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю POST запрос на {apilist}\r\n";
-                response = await client.PostAsync($"api/v1/{apilist}", new StringContent(json));
+                response = await client.PostAsync($"scripts/{apilist}", new StringContent(json));
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Ответ от API {(response.IsSuccessStatusCode ? "Обработано успешно" : $"Что-то пошло не так {await response.Content.ReadAsStringAsync()}")}\r\n";
                 response.EnsureSuccessStatusCode();
             }

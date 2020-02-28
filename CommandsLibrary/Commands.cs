@@ -16,9 +16,7 @@ namespace CommandsLibrary
             "/screen",
             "/update",
             "/minescript add",
-            "/minescript update",
-            "/minescript remove",
-            "/testcontrol"
+            "/minescript remove"
         };
     }
 }
