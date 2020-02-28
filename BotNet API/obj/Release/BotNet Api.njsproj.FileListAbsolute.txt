@@ -1,1 +1,2 @@
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet API\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet API\obj\Release\BotNet Api.njsprojAssemblyReference.cache
