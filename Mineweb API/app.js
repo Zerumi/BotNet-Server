@@ -18,7 +18,7 @@ app.use(bodyParser.text());
 
 app.get("/", function(request, response) {
   response.json(
-    "mineweb-hackserver base version v.1.5.1.42 (27.02.20); database version 1.78.4.3 (27.02.20)"
+    "mineweb-hackserver base version v.1.6.4.2 (16.03.20); database version 1.79.0.8 (17.03.20)"
   );
   response.end();
 });
