@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BotNet_Server_UI"
         mc:Ignorable="d"
-        Title="Enter Password" Height="95" Width="170" WindowState="Normal" ResizeMode="CanMinimize">
+        Title="Login" Height="150" Width="170" WindowState="Normal" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <StackPanel>
-        <TextBlock Text="Enter admin password" />
+        <TextBlock Text="Enter server adress:" />
+        <TextBox x:Name="ServerTextBox" KeyDown="Field_KeyDown" />
+        <TextBlock Text="Enter admin password:" />
         <PasswordBox x:Name="ResponseTextBox" KeyDown="Field_KeyDown" />
         <Button x:Name="AuthButton" Content="OK" Click="OKButton_Click" />
         <CheckBox Content="Show letters" Checked="CheckBox_Checked"/>

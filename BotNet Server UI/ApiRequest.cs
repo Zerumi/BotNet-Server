@@ -10,10 +10,14 @@ using System.Windows;
 namespace BotNet_Server_UI
 {
     /// <summary>
-    /// Предоставляет систему обращения к http://botnet-api.glitch.me/
+    /// Предоставляет систему обращения к основному API BotNet
     /// </summary>
     static class ApiRequest
     {
+        /// <summary>
+        /// Адрес API в сети Интернет
+        /// </summary>
+        public static string BaseAdress { get; set; }
         /// <summary>
         /// Отправляет POST запрос на API
         /// </summary>
@@ -28,7 +32,7 @@ namespace BotNet_Server_UI
             {
                 HttpClient client = new HttpClient
                 {
-                    BaseAddress = new Uri("http://botnet-api.glitch.me/")
+                    BaseAddress = new Uri(BaseAdress)
                 };
                 string json = new JavaScriptSerializer().Serialize(product);
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Экземпляр класса преобразован в JSON строку {json}\r\n";
@@ -59,7 +63,7 @@ namespace BotNet_Server_UI
         {
             HttpClient client = new HttpClient
             {
-                BaseAddress = new Uri("http://botnet-api.glitch.me/")
+                BaseAddress = new Uri(BaseAdress)
             };
             T product = default;
             m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю GET запрос на {path}\r\n";
@@ -82,7 +86,7 @@ namespace BotNet_Server_UI
         {
             HttpClient client = new HttpClient
             {
-                BaseAddress = new Uri("http://botnet-api.glitch.me/")
+                BaseAddress = new Uri(BaseAdress)
             };
             m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю DELETE запрос на {apilist}/{id}\r\n";
             HttpResponseMessage response = await client.DeleteAsync(
@@ -103,7 +107,7 @@ namespace BotNet_Server_UI
             {
                 HttpClient client = new HttpClient
                 {
-                    BaseAddress = new Uri("http://botnet-api.glitch.me/")
+                    BaseAddress = new Uri(BaseAdress)
                 };
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю DELETE запрос на {path}\r\n";
                 response = await client.DeleteAsync(path);

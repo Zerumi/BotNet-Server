@@ -17,7 +17,6 @@ namespace m3md2
         {
             public static string ColorTheme { get; set; }
             public static bool IgnoreBigLog { get; set; }
-            public static string MainUri { get; set; }
         }
         public static class Windows
         {

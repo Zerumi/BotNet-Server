@@ -5,8 +5,9 @@
     "\\BotNet Server UI",
     "\\CommandsLibrary",
     "\\m3md2",
-    "\\m3md2_startup"
+    "\\m3md2_startup",
+    "\\Mineweb API"
   ],
-  "SelectedNode": "\\BotNet API\\app.js",
+  "SelectedNode": "\\Mineweb API\\package-lock.json",
   "PreviewInSolutionExplorer": false
 }
