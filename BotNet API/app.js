@@ -14,6 +14,7 @@ const update = require("./update.json");
 const versions = require("./versions.json");
 var messages = require("./messages.json");
 var responses = require("./responses.json");
+require('dotenv').config();
 app.set("port", PORT);
 app.set("env", NODE_ENV);
 app.use(logger("tiny"));
@@ -179,8 +180,8 @@ app.delete("/api/v1/messages", (req, res, next) => {
 });
 app.get("/api", function (req, res) {
     var json = {
-        uri: "http://botnet-api.glitch.me/",
-        version: 1,
+        uri: "http://botnet-sandbox.glitch.me/",
+        version: 2,
         port: PORT,
         environment: NODE_ENV,
         clients: ip.length,

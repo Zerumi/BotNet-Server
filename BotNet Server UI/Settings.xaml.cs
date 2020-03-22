@@ -38,6 +38,7 @@ namespace BotNet_Server_UI
                         m3md2.StaticVariables.Settings.ColorTheme = combobox.Text;
                         MessageBox.Show("Для применения изменений программа будет перезапущена без ввода пароля", "Настройки", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                         Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
+                        m3md2.StaticVariables.Diagnostics.ProgramInfo = "";
                         Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                         foreach (var window in Application.Current.Windows)
                         {
@@ -70,12 +71,65 @@ namespace BotNet_Server_UI
                             else if ((u2 as KeyValueConfigurationElement).Key == "Expect100Continue")
                             {
                                 (u2 as KeyValueConfigurationElement).Value = (!checkbox1.IsChecked.GetValueOrDefault()).ToString();
-	                        }
+                            }
                         }
                         appSettings.Save(ConfigurationSaveMode.Minimal);
                         ConfigurationManager.RefreshSection("appSettings");
                         m3md2.StaticVariables.Settings.IgnoreBigLog = checkbox.IsChecked.GetValueOrDefault();
                         Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
+                    }
+                }
+            }),
+            new RoutedEventHandler((object sender, RoutedEventArgs e) => {
+                foreach (var item in Application.Current.Windows)
+                {
+                    if((item as Window).Name == "settings")
+                    {
+                        var mineweb = m3md2.WinHelper.FindChild<TextBox>(item as Window, "ApiChoose");
+                        var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                        foreach (var u2 in appSettings.AppSettings.Settings)
+                        {
+                            if ((u2 as KeyValueConfigurationElement).Key == "MineWebUri")
+                            {
+                                (u2 as KeyValueConfigurationElement).Value = mineweb.Text;
+                            }
+                        }
+                        appSettings.Save(ConfigurationSaveMode.Minimal);
+                        ConfigurationManager.RefreshSection("appSettings");
+                        Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
+
+                        MessageBoxResult result = MessageBox.Show("Чтобы изменения вступили в силу, программу нужно перезагрузить. Сделать это сейчас?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            System.Windows.Forms.Application.Restart();
+
+                            System.Windows.Application.Current.Shutdown();
+                        }   
+                        else
+                        {
+                            return;
+                        }
+                    }
+                }
+            })
+        };
+
+        Action[] loadmethods = new Action[]
+        {
+            new Action(() => {
+
+            }),
+            new Action(() => {
+
+            }),
+            new Action(() => {
+                foreach (var item in Application.Current.Windows)
+                {
+                    if((item as Window).Name == "settings")
+                    {
+                        var mineweb = m3md2.WinHelper.FindChild<TextBox>(item as Window, "ApiChoose");
+                        mineweb.Text = ConfigurationManager.AppSettings.Get("MineWebUri");
                     }
                 }
             })
@@ -100,7 +154,6 @@ namespace BotNet_Server_UI
                     goto linkforech;
                 }
             }
-
         }
 
         public Settings()
@@ -144,6 +197,7 @@ namespace BotNet_Server_UI
                     }
                     Grid.Children.Add(element);
                 }
+                loadmethods[items.IndexOf(sender as TreeViewItem)].Invoke();
                 Apply.Visibility = Visibility.Visible;
                 foreach (var method in methods)
                 {

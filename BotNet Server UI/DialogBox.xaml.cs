@@ -44,7 +44,8 @@ namespace BotNet_Server_UI
         {
             try
             {
-                ApiRequest.BaseAdress = ServerText;
+                ApiRequest.BaseAddress = ServerText;
+                UpdateCenterRequest.BaseAddress = System.Configuration.ConfigurationManager.AppSettings.Get("MineWebUri");
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Authorization) Запускаю проверку пароля\r\n";
                 AuthButton.IsEnabled = false;
                 if (await ApiRequest.GetProductAsync<bool>($"api/v1/admin/{ResponseText}"))
@@ -56,7 +57,6 @@ namespace BotNet_Server_UI
                         {
                             (s as System.Configuration.KeyValueConfigurationElement).Value = ServerText;
                         }
-                    
                     }
                     appSettings.Save(System.Configuration.ConfigurationSaveMode.Minimal);
                     System.Configuration.ConfigurationManager.RefreshSection("appSettings");

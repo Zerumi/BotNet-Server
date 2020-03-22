@@ -510,7 +510,7 @@ namespace BotNet_Server_UI
                     m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenInfo) Что-то пошло не так и Api вернула null, повторяю запрос...\r\n";
                     goto linkinfo;
                 }
-                await InfoBlock.Dispatcher.BeginInvoke(new Action(() => InfoBlock.Text = "Подключено к " + ApiRequest.BaseAdress + "\nПорт: " + Info.port + "\nAPI версии " + Info.version + " / Среда разработки " + Info.environment + "\nВсего клиентов: " + Info.clients + " / Всего сообщений: " + Info.messages));
+                await InfoBlock.Dispatcher.BeginInvoke(new Action(() => InfoBlock.Text = "Подключено к " + ApiRequest.BaseAddress + "\nПорт: " + Info.port + "\nAPI версии " + Info.version + " / Среда разработки " + Info.environment + "\nВсего клиентов: " + Info.clients + " / Всего сообщений: " + Info.messages));
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenInfo) Обновляю InfoBlock данного окна на полученный экземпляр класса Info\r\n";
             }
             catch (Exception ex)
@@ -916,7 +916,7 @@ namespace BotNet_Server_UI
         {
             try
             {
-                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.6.0 beta 1\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.6.0 beta 3\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -935,6 +935,22 @@ namespace BotNet_Server_UI
                 Grid.Children.Remove(args[i]);
             }
             args.Clear();
+        }
+
+        private void ChangeServer_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Вы действительно хотите изменить сервер? (Программа будет перезагружена)", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                System.Windows.Forms.Application.Restart();
+
+                System.Windows.Application.Current.Shutdown();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

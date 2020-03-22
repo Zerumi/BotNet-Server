@@ -52,6 +52,7 @@
                 <MenuItem Header="Задать ID" Click="IPSetButton_Click"/>
                 <MenuItem Header="Настройки" Click="Settings_Click"/>
                 <MenuItem Header="Открыть в проводнике" Click="MenuItem_Click"/>
+                <MenuItem Header="Сменить адрес" Click="ChangeServer_Click"/>
             </MenuItem>
             <MenuItem Header="Диагностика">
                 <MenuItem Header="Инструмент проверки целостности" Click="Diagnostic1_Click"/>

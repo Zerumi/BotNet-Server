@@ -13,7 +13,8 @@ namespace m3md2_startup
         public static string[] SettingsList =
         {
             "Цветовая тема",
-            "Предупреждения"
+            "Предупреждения",
+            "API"
         };
         public static Settings[] settings =
         {
@@ -58,6 +59,24 @@ namespace m3md2_startup
                         Name = "Expect100Continue",
                         Content = "Игнорировать ожидание (Может помочь, если не работает отправка команд)",
                         Margin = new Thickness(10,30,10,350)
+                    }
+                }
+            },
+            new Settings()
+            {
+                Setting = "API",
+                SettingObjects = new object[]
+                {
+                    new Label()
+                    {
+                        Content = "Введите адрес MinewebAPI:",
+                        Margin = new Thickness(35,40,35,40),
+                        FontSize = 11
+                    },
+                    new TextBox()
+                    {
+                        Name = "ApiChoose",
+                        Margin = new Thickness(40,65,140,315)
                     }
                 }
             }

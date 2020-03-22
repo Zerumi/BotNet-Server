@@ -8,12 +8,16 @@ using System.Web.Script.Serialization;
 using System.Windows;
 
 /// <summary>
-/// Предоставляет систему обращений к http://mineweb-hackserver.glitch.me/
+/// Предоставляет систему обращений к загрузочному API
 /// </summary>
 namespace BotNet_Server_UI
 {
-    class UpdateCenterRequest
+    static class UpdateCenterRequest
     {
+        /// <summary>
+        /// Адрес API в сети Интернет
+        /// </summary>
+        public static string BaseAddress { get; set; }
         /// <summary>
         /// Отправляет POST запрос на сервер
         /// </summary>
@@ -28,7 +32,7 @@ namespace BotNet_Server_UI
             {
                 HttpClient client = new HttpClient
                 {
-                    BaseAddress = new Uri("http://mineweb-hackserver.glitch.me/")
+                    BaseAddress = new Uri(BaseAddress)
                 };
                 string json = new JavaScriptSerializer().Serialize(product);
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Экземпляр класса преобразован в JSON строку {json}\r\n";

@@ -33,6 +33,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".env">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="app.js" />
     <Content Include="ip.json">
       <SubType>Code</SubType>
