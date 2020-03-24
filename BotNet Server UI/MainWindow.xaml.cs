@@ -434,13 +434,16 @@ namespace BotNet_Server_UI
         bool isSendBlocked;
         private void Command_TextChanged(object sender, TextChangedEventArgs e)
         {
+            bool isCommandWrote = false;
             try
             {
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) Набирается команда, проверяю на совпадение\r\n";
+                ListHelper.Items.Clear();
                 for (int i = 0; i < Arguments.arguments.Length; i++)
                 {
                     if (Command.Text == Arguments.arguments[i].Command)
                     {
+                        isCommandWrote = true;
                         ClearCommands();
                         if (Arguments.arguments[i].IsForServer)
                         {
@@ -478,15 +481,31 @@ namespace BotNet_Server_UI
                             Grid.Children.Add(args[j]);
                             m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow CommandHelper) В поле с аргументами добавлен {argtype} {Arguments.arguments[i].ArgumentsList[j]}\r\n";
                         }
-                        return;
+                    }
+                    if (Commands.commands[i].Contains(Command.Text) && Commands.commands[i] != Command.Text)
+                    {
+                        var templboxitem = new ListBoxItem()
+                        {
+                            Content = Commands.commands[i]
+                        };
+                        templboxitem.PreviewMouseDown += Templboxitem_PreviewMouseDown;
+                        ListHelper.Visibility = Visibility.Visible;
+                        ListHelper.Items.Add(templboxitem);
                     }
                 }
-                ClearCommands();
-                if (isSendBlocked)
+                if (ListHelper.Items.Count == 0)
                 {
-                    SendButton.IsEnabled = true;
-                    Command.KeyDown += Command_KeyDown;
-                    isSendBlocked = false;
+                    ListHelper.Visibility = Visibility.Hidden;
+                }
+                if (!isCommandWrote)
+                {
+                    ClearCommands();
+                    if (isSendBlocked)
+                    {
+                        SendButton.IsEnabled = true;
+                        Command.KeyDown += Command_KeyDown;
+                        isSendBlocked = false;
+                    }
                 }
             }
             catch (Exception ex)
@@ -496,6 +515,12 @@ namespace BotNet_Server_UI
                 m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
                 m3md2.StaticVariables.Diagnostics.ExceptionCount++;
             }
+        }
+
+        private void Templboxitem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Command.Text = Convert.ToString((sender as ListBoxItem).Content);
+            ListHelper.Visibility = Visibility.Hidden;
         }
 
         private async void ListenInfo()
