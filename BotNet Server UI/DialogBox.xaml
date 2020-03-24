@@ -5,13 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BotNet_Server_UI"
         mc:Ignorable="d"
-        Title="Login" Height="150" Width="170" WindowState="Normal" ResizeMode="CanMinimize" Loaded="Window_Loaded">
-    <StackPanel>
-        <TextBlock Text="Enter server adress:" />
-        <TextBox x:Name="ServerTextBox" KeyDown="Field_KeyDown" />
-        <TextBlock Text="Enter admin password:" />
-        <PasswordBox x:Name="ResponseTextBox" KeyDown="Field_KeyDown" />
-        <Button x:Name="AuthButton" Content="OK" Click="OKButton_Click" />
-        <CheckBox Content="Show letters" Checked="CheckBox_Checked"/>
-    </StackPanel>
+        Title="Login" Height="170" Width="170" WindowState="Normal" ResizeMode="CanMinimize" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Enter server adress:" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="0"/>
+        <TextBox x:Name="ServerTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Center" KeyDown="Field_KeyDown" Grid.Row="1"/>
+        <TextBlock Text="Enter admin password:" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="2"/>
+        <TextBox x:Name="sResponseTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" KeyDown="Field_KeyDown" Grid.Row="3" Visibility="Collapsed"/>
+        <PasswordBox x:Name="ResponseTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" KeyDown="Field_KeyDown" Grid.Row="3"/>
+        <Button x:Name="AuthButton" Content="OK" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="OKButton_Click" Grid.Row="4"/>
+        <CheckBox x:Name="cbShow" Content="Show letters" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsChecked="False" Checked="CheckBox_Checked" Unchecked="cbShow_Unchecked" Grid.Row="5"/>
+    </Grid>
 </Window>

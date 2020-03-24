@@ -17,8 +17,20 @@ namespace BotNet_Server_UI
 
         public string ResponseText
         {
-            get { return ResponseTextBox.Password; }
-            set { ResponseTextBox.Password = value; }
+            get {
+                if (cbShow.IsChecked.GetValueOrDefault())
+                {
+                    return sResponseTextBox.Text;
+                }
+                return ResponseTextBox.Password; 
+            }
+            set {
+                if (cbShow.IsChecked.GetValueOrDefault())
+                {
+                    sResponseTextBox.Text = value;
+                }
+                ResponseTextBox.Password = value;
+            }
         }
 
         public string ServerText
@@ -91,7 +103,30 @@ namespace BotNet_Server_UI
         {
             try
             {
-                throw new NotImplementedException();
+                ResponseTextBox.Visibility = System.Windows.Visibility.Collapsed;
+                sResponseTextBox.Visibility = System.Windows.Visibility.Visible;
+                sResponseTextBox.Text = ResponseTextBox.Password;
+
+                sResponseTextBox.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
+                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
+                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+            }
+        }
+
+        private void cbShow_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                sResponseTextBox.Visibility = System.Windows.Visibility.Collapsed;
+                ResponseTextBox.Visibility = System.Windows.Visibility.Visible;
+                ResponseTextBox.Password = sResponseTextBox.Text;
+
+                ResponseTextBox.Focus();
             }
             catch (Exception ex)
             {
