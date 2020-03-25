@@ -191,7 +191,7 @@ namespace BotNet_Server_UI
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Создан экземпляр Message: Команда {message.command} / ID {message.ids}\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Отправлен ApiRequest.Create(message) на messages\r\n";
                 Uri res = await ApiRequest.CreateProductAsync(message, "messages");
-                LogPanel.Text += $"({DateTime.Now.ToLongTimeString()}) Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>("api/v1/messages") - 1}) отправлена.\r\n";
+                LogPanel.Text += $"({DateTime.Now.ToLongTimeString()}) Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>($"api/v{ApiRequest.ApiVersion}/messages") - 1}) отправлена.\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event to MainWindow.LogPanel) Команда {command} / {showcommand} отправлена.\r\n";
                 ListenInfo();
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Обновлена информация API\r\n";
@@ -245,10 +245,10 @@ namespace BotNet_Server_UI
             try
             {
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow loaded event) Форма загружена\r\n";
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWIndow loaded event) Отправлен ApiRequest.Delete на api/v1/messages\r\n";
-                _ = await ApiRequest.DeleteProductsAsync("api/v1/messages");
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow loaded event) Отправлен ApiRequest.Delete на api/v1/responses\r\n";
-                _ = await ApiRequest.DeleteProductsAsync("api/v1/responses");
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWIndow loaded event) Отправлен ApiRequest.Delete на api/v{ApiRequest.ApiVersion}/messages\r\n";
+                _ = await ApiRequest.DeleteProductsAsync($"api/v{ApiRequest.ApiVersion}/messages");
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow loaded event) Отправлен ApiRequest.Delete на api/v{ApiRequest.ApiVersion}/responses\r\n";
+                _ = await ApiRequest.DeleteProductsAsync($"api/v{ApiRequest.ApiVersion}/responses");
             }
             catch (Exception ex)
             {
@@ -308,8 +308,8 @@ namespace BotNet_Server_UI
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenClients) Обнаружено что CanListen false, прослушка останавливается...\r\n";
                         return;
                     }
-                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenClients) Отправлен ApiRequest.Get на api/v1/client\r\n";
-                    arr = await ApiRequest.GetProductAsync<IP[]>("/api/v1/client");
+                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenClients) Отправлен ApiRequest.Get на api/{ApiRequest.ApiVersion}/client\r\n";
+                    arr = await ApiRequest.GetProductAsync<IP[]>($"/api/v{ApiRequest.ApiVersion}/client");
                     if (arr == null)
                     {
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenClients) Что-то пошло не так и API вернула null, продолжаем прослушку...\r\n";
@@ -357,8 +357,8 @@ namespace BotNet_Server_UI
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Обнаружено, что CanListen false. Останавливаю прослушку...\r\n";
                         return;
                     }
-                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Отправлен ApiRequest.Get на api/v1/responses\r\n";
-                    Responses[] responses = await ApiRequest.GetProductAsync<Responses[]>("api/v1/responses");
+                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Отправлен ApiRequest.Get на api/v{ApiRequest.ApiVersion}/responses\r\n";
+                    Responses[] responses = await ApiRequest.GetProductAsync<Responses[]>($"api/v{ApiRequest.ApiVersion}/responses");
                     if (responses == null)
                     {
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Что-то пошло не так и API вернула null, продолжаю прослушку...\r\n";
@@ -370,8 +370,8 @@ namespace BotNet_Server_UI
                         isFirstIter = false;
                         for (int i = 0; i < responses.Length; i++)
                         {
-                            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) В массив responses добавляется ApiRequest.Get по api/v1/responses/{responses[i].id}\r\n";
-                            vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].id}") - 1);
+                            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) В массив responses добавляется ApiRequest.Get по api/v{ApiRequest.ApiVersion}/responses/{responses[i].id}\r\n";
+                            vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v{ApiRequest.ApiVersion}/responses/{responses[i].id}") - 1);
                         }
                     }
                     if (vars.Count != responses.Length)
@@ -379,17 +379,17 @@ namespace BotNet_Server_UI
                         for (int i = vars.Count; i < responses.Length; i++)
                         {
                             m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) В ответах системы обнаружен новый ответ, добавляем в массив\r\n";
-                            vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].id}") - 1);
+                            vars.Add(await ApiRequest.GetProductAsync<uint>($"api/v{ApiRequest.ApiVersion}/responses/{responses[i].id}") - 1);
                         }
                     }
                     for (int i = 0; i < responses.Length; i++)
                     {
-                        uint var1 = await ApiRequest.GetProductAsync<uint>($"api/v1/responses/{responses[i].id}") - 1;
+                        uint var1 = await ApiRequest.GetProductAsync<uint>($"api/v{ApiRequest.ApiVersion}/responses/{responses[i].id}") - 1;
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Переменная var1 равна {var1}\r\n";
                         if (var1 == vars[i])
                         {
                             m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Обнаружен новый ответ от клиента. Подгатавливаем его вывод...\r\n";
-                            Response response = await ApiRequest.GetProductAsync<Response>($"api/v1/responses/{responses[i].id}/{var1}");
+                            Response response = await ApiRequest.GetProductAsync<Response>($"api/v{ApiRequest.ApiVersion}/responses/{responses[i].id}/{var1}");
                             if (response != null)
                             {
                                 await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") " + response.response + "\n"));
@@ -941,7 +941,7 @@ namespace BotNet_Server_UI
         {
             try
             {
-                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.6.0 beta 6\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.6.0 beta 7\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -976,6 +976,16 @@ namespace BotNet_Server_UI
             {
                 return;
             }
+        }
+
+        private void Command_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ListHelper.Visibility = Visibility.Hidden;
+        }
+
+        private void Command_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Command_TextChanged(sender, new TextChangedEventArgs(e.RoutedEvent, UndoAction.None));
         }
     }
 }

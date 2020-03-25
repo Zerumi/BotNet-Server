@@ -19,11 +19,15 @@ namespace BotNet_Server_UI
         /// </summary>
         public static string BaseAddress { get; set; }
         /// <summary>
+        /// Версия API
+        /// </summary>
+        public static uint ApiVersion { get; set; }
+        /// <summary>
         /// Отправляет POST запрос на API
         /// </summary>
         /// <typeparam name="T">Класс, объект которого отправляется</typeparam>
         /// <param name="product">Экземпляр клаасса T для отправки</param>
-        /// <param name="apilist">Путь в формате api/v1/{apilist}</param>
+        /// <param name="apilist">Путь в формате api/v{apiversion}/{apilist}</param>
         /// <returns>Асинхронную задачу с Uri этой операции</returns>
         public static async Task<Uri> CreateProductAsync<T>(T product, string apilist)
         {
@@ -37,7 +41,7 @@ namespace BotNet_Server_UI
                 string json = new JavaScriptSerializer().Serialize(product);
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Экземпляр класса преобразован в JSON строку {json}\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю POST запрос на {apilist}\r\n";
-                response = await client.PostAsync($"api/v1/{apilist}", new StringContent(json));
+                response = await client.PostAsync($"api/v{ApiVersion}/{apilist}", new StringContent(json));
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Ответ от API {(response.IsSuccessStatusCode ? "Обработано успешно" : $"Что-то пошло не так {await response.Content.ReadAsStringAsync()}")}\r\n";
                 response.EnsureSuccessStatusCode();
             }
@@ -79,8 +83,8 @@ namespace BotNet_Server_UI
         /// <summary>
         /// Отправляет DELETE запрос на API по пути apilist с указанием id (типизация)
         /// </summary>
-        /// <param name="id">Путь API в формате api/v1/.../{id}</param>
-        /// <param name="apilist">Путь API в формате api/v1/{apilist}/...</param>
+        /// <param name="id">Путь API в формате api/v{apiversion}/.../{id}</param>
+        /// <param name="apilist">Путь API в формате api/v{apiversion}/{apilist}/...</param>
         /// <returns>Асинхронную задачу со статусом операции</returns>
         public static async Task<HttpStatusCode> DeleteProductAsync(uint id, string apilist)
         {
@@ -90,7 +94,7 @@ namespace BotNet_Server_UI
             };
             m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю DELETE запрос на {apilist}/{id}\r\n";
             HttpResponseMessage response = await client.DeleteAsync(
-                $"api/v1/{apilist}/{id}");
+                $"api/v{ApiVersion}/{apilist}/{id}");
             m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Ответ от API {(response.IsSuccessStatusCode ? "Обработано успешно" : $"Что-то пошло не так {await response.Content.ReadAsStringAsync()}")}\r\n";
             return response.StatusCode;
         }

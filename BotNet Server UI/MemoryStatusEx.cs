@@ -1,5 +1,4 @@
-﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
-// (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+﻿// get total memory on PC code from: https://stackoverflow.com/questions/105031/how-do-you-get-total-amount-of-ram-the-computer-has/105109
 using System.Runtime.InteropServices;
 
 namespace BotNet_Server_UI

@@ -3,3 +3,4 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\CommandsLibrary\bi
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\CommandsLibrary\obj\Release\CommandsLibrary.csprojAssemblyReference.cache
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\CommandsLibrary\obj\Release\CommandsLibrary.dll
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\CommandsLibrary\obj\Release\CommandsLibrary.pdb
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\CommandsLibrary\obj\Release\CommandsLibrary.csproj.CoreCompileInputs.cache

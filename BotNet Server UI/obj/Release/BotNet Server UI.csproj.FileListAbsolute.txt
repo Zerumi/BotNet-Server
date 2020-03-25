@@ -41,3 +41,4 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\o
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\CommandsInfo.baml
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Diagnostic1.baml
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\Settings.baml
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Release\BotNet Server UI.csproj.CoreCompileInputs.cache

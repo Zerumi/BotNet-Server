@@ -57,10 +57,11 @@ namespace BotNet_Server_UI
             try
             {
                 ApiRequest.BaseAddress = ServerText;
+                ApiRequest.ApiVersion = (await ApiRequest.GetProductAsync<Info>("/api")).version;
                 UpdateCenterRequest.BaseAddress = System.Configuration.ConfigurationManager.AppSettings.Get("MineWebUri");
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Authorization) Запускаю проверку пароля\r\n";
                 AuthButton.IsEnabled = false;
-                if (await ApiRequest.GetProductAsync<bool>($"api/v1/admin/{ResponseText}"))
+                if (await ApiRequest.GetProductAsync<bool>($"api/v{ApiRequest.ApiVersion}/admin/{ResponseText}"))
                 {
                     var appSettings = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
                     foreach (var s in appSettings.AppSettings.Settings)
@@ -149,7 +150,7 @@ namespace BotNet_Server_UI
                 _ = Assembly.Load("m3md2");
                 _ = Assembly.Load("m3md2_startup");
                 _ = Assembly.Load("CommandsLibrary");
-                VerifyVersion version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/v1/support/versions/{Assembly.GetExecutingAssembly().GetName().Version.ToString()}");
+                VerifyVersion version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/v{ApiRequest.ApiVersion}/support/versions/{Assembly.GetExecutingAssembly().GetName().Version.ToString()}");
                 if (version.isDeprecated)
                 {
                     throw new NotSupportedException("Данная версия программы устарела. Пожалуйста, загрузите новую версию в разделе Releases");
