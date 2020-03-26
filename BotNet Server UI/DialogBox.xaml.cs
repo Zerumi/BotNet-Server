@@ -56,11 +56,13 @@ namespace BotNet_Server_UI
         {
             try
             {
+                AuthButton.IsEnabled = false;
+                ResponseTextBox.KeyDown -= Field_KeyDown;
+                sResponseTextBox.KeyDown -= Field_KeyDown;
                 ApiRequest.BaseAddress = ServerText;
                 ApiRequest.ApiVersion = (await ApiRequest.GetProductAsync<Info>("/api")).version;
                 UpdateCenterRequest.BaseAddress = System.Configuration.ConfigurationManager.AppSettings.Get("MineWebUri");
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Authorization) Запускаю проверку пароля\r\n";
-                AuthButton.IsEnabled = false;
                 if (await ApiRequest.GetProductAsync<bool>($"api/v{ApiRequest.ApiVersion}/admin/{ResponseText}"))
                 {
                     var appSettings = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
@@ -97,6 +99,8 @@ namespace BotNet_Server_UI
             finally
             {
                 AuthButton.IsEnabled = true;
+                ResponseTextBox.KeyDown += Field_KeyDown;
+                sResponseTextBox.KeyDown += Field_KeyDown;
             }
         }
 

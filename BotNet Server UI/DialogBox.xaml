@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Enter server adress:" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="0"/>
+        <TextBlock Text="Enter server address:" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="0"/>
         <TextBox x:Name="ServerTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Center" KeyDown="Field_KeyDown" Grid.Row="1"/>
         <TextBlock Text="Enter admin password:" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="2"/>
         <TextBox x:Name="sResponseTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" KeyDown="Field_KeyDown" Grid.Row="3" Visibility="Collapsed"/>
