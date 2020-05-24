@@ -13,6 +13,7 @@ namespace BotNet_Server_UI
         {
             try
             {
+                ApiRequest.OnRequestFailed += ApiRequest_OnRequestFailed;
                 Start();
             }
             catch (System.Exception ex)
@@ -21,6 +22,14 @@ namespace BotNet_Server_UI
                 Environment.Exit(0);
             }
         }
+
+        private void ApiRequest_OnRequestFailed(Exception ex)
+        {
+            m3md2.StaticVariables.Settings.IsDataProblem = true;
+            NetworkErrorVisualiser visualiser = new NetworkErrorVisualiser();
+            visualiser.Show();
+        }
+
         private void Start()
         {
             try

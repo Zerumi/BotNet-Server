@@ -208,9 +208,7 @@ namespace BotNet_Server_UI
             catch (Exception ex)
             {
                 MessageBox.Show("(5) Возможно вы уже выбрали этот элемент");
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex, false);
             }
         }
     }

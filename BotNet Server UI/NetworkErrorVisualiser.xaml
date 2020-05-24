@@ -1,0 +1,13 @@
+﻿<Window x:Class="BotNet_Server_UI.NetworkErrorVisualiser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BotNet_Server_UI"
+        mc:Ignorable="d"
+        Height="150" Width="200" ResizeMode="NoResize" WindowStyle="None" Opacity="0.5" Loaded="Window_Loaded">
+    <Grid x:Name="Grid">
+        <TextBlock Text="Обнаружены проблемы с получением информации от Api..." TextWrapping="WrapWithOverflow" Margin="30,65,30,40"/>
+        <Image Source="Assets\disconnected.png" Margin="50,10,50,90"/>
+    </Grid>
+</Window>

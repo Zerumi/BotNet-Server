@@ -66,5 +66,7 @@
             </MenuItem>
         </Menu>
         <ListBox x:Name="ListHelper" Grid.Column="1" Margin="0,0,180,41" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Right" Width="200" Height="92" VerticalAlignment="Bottom" Visibility="Hidden"/>
+        <Label x:Name="ApiHandler" Content="ApiRequest: Ожидание первого запроса..." Grid.Column="2" HorizontalAlignment="Left" Margin="5,256,0,0" Grid.Row="1" VerticalAlignment="Top" Width="275"/>
+        <Label x:Name="MinewebHandler" Content="UpdateCenterRequest: Ожидание первого запроса..." Grid.Column="2" HorizontalAlignment="Left" Margin="5,279,0,0" Grid.Row="1" VerticalAlignment="Top" Width="275"/>
     </Grid>
 </Window>

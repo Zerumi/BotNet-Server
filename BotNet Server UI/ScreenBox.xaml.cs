@@ -80,7 +80,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                ExceptionHandler.RegisterNew(ex);
             }
         }
     }

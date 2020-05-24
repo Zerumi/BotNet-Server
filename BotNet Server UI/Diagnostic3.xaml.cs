@@ -51,10 +51,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
                 MessageBox.Show("Во время проверки API возникла ошибка.");
                 Close();
             }

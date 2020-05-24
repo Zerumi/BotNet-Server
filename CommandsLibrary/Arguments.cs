@@ -226,6 +226,24 @@ namespace CommandsLibrary
                 },
                 CommandInfo = "Удаляет скрипт с Mineweb сервера",
                 IsForServer = true
+            },
+            new Arguments()
+            { 
+                Command = "/screendemo",
+                ArgumentCount = 1,
+                ArgumentsList = new string[]
+                {
+                    "Открыть панель демонстраций"
+                },
+                ArgumentsName = new string[]
+                {
+                    "screendemo_opendemos"
+                },
+                ArgumentType = new Type[]
+                {
+                    typeof(Button)
+                },
+                CommandInfo = "Запускает механизм демонстрации экрана клиента"
             }
         };
     }

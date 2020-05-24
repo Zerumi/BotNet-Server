@@ -91,10 +91,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
             finally
             {
@@ -116,10 +113,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -135,10 +129,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -154,7 +145,7 @@ namespace BotNet_Server_UI
                 _ = Assembly.Load("m3md2");
                 _ = Assembly.Load("m3md2_startup");
                 _ = Assembly.Load("CommandsLibrary");
-                VerifyVersion version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/v{ApiRequest.ApiVersion}/support/versions/{Assembly.GetExecutingAssembly().GetName().Version.ToString()}");
+                VerifyVersion version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/v{ApiRequest.ApiVersion}/support/versions/{Assembly.GetExecutingAssembly().GetName().Version}");
                 if (version.isDeprecated)
                 {
                     throw new NotSupportedException("Данная версия программы устарела. Пожалуйста, загрузите новую версию в разделе Releases");
@@ -175,11 +166,15 @@ namespace BotNet_Server_UI
                     throw new PlatformNotSupportedException("Данная версия библиотеки не поддерживается этим экземпляром оболочки");
                 }
             }
-            catch (Exception ex)
+            catch (NotSupportedException ex)
             {
                 System.Windows.MessageBox.Show(ex.ToString() + "\nОшибки возникшие во время запуска не позволяют продолжать бесперебойную работу программы.\nУстраните эти ошибки прежде чем начать использование программы");
                 Environment.Exit(0);
                 return false;
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.RegisterNew(ex);
             }
             return true;
         }

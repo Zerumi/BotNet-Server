@@ -1,6 +1,8 @@
 ﻿// This code is licensed under the isc license. You can improve the code by keeping this comments
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+const http = require("http");
 const express = require("express");
+const websocket = require('ws');
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const fs = require("fs");
@@ -10,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const ip = require("./ip.json");
 const screens = require("./screens.json");
+const videos = require("./videos.json");
 const update = require("./update.json");
 const versions = require("./versions.json");
 var messages = require("./messages.json");
@@ -18,8 +21,27 @@ require('dotenv').config();
 app.set("port", PORT);
 app.set("env", NODE_ENV);
 app.use(logger("tiny"));
-app.use(bodyParser.text());
-app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.text({ limit: "50mb" }));
+app.post("/api/v1/video/:id", (req, res, next) => {
+    try {
+        const client = videos.find(_frame => _frame.id === Number(req.params.id))
+        client.currentframe = JSON.parse(req.body);
+        var svideos = JSON.stringify(videos);
+        fs.writeFileSync("videos.json", svideos);
+    } catch (e) {
+        next(e);
+    }
+    res.end();
+});
+app.get("/api/v1/video/:id", (req, res, next) => {
+    try {
+        const client = videos.find(_frame => _frame.id === Number(req.params.id))
+        res.json(client);
+    } catch (e) {
+        next(e);
+    }
+    res.end();
+});
 app.post("/api/v1/screens/:id", (req, res, next) => {
     var _sid = 0;
     try {
@@ -181,7 +203,7 @@ app.delete("/api/v1/messages", (req, res, next) => {
 app.get("/api", function (req, res) {
     var json = {
         uri: "http://botnet-sandbox.glitch.me/",
-        version: 2,
+        version: 1,
         port: PORT,
         environment: NODE_ENV,
         clients: ip.length,
@@ -348,10 +370,16 @@ app.use((err, req, res, next) => {
         }
     });
 });
-app.listen(PORT, () => {
+var server = app.listen(PORT, () => {
     console.log(
         `Express Server started on Port ${app.get(
             "port"
         )} | Environment : ${app.get("env")}`
     );
+});
+server.on("connection", (listener) => {
+    console.log("Someone has connected")
+    listener.on("data", (data) => {
+        console.log("data recived " + data);
+    });
 });

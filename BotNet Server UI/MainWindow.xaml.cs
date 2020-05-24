@@ -77,10 +77,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -126,10 +123,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -198,10 +192,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -214,10 +205,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -233,10 +221,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -252,10 +237,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -274,10 +256,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -290,10 +269,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -336,10 +312,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenClients) Перезапускаю прослушку клиентов...\r\n";
+                ExceptionHandler.RegisterNew(ex);
                 await Task.Run(() => ListenClients());
             }
         }
@@ -406,10 +379,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
-                MessageBox.Show(ex.ToString());
+                ExceptionHandler.RegisterNew(ex);
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ListenResponses) Перезапускаю прослушку ответов...\r\n";
                 await Task.Run(() => ListenResponses());
             }
@@ -425,10 +395,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
         bool isSendBlocked;
@@ -510,10 +477,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -540,10 +504,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -551,206 +512,202 @@ namespace BotNet_Server_UI
         {
             try
             {
-                foreach (var item in m3md2.WinHelper.FindVisualChildren<Button>(Grid))
+                var item = e.Source as Button;
+                switch (item.Name)
                 {
-                    switch (item.Name)
-	                {
-                        case "screen_OpenPanel":
-                            {
-                                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ScreenClick event) Открываю окно списка клиентов со скриншотами\r\n";
-                                Screens screenwindow = new Screens();
-                                screenwindow.Show();
-                                break;
-                            }
-                        case "update_Download":
-                            {
-                                try
-                                {
-                                    foreach (var window in Application.Current.Windows)
-                                    {
-                                        if (window is IPSet)
-                                        {
-                                            (window as IPSet).isSendFrom = false;
-                                        }
-                                    }
-                                    Command.IsEnabled = false;
-                                    SendButton.IsEnabled = false;
-                                    item.IsEnabled = false;
-                                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow DownloadClick event) Открываю окно загрузки файла\r\n";
-                                    byte[] fileContent = new byte[0];
-                                    var filePath = string.Empty;
-                                    var fileName = string.Empty;
-                                    using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
-                                    {
-                                        openFileDialog.InitialDirectory = "c:\\";
-                                        openFileDialog.Filter = "All files (*.*)|*.*";
-                                        openFileDialog.FilterIndex = 1;
-                                        openFileDialog.RestoreDirectory = true;
-
-                                        if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                                        {
-                                            //Get the path of specified file
-                                            filePath = openFileDialog.FileName;
-                                            fileName = openFileDialog.FileName.Split('\\').LastOrDefault();
-                                            //Read the bytes
-                                            fileContent = File.ReadAllBytes(filePath);
-                                        }
-                                    }
-                                    List<byte[]> btlist = new List<byte[]>();
-                                    int value = 0;
-                                    for (int i = 0; i < Math.Ceiling(fileContent.Length / 20000d); i++)//bt это исходный массив байтов
-                                    {
-                                        if (fileContent.Length - value > 20000)
-                                        {
-                                            byte[] btt = new byte[20000];
-                                            btlist.Add(btt);
-                                            Array.ConstrainedCopy(fileContent, value, btlist[i], 0, 20000);//копирует элементы одного массива в другой, с указанием начального индекса и количества элементов для копирования
-                                            value += 20000;//счетчик, сколько байтов уже отсчитано
-                                        }
-                                        else
-                                        {
-                                            byte[] btt = new byte[fileContent.Length - value];
-                                            btlist.Add(btt);
-                                            Array.ConstrainedCopy(fileContent, value, btlist[i], 0, fileContent.Length - value);
-                                        }
-                                    }
-                                    bool isFirstIter = true;
-                                    int j = 0;
-                                    item.Content = $"Загрузить файл ({j++}/{btlist.Count})";
-                                    item.IsEnabled = true;
-                                    foreach (var bytearray in btlist)
-                                    {
-                                        if (isFirstIter)
-                                        {
-                                            UpdateFile file = new UpdateFile()
-                                            {
-                                                filename = fileName,
-                                                filebytes = bytearray
-                                            };
-                                            _ = await ApiRequest.CreateProductAsync(file, "update");
-                                            isFirstIter = false;
-                                            item.Content = $"Загрузить файл ({j++}/{btlist.Count})";
-                                            continue;
-                                        }
-                                        UpdateFile file1 = new UpdateFile()
-                                        { filebytes = bytearray };
-                                        _ = await ApiRequest.CreateProductAsync(file1, "nextupdate");
-                                        item.Content = $"Загрузить файл ({j++}/{btlist.Count})";
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.ToString());
-                                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                                    m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                                    m3md2.StaticVariables.Diagnostics.ExceptionCount++;
-                                }
-                                finally
-                                {
-                                    item.Content = "Загрузить файл";
-                                    item.IsEnabled = true;
-                                    Command.IsEnabled = true;
-                                    SendButton.IsEnabled = true;
-                                }
-                                break;
-                            }
-                        case "mines_add_Download":
-                            {
-                                try
-                                {
-                                    foreach (var window in Application.Current.Windows)
-                                    {
-                                        if (window is IPSet)
-                                        {
-                                            (window as IPSet).isSendFrom = false;
-                                        }
-                                    }
-                                    Command.IsEnabled = false;
-                                    SendButton.IsEnabled = false;
-                                    item.IsEnabled = false;
-                                    m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_add_FilePath").IsEnabled = false;
-                                    byte[] fileContent = new byte[0];
-                                    var filePath = string.Empty;
-                                    var fileName = string.Empty;
-                                    using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
-                                    {
-                                        openFileDialog.InitialDirectory = "c:\\";
-                                        openFileDialog.Filter = "All files (*.*)|*.*";
-                                        openFileDialog.FilterIndex = 1;
-                                        openFileDialog.RestoreDirectory = true;
-
-                                        if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                                        {
-                                            //Get the path of specified file
-                                            filePath = openFileDialog.FileName;
-                                            fileName = openFileDialog.FileName.Split('\\').LastOrDefault();
-                                            //Read the bytes
-                                            fileContent = File.ReadAllBytes(filePath);
-                                        }
-                                    }
-                                    fileContent = File.ReadAllBytes(filePath);
-                                    List<byte[]> btlist = new List<byte[]>();
-                                    int value = 0;
-                                    for (int i = 0; i < Math.Ceiling(fileContent.Length / 20000d); i++)//bt это исходный массив байтов
-                                    {
-                                        if (fileContent.Length - value > 20000)
-                                        {
-                                            byte[] btt = new byte[20000];
-                                            btlist.Add(btt);
-                                            Array.ConstrainedCopy(fileContent, value, btlist[i], 0, 20000);//копирует элементы одного массива в другой, с указанием начального индекса и количества элементов для копирования
-                                            value += 20000;//счетчик, сколько байтов уже отсчитано
-                                        }
-                                        else
-                                        {
-                                            byte[] btt = new byte[fileContent.Length - value];
-                                            btlist.Add(btt);
-                                            Array.ConstrainedCopy(fileContent, value, btlist[i], 0, fileContent.Length - value);
-                                        }
-                                    }
-                                    var spath = m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_add_FilePath").Text;
-                                    _ = await UpdateCenterRequest.DeleteProductAsync($"{spath}");
-                                    int j = 0;
-                                    foreach (var item1 in btlist)
-                                    {
-                                        _ = await UpdateCenterRequest.CreateProductAsync(item1, spath);
-                                        item.Content = $"Загрузить файл ({++j}/{btlist.Count})";
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.ToString());
-                                    m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                                    m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                                    m3md2.StaticVariables.Diagnostics.ExceptionCount++;
-                                }
-                                finally
-                                {
-                                    item.Content = "Загрузить файл";
-                                    item.IsEnabled = true;
-                                    Command.IsEnabled = true;
-                                    SendButton.IsEnabled = true;
-                                    m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_add_FilePath").IsEnabled = true;
-                                }
-                                break;
-                            }
-                        case "mines_remove_bRemove":
-                            {
-                                var spath = m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_remove_FilePath").Text;
-                                var code = await UpdateCenterRequest.DeleteProductAsync($"{spath}");
-                                MessageBox.Show($"Запрос на удаление завершен с кодом {code}");
-                                break;
-                            }
-		                default:
+                    case "screen_OpenPanel":
+                        {
+                            m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ScreenClick event) Открываю окно списка клиентов со скриншотами\r\n";
+                            Screens screenwindow = new Screens();
+                            screenwindow.Show();
                             break;
-	                }
+                        }
+                    case "update_Download":
+                        {
+                            try
+                            {
+                                foreach (var window in Application.Current.Windows)
+                                {
+                                    if (window is IPSet)
+                                    {
+                                        (window as IPSet).isSendFrom = false;
+                                    }
+                                }
+                                Command.IsEnabled = false;
+                                SendButton.IsEnabled = false;
+                                item.IsEnabled = false;
+                                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow DownloadClick event) Открываю окно загрузки файла\r\n";
+                                byte[] fileContent = new byte[0];
+                                var filePath = string.Empty;
+                                var fileName = string.Empty;
+                                using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
+                                {
+                                    openFileDialog.InitialDirectory = "c:\\";
+                                    openFileDialog.Filter = "All files (*.*)|*.*";
+                                    openFileDialog.FilterIndex = 1;
+                                    openFileDialog.RestoreDirectory = true;
+
+                                    if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                    {
+                                        //Get the path of specified file
+                                        filePath = openFileDialog.FileName;
+                                        fileName = openFileDialog.FileName.Split('\\').LastOrDefault();
+                                        //Read the bytes
+                                        fileContent = File.ReadAllBytes(filePath);
+                                    }
+                                }
+                                List<byte[]> btlist = new List<byte[]>();
+                                int value = 0;
+                                for (int i = 0; i < Math.Ceiling(fileContent.Length / 20000d); i++)//bt это исходный массив байтов
+                                {
+                                    if (fileContent.Length - value > 20000)
+                                    {
+                                        byte[] btt = new byte[20000];
+                                        btlist.Add(btt);
+                                        Array.ConstrainedCopy(fileContent, value, btlist[i], 0, 20000);//копирует элементы одного массива в другой, с указанием начального индекса и количества элементов для копирования
+                                        value += 20000;//счетчик, сколько байтов уже отсчитано
+                                    }
+                                    else
+                                    {
+                                        byte[] btt = new byte[fileContent.Length - value];
+                                        btlist.Add(btt);
+                                        Array.ConstrainedCopy(fileContent, value, btlist[i], 0, fileContent.Length - value);
+                                    }
+                                }
+                                bool isFirstIter = true;
+                                int j = 0;
+                                item.Content = $"Загрузить файл ({j++}/{btlist.Count})";
+                                item.IsEnabled = true;
+                                foreach (var bytearray in btlist)
+                                {
+                                    if (isFirstIter)
+                                    {
+                                        UpdateFile file = new UpdateFile()
+                                        {
+                                            filename = fileName,
+                                            filebytes = bytearray
+                                        };
+                                        _ = await ApiRequest.CreateProductAsync(file, "update");
+                                        isFirstIter = false;
+                                        item.Content = $"Загрузить файл ({j++}/{btlist.Count})";
+                                        continue;
+                                    }
+                                    UpdateFile file1 = new UpdateFile()
+                                    { filebytes = bytearray };
+                                    _ = await ApiRequest.CreateProductAsync(file1, "nextupdate");
+                                    item.Content = $"Загрузить файл ({j++}/{btlist.Count})";
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                ExceptionHandler.RegisterNew(ex);
+                            }
+                            finally
+                            {
+                                item.Content = "Загрузить файл";
+                                item.IsEnabled = true;
+                                Command.IsEnabled = true;
+                                SendButton.IsEnabled = true;
+                            }
+                            break;
+                        }
+                    case "mines_add_Download":
+                        {
+                            try
+                            {
+                                foreach (var window in Application.Current.Windows)
+                                {
+                                    if (window is IPSet)
+                                    {
+                                        (window as IPSet).isSendFrom = false;
+                                    }
+                                }
+                                Command.IsEnabled = false;
+                                SendButton.IsEnabled = false;
+                                item.IsEnabled = false;
+                                m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_add_FilePath").IsEnabled = false;
+                                byte[] fileContent = new byte[0];
+                                var filePath = string.Empty;
+                                var fileName = string.Empty;
+                                using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
+                                {
+                                    openFileDialog.InitialDirectory = "c:\\";
+                                    openFileDialog.Filter = "All files (*.*)|*.*";
+                                    openFileDialog.FilterIndex = 1;
+                                    openFileDialog.RestoreDirectory = true;
+
+                                    if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                    {
+                                        //Get the path of specified file
+                                        filePath = openFileDialog.FileName;
+                                        fileName = openFileDialog.FileName.Split('\\').LastOrDefault();
+                                        //Read the bytes
+                                        fileContent = File.ReadAllBytes(filePath);
+                                    }
+                                }
+                                fileContent = File.ReadAllBytes(filePath);
+                                List<byte[]> btlist = new List<byte[]>();
+                                int value = 0;
+                                for (int i = 0; i < Math.Ceiling(fileContent.Length / 20000d); i++)//bt это исходный массив байтов
+                                {
+                                    if (fileContent.Length - value > 20000)
+                                    {
+                                        byte[] btt = new byte[20000];
+                                        btlist.Add(btt);
+                                        Array.ConstrainedCopy(fileContent, value, btlist[i], 0, 20000);//копирует элементы одного массива в другой, с указанием начального индекса и количества элементов для копирования
+                                        value += 20000;//счетчик, сколько байтов уже отсчитано
+                                    }
+                                    else
+                                    {
+                                        byte[] btt = new byte[fileContent.Length - value];
+                                        btlist.Add(btt);
+                                        Array.ConstrainedCopy(fileContent, value, btlist[i], 0, fileContent.Length - value);
+                                    }
+                                }
+                                var spath = m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_add_FilePath").Text;
+                                _ = await UpdateCenterRequest.DeleteProductAsync($"{spath}");
+                                int j = 0;
+                                foreach (var item1 in btlist)
+                                {
+                                    _ = await UpdateCenterRequest.CreateProductAsync(item1, spath);
+                                    item.Content = $"Загрузить файл ({++j}/{btlist.Count})";
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                ExceptionHandler.RegisterNew(ex);
+                            }
+                            finally
+                            {
+                                item.Content = "Загрузить файл";
+                                item.IsEnabled = true;
+                                Command.IsEnabled = true;
+                                SendButton.IsEnabled = true;
+                                m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_add_FilePath").IsEnabled = true;
+                            }
+                            break;
+                        }
+                    case "mines_remove_bRemove":
+                        {
+                            var spath = m3md2.WinHelper.FindChild<TextBox>(Grid, "mines_remove_FilePath").Text;
+                            var code = await UpdateCenterRequest.DeleteProductAsync($"{spath}");
+                            MessageBox.Show($"Запрос на удаление завершен с кодом {code}");
+                            break;
+                        }
+                    case "screendemo_opendemos":
+                        {
+                            //m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow ScreenClick event) Открываю окно списка клиентов с текущей демонстрацией экрана\r\n";
+                            //Demos demoswindow = new Demos();
+                            //demoswindow.Show();
+                            break;
+                        }
+                    default:
+                        break;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -770,10 +727,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -787,10 +741,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -804,10 +755,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -821,10 +769,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -850,10 +795,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -879,10 +821,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -896,10 +835,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -913,10 +849,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -930,10 +863,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 
@@ -945,10 +875,7 @@ namespace BotNet_Server_UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Exception) В программе возникло исключение {ex.Message} / {ex.InnerException} ({ex.HResult}) Подробнее в разделе \"Диагностика\"\r\n";
-                m3md2.StaticVariables.Diagnostics.exceptions.Add(ex);
-                m3md2.StaticVariables.Diagnostics.ExceptionCount++;
+                ExceptionHandler.RegisterNew(ex);
             }
         }
 

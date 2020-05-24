@@ -55,6 +55,9 @@
     <Content Include="versions.json">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="videos.json">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
