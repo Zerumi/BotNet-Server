@@ -2,7 +2,6 @@
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 const http = require("http");
 const express = require("express");
-const websocket = require('ws');
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const fs = require("fs");
@@ -173,6 +172,7 @@ app.post("/api/v1/client", (req, res, next) => {
         ip.push(newIP);
         var sip = JSON.stringify(ip);
         fs.writeFileSync("ip.json", sip);
+        clientsresall(ip);
         res.status(201).json(ip.length - 1);
     } catch (e) {
         next(e);
@@ -189,6 +189,7 @@ app.post("/api/v1/messages", (req, res, next) => {
         messages.push(newMessage);
         var smessages = JSON.stringify(messages);
         fs.writeFileSync("messages.json", smessages);
+        mesresall(newMessage); // call listener
         res.status(201).json(newMessage);
     } catch (e) {
         next(e);
@@ -260,6 +261,7 @@ app.post("/api/v1/responses/:id", (req, res, next) => {
                 response: JSON.parse(req.body).response
             });
         }
+        respresall(req.params.id, { "rid": resp.responses.length - 1, "response": JSON.parse(req.body).response });
     } catch (e) {
         next(e);
     }
@@ -273,7 +275,10 @@ app.delete("/api/v1/responses", (req, res, next) => {
     res.end();
 });
 app.delete("/api/v1/client/:id", (req, res, next) => {
-    ip[req.params.id].nameofpc = "";
+    ip.splice(ip.indexOf(ip.find(x => x.id === Number(req.params.id))), 1);
+    var sip = JSON.stringify(ip);
+    fs.writeFileSync("ip.json", sip);
+    clientsresall(ip);
 
     res.end();
 });
@@ -351,6 +356,43 @@ app.get("/api/v1/support/versions/:version", (req, res, next) => {
     try {
         const version = versions.find(x => x.version === String(req.params.version));
         res.json(version);
+    } catch (e) {
+        next(e);
+    }
+});
+var httpresponses4mes = [];
+function mesresall(newMessage) {
+    httpresponses4mes.forEach(x => x.json(newMessage));
+    httpresponses4mes = [];
+}
+app.get("/api/v1/listen/messages", (req, res, next) => {
+    try {
+        httpresponses4mes.push(res);
+    } catch (e) {
+        next(e);
+    }
+});
+var httpresponse4res = [];
+function respresall(id, newResponse) {
+    var element = httpresponse4res.find(x => x.id === id);
+    element.res.json(newResponse);
+    httpresponse4res = httpresponse4res.splice(httpresponse4res.indexOf(element), 1);
+}
+app.get("/api/v1/listen/responses/:id", (req, res, next) => {
+    try {
+        httpresponse4res.push({ "id": req.params.id, "res":res });
+    } catch (e) {
+        next(e);
+    }
+});
+var httpresponse4clients = [];
+function clientsresall(newClients) {
+    httpresponse4clients.forEach(x => x.json(newClients))
+    httpresponse4clients = [];
+}
+app.get("/api/v1/listen/clients", (req, res, next) => {
+    try {
+        httpresponse4clients.push(res);
     } catch (e) {
         next(e);
     }

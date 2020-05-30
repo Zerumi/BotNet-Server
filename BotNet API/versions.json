@@ -16,5 +16,14 @@
     "cmdlib": [ "2.1.0.0" ],
     "m3md2": [ "1.3.0.0" ],
     "m3md2_startup": [ "1.2.0.0" ]
+  },
+  {
+    "version": "1.7.0.0",
+    "isDeprecated": false,
+    "isUpdateNeeded": false,
+    "isNotLatest": false,
+    "cmdlib": [ "2.1.0.0", "2.2.0.0" ],
+    "m3md2": [ "1.4.0.0" ],
+    "m3md2_startup": [ "1.2.0.0" ]
   }
 ]

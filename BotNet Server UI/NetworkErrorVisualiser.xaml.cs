@@ -23,22 +23,29 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class NetworkErrorVisualiser : Window
     {
-        public NetworkErrorVisualiser()
+
+        public NetworkErrorVisualiser(int index)
         {
             InitializeComponent();
+            this.index = index;
         }
+
+        DispatcherTimer OpacityTimer;
+        DispatcherTimer timer;
+
+        int index;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DispatcherTimer timer = new DispatcherTimer
+            timer = new DispatcherTimer
             {
                 Interval = new TimeSpan(0, 0, 3)
             };
             timer.Tick += Timer_Tick;
             timer.Start();
-            DispatcherTimer OpacityTimer = new DispatcherTimer
+            OpacityTimer = new DispatcherTimer
             {
-                Interval = new TimeSpan(100)
+                Interval = new TimeSpan(120)
             };
             OpacityTimer.Tick += OpacityTimer_Tick;
             OpacityTimer.Start();
@@ -47,15 +54,15 @@ namespace BotNet_Server_UI
         private async void OpacityTimer_Tick(object sender, EventArgs e)
         {
             await Task.Run(new Action(() => {
-                for (double i = 0.5; i <= 1; i+=0.1)
+                for (double i = 0.5; i <= 1; i+=0.125)
                 {
                     Dispatcher.BeginInvoke(new Action(() => Opacity = i));
-                    Thread.Sleep(10);
+                    Thread.Sleep(15);
                 }
-                for (double i = 1; i >= 0.5; i-=0.1)
+                for (double i = 1; i >= 0.5; i-=0.125)
                 {
                     Dispatcher.BeginInvoke(new Action(() => Opacity = i));
-                    Thread.Sleep(10);
+                    Thread.Sleep(15);
                 }
             }));
 
@@ -64,7 +71,9 @@ namespace BotNet_Server_UI
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            m3md2.StaticVariables.Settings.IsDataProblem = false;
+            OpacityTimer.Stop();
+            timer.Stop();
+            m3md2.StaticVariables.Settings.IsDataProblem[index] = false;
             this.Close();
             GC.Collect();
         }

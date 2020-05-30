@@ -20,7 +20,7 @@ namespace BotNet_Server_UI
         }
         public static void RegisterNew(Exception ex)
         {
-            if (!m3md2.StaticVariables.Settings.IsDataProblem)
+            if (!m3md2.StaticVariables.Settings.IsDataProblem.Contains(true))
             {
                 MessageBox.Show(ex.ToString());
                 RegisterToM3MD2(ex);

@@ -136,6 +136,31 @@ namespace BotNet_Server_UI
             return response?.StatusCode?? default;
         }
 
+        public async static Task<T> KeepAliveGetProduct<T>(string path)
+        {
+            T product = default;
+            try
+            {
+                HttpClient client = new HttpClient
+                {
+                    BaseAddress = new Uri(BaseAddress)
+                };
+                client.DefaultRequestHeaders.ConnectionClose = false;
+                client.Timeout = new TimeSpan(1, 0, 0, 0);
+                HttpResponseMessage response = await client.GetAsync(path);
+                if (response.IsSuccessStatusCode)
+                {
+                    product = await response.Content.ReadAsAsync<T>();
+                }
+                return product;
+            }
+            catch (Exception ex)
+            {
+                OnRequestFailed?.Invoke(ex);
+            }
+            return product;
+        }
+
         public delegate void ApiExHandler(Exception ex);
 
         public static event ApiExHandler OnRequestFailed;

@@ -1,6 +1,7 @@
 ﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
+using System.Threading;
 
 namespace BotNet_Server_UI
 {
@@ -25,9 +26,19 @@ namespace BotNet_Server_UI
 
         private void ApiRequest_OnRequestFailed(Exception ex)
         {
-            m3md2.StaticVariables.Settings.IsDataProblem = true;
-            NetworkErrorVisualiser visualiser = new NetworkErrorVisualiser();
-            visualiser.Show();
+            m3md2.StaticVariables.Settings.IsDataProblem.Add(true);
+            Thread thread = new Thread(StartVisualize);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
+        private void StartVisualize()
+        {
+            NetworkErrorVisualiser visualiser = new NetworkErrorVisualiser(m3md2.StaticVariables.Settings.IsDataProblem.Count - 1);
+            visualiser.Focusable = false;
+            visualiser.ShowActivated = false;
+            visualiser.ShowDialog();
         }
 
         private void Start()

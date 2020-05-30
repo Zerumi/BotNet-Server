@@ -243,7 +243,8 @@ namespace CommandsLibrary
                 {
                     typeof(Button)
                 },
-                CommandInfo = "Запускает механизм демонстрации экрана клиента"
+                CommandInfo = "Запускает механизм демонстрации экрана клиента",
+                IsForServer = false
             }
         };
     }

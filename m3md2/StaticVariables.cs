@@ -17,7 +17,7 @@ namespace m3md2
         {
             public static string ColorTheme { get; set; }
             public static bool IgnoreBigLog { get; set; }
-            public static bool IsDataProblem { get; set; }
+            public static List<bool> IsDataProblem = new List<bool>();
         }
         public static class Windows
         {
