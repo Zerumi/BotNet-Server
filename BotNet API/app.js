@@ -421,6 +421,7 @@ var server = app.listen(PORT, () => {
 });
 server.on("connection", (listener) => {
     console.log("Someone has connected")
+    listener.setKeepAlive(true);
     listener.on("data", (data) => {
         console.log("data recived " + data);
     });

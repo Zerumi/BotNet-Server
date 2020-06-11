@@ -53,7 +53,6 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\o
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\Diagnostic1.g.cs
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\Diagnostic2.g.cs
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\DialogBox.g.cs
-C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\IPSet.g.cs
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\MainWindow.g.cs
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\ScreenBox.g.cs
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\Screens.g.cs
@@ -63,7 +62,6 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\o
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI_MarkupCompile.lref
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\CommandsInfo.baml
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\DialogBox.baml
-C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\IPSet.baml
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\ScreenBox.baml
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\Settings.baml
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.g.resources
@@ -79,3 +77,5 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\o
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\Demos.g.cs
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\NetworkErrorVisualiser.g.cs
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\NetworkErrorVisualiser.baml
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\IDSet.baml
+C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\IDSet.g.cs

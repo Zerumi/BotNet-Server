@@ -9,14 +9,14 @@ namespace BotNet_Server_UI
     /// <summary>
     /// Логика взаимодействия для IPSet.xaml
     /// </summary>
-    public partial class IPSet : Window
+    public partial class IDSet : Window
     {
         public bool isSendFrom = false;
-        public IPSet()
+        public IDSet()
         {
             InitializeComponent();
         }
-        public IPSet(bool isSendFrom)
+        public IDSet(bool isSendFrom)
         {
             this.isSendFrom = isSendFrom;
             InitializeComponent();

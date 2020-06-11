@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\App.xaml
-12-750431567
+12-2012130639
 
-31-1331510261
+311679778556
 2354447759
-CommandsInfo.xaml;Demos.xaml;Diagnostic1.xaml;Diagnostic3.xaml;Diagnostic2.xaml;DialogBox.xaml;IPSet.xaml;MainWindow.xaml;NetworkErrorVisualiser.xaml;ScreenBox.xaml;Screens.xaml;Settings.xaml;
+CommandsInfo.xaml;Demos.xaml;Diagnostic1.xaml;Diagnostic3.xaml;Diagnostic2.xaml;DialogBox.xaml;IDSet.xaml;MainWindow.xaml;NetworkErrorVisualiser.xaml;ScreenBox.xaml;Screens.xaml;Settings.xaml;
 
-True
+False
 

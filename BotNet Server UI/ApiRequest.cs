@@ -144,7 +144,8 @@ namespace BotNet_Server_UI
                 HttpClient client = new HttpClient
                 {
                     BaseAddress = new Uri(BaseAddress)
-                };
+                }; 
+                client.DefaultRequestHeaders.Connection.Clear();
                 client.DefaultRequestHeaders.ConnectionClose = false;
                 client.Timeout = new TimeSpan(1, 0, 0, 0);
                 HttpResponseMessage response = await client.GetAsync(path);
