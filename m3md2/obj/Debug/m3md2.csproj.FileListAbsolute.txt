@@ -4,3 +4,9 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\m3md2\obj\Debug\m3
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\m3md2\obj\Debug\m3md2.dll
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\m3md2\obj\Debug\m3md2.pdb
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\m3md2\obj\Debug\m3md2.csproj.CoreCompileInputs.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2\bin\Debug\m3md2.dll
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2\bin\Debug\m3md2.pdb
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2\obj\Debug\m3md2.csprojAssemblyReference.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2\obj\Debug\m3md2.csproj.CoreCompileInputs.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2\obj\Debug\m3md2.dll
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2\obj\Debug\m3md2.pdb

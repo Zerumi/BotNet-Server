@@ -7,3 +7,12 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\m3md2_startup\obj\
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\m3md2_startup\obj\Debug\m3md2_startup.dll
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\m3md2_startup\obj\Debug\m3md2_startup.pdb
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\m3md2_startup\obj\Debug\m3md2_startup.csproj.CoreCompileInputs.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2_startup\bin\Debug\m3md2_startup.dll
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2_startup\bin\Debug\m3md2_startup.pdb
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2_startup\bin\Debug\m3md2.dll
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2_startup\bin\Debug\m3md2.pdb
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2_startup\obj\Debug\m3md2_startup.csprojAssemblyReference.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2_startup\obj\Debug\m3md2_startup.csproj.CoreCompileInputs.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2_startup\obj\Debug\m3md2_startup.csproj.CopyComplete
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2_startup\obj\Debug\m3md2_startup.dll
+C:\Users\Zerumi\Source\Repos\BotNet-Server\m3md2_startup\obj\Debug\m3md2_startup.pdb

@@ -79,3 +79,51 @@ C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\o
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\NetworkErrorVisualiser.baml
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\IDSet.baml
 C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\IDSet.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\BotNet Server UI.exe.config
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\BotNet Server UI.exe
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\BotNet Server UI.pdb
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\CommandsLibrary.dll
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\m3md2.dll
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\m3md2_startup.dll
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\CommandsLibrary.pdb
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\m3md2.pdb
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\m3md2_startup.pdb
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.csprojAssemblyReference.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Demos.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Diagnostic3.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Diagnostic2.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\IDSet.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\MainWindow.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Screens.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\CommandsInfo.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Demos.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Diagnostic1.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Diagnostic3.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Diagnostic2.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\DialogBox.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\IDSet.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\MainWindow.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\NetworkErrorVisualiser.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\ScreenBox.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Screens.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Settings.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\App.g.cs
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI_MarkupCompile.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI_MarkupCompile.lref
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\CommandsInfo.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Diagnostic1.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\DialogBox.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\NetworkErrorVisualiser.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\ScreenBox.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\Settings.baml
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.g.resources
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\BotNet_Server_UI.Properties.Resources.resources
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.csproj.GenerateResource.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.csproj.CoreCompileInputs.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.csproj.CopyComplete
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.exe
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet Server UI\obj\Debug\BotNet Server UI.pdb

@@ -283,7 +283,7 @@ namespace BotNet_Server_UI
                             arr = await ApiRequest.GetProductAsync<Client[]>("api/v1/client");
                             goto linkrenew;
                         }
-                        ListenResponses();
+                        //ListenResponses();
                     }
                     else
                     {
@@ -294,7 +294,7 @@ namespace BotNet_Server_UI
                             arr = await ApiRequest.GetProductAsync<Client[]>("api/v1/client");
                             goto linkrenew;
                         }
-                        _ = ListenSingleResponce(arr.Last().id);
+                        //_ = ListenSingleResponce(arr.Last().id);
                     }
                     _ = SetClientList();
                 }
@@ -312,37 +312,37 @@ namespace BotNet_Server_UI
             await ClientList.Dispatcher.BeginInvoke(new Action(() => ClientList.Text = res));
         }
 
-        private void ListenResponses()
-        {
-            try
-            {
-                arr.ToList().ForEach(async (x) => await ListenSingleResponce(x.id));
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.RegisterNew(ex);
-            }
-        }
+        //private void ListenResponses()
+        //{
+        //    try
+        //    {
+        //        arr.ToList().ForEach(async (x) => await ListenSingleResponce(x.id));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ExceptionHandler.RegisterNew(ex);
+        //    }
+        //}
 
-        private async Task ListenSingleResponce(uint id)
-        {
-            while (true)
-            {
-                var response = await ApiRequest.KeepAliveGetProduct<Response>($"api/v1/listen/responses/{id}");
-                if (response == null)
-                {
-                    try
-                    {
-                        response = (await ApiRequest.GetProductAsync<Responses>($"api/v1/responses/{id}")).responses.Last();
-                    }
-                    catch (Exception ex)
-                    {
-                        ExceptionHandler.RegisterNew(ex);
-                    }
-                }
-                await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") " + response.response + "\n"));
-            }
-        } // rewrite
+        //private async Task ListenSingleResponce(uint id)
+        //{
+        //    while (true)
+        //    {
+        //        var response = await ApiRequest.KeepAliveGetProduct<Response>($"api/v1/listen/responses/{id}");
+        //        if (response == null)
+        //        {
+        //            try
+        //            {
+        //                response = (await ApiRequest.GetProductAsync<Responses>($"api/v1/responses/{id}")).responses.Last();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                ExceptionHandler.RegisterNew(ex);
+        //            }
+        //        }
+        //        await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") " + response.response + "\n"));
+        //    }
+        //} // rewrite
 
         private void IPSetButton_Click(object sender, RoutedEventArgs e)
         {
@@ -830,7 +830,11 @@ namespace BotNet_Server_UI
         {
             try
             {
-                MessageBox.Show("BotNet Server UI.exe\nВерсия 1.6.0\nИсходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/ \nDiscord: Zerumi#4666", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("BotNet Server UI.exe\n" +
+                    "Версия 1.7.0 beta 3\n" +
+                    "Official BotNet Api (https://botnet-api.glitch.me/) (JS release 8)\n" +
+                    "Исходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/ \n" +
+                    "Discord: Zerumi#4666", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
