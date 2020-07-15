@@ -99,7 +99,6 @@
       <DependentUpon>NetworkErrorVisualiser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Response.cs" />
-    <Compile Include="Responses.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="ScreenBox.xaml.cs">
       <DependentUpon>ScreenBox.xaml</DependentUpon>

@@ -4,7 +4,7 @@ namespace BotNet_Server_UI
 {
     class Response
     {
-        public uint rid { get; set; }
+        public uint id { get; set; }
         public string response { get; set; }
     }
 }

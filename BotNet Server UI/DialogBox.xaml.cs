@@ -71,6 +71,7 @@ namespace BotNet_Server_UI
                         if ((s as System.Configuration.KeyValueConfigurationElement).Key == "MainUri")
                         {
                             (s as System.Configuration.KeyValueConfigurationElement).Value = ServerText;
+                            break;
                         }
                     }
                     appSettings.Save(System.Configuration.ConfigurationSaveMode.Minimal);
@@ -175,6 +176,7 @@ namespace BotNet_Server_UI
             catch (Exception ex)
             {
                 ExceptionHandler.RegisterNew(ex);
+                return false;
             }
             return true;
         }

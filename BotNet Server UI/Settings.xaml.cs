@@ -36,6 +36,7 @@ namespace BotNet_Server_UI
                         appSettings.Save(ConfigurationSaveMode.Minimal);
                         ConfigurationManager.RefreshSection("appSettings");
                         m3md2.StaticVariables.Settings.ColorTheme = combobox.Text;
+                        // bad code
                         MessageBox.Show("Для применения изменений программа будет перезапущена без ввода пароля", "Настройки", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                         Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
                         m3md2.StaticVariables.Diagnostics.ProgramInfo = "";

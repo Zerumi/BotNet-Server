@@ -151,6 +151,7 @@ namespace BotNet_Server_UI
                 };
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
                 client.DefaultRequestHeaders.Connection.Clear();
+                client.DefaultRequestHeaders.Connection.ParseAdd("keep-alive");
                 client.DefaultRequestHeaders.ConnectionClose = false;
                 client.Timeout = new TimeSpan(1, 0, 0, 0);
                 HttpResponseMessage response = await client.GetAsync(path);

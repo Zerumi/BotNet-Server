@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\obj\Debug\
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet Server UI\obj\Debug\
 BotNet_Server_UI
 none
 false
 DEBUG;TRACE
-C:\Users\Zerumi\Source\Repos\GitHubRepos\Zerumi\BotNet-Server\BotNet Server UI\App.xaml
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet Server UI\App.xaml
 12-2012130639
 
-311679778556
-2354447759
+302014793156
+23-735883916
 CommandsInfo.xaml;Demos.xaml;Diagnostic1.xaml;Diagnostic3.xaml;Diagnostic2.xaml;DialogBox.xaml;IDSet.xaml;MainWindow.xaml;NetworkErrorVisualiser.xaml;ScreenBox.xaml;Screens.xaml;Settings.xaml;
 
-False
+True
 
