@@ -35,9 +35,11 @@ namespace BotNet_Server_UI
 
         private void StartVisualize()
         {
-            NetworkErrorVisualiser visualiser = new NetworkErrorVisualiser(m3md2.StaticVariables.Settings.IsDataProblem.Count - 1);
-            visualiser.Focusable = false;
-            visualiser.ShowActivated = false;
+            NetworkErrorVisualiser visualiser = new NetworkErrorVisualiser(m3md2.StaticVariables.Settings.IsDataProblem.Count - 1)
+            {
+                Focusable = false,
+                ShowActivated = false
+            };
             visualiser.ShowDialog();
         }
 
@@ -46,7 +48,7 @@ namespace BotNet_Server_UI
             try
             {
                 m3md2_startup.StartupManager.Main();
-                System.Net.ServicePointManager.Expect100Continue = System.Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings.Get("Expect100Continue"));
+                System.Net.ServicePointManager.Expect100Continue = System.Convert.ToBoolean(ConfigurationRequest.GetValueByKey("Expect100Continue"));
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"(StartupManager) Значение Expect100Continue установлено на {System.Net.ServicePointManager.Expect100Continue}\n";
             }
             catch (Exception ex)

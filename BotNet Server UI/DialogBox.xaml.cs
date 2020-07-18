@@ -60,24 +60,18 @@ namespace BotNet_Server_UI
                 ResponseTextBox.KeyDown -= Field_KeyDown;
                 sResponseTextBox.KeyDown -= Field_KeyDown;
                 ApiRequest.BaseAddress = ServerText;
+                AuthButton.Content = "Подключение...";
                 ApiRequest.ApiVersion = (await ApiRequest.GetProductAsync<Info>("/api")).version;
-                UpdateCenterRequest.BaseAddress = System.Configuration.ConfigurationManager.AppSettings.Get("MineWebUri");
+                UpdateCenterRequest.BaseAddress = ConfigurationRequest.GetValueByKey("MineWebUri");
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Authorization) Запускаю проверку пароля\r\n";
+                AuthButton.Content = "Проверка...";
                 if (await ApiRequest.GetProductAsync<bool>($"api/v{ApiRequest.ApiVersion}/admin/{ResponseText}"))
                 {
-                    var appSettings = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
-                    foreach (var s in appSettings.AppSettings.Settings)
+                    ConfigurationRequest.WriteValueByKey("MainUri", ServerText);
+                    AuthButton.Content = "Загрузка сборок...";
+                    if (await CheckDll())
                     {
-                        if ((s as System.Configuration.KeyValueConfigurationElement).Key == "MainUri")
-                        {
-                            (s as System.Configuration.KeyValueConfigurationElement).Value = ServerText;
-                            break;
-                        }
-                    }
-                    appSettings.Save(System.Configuration.ConfigurationSaveMode.Minimal);
-                    System.Configuration.ConfigurationManager.RefreshSection("appSettings");
-                    if(await CheckDll())
-                    {
+                        AuthButton.Content = "Загрузка...";
                         m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Authorization) Пароль правильный, запускаю основное окно\r\n";
                         MainWindow mainWindow = new MainWindow();
                         mainWindow.Show();
@@ -96,6 +90,7 @@ namespace BotNet_Server_UI
             }
             finally
             {
+                AuthButton.Content = "ОК";
                 AuthButton.IsEnabled = true;
                 ResponseTextBox.KeyDown += Field_KeyDown;
                 sResponseTextBox.KeyDown += Field_KeyDown;
@@ -106,10 +101,9 @@ namespace BotNet_Server_UI
         {
             try
             {
-                ResponseTextBox.Visibility = System.Windows.Visibility.Collapsed;
-                sResponseTextBox.Visibility = System.Windows.Visibility.Visible;
+                ResponseTextBox.Visibility = Visibility.Collapsed;
+                sResponseTextBox.Visibility = Visibility.Visible;
                 sResponseTextBox.Text = ResponseTextBox.Password;
-
                 sResponseTextBox.Focus();
             }
             catch (Exception ex)
@@ -122,8 +116,8 @@ namespace BotNet_Server_UI
         {
             try
             {
-                sResponseTextBox.Visibility = System.Windows.Visibility.Collapsed;
-                ResponseTextBox.Visibility = System.Windows.Visibility.Visible;
+                sResponseTextBox.Visibility = Visibility.Collapsed;
+                ResponseTextBox.Visibility = Visibility.Visible;
                 ResponseTextBox.Password = sResponseTextBox.Text;
 
                 ResponseTextBox.Focus();
@@ -136,7 +130,7 @@ namespace BotNet_Server_UI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ServerText = System.Configuration.ConfigurationManager.AppSettings.Get("MainUri");
+            ServerText = ConfigurationRequest.GetValueByKey("MainUri");
         }
 
         public async Task<bool> CheckDll()
@@ -146,6 +140,7 @@ namespace BotNet_Server_UI
                 _ = Assembly.Load("m3md2");
                 _ = Assembly.Load("m3md2_startup");
                 _ = Assembly.Load("CommandsLibrary");
+                AuthButton.Content = "Проверка...";
                 VerifyVersion version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/v{ApiRequest.ApiVersion}/support/versions/{Assembly.GetExecutingAssembly().GetName().Version}");
                 if (version.isDeprecated)
                 {

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Configuration;
 using System.Windows.Media;
 using System.Windows.Controls.Primitives;
 
@@ -25,16 +24,7 @@ namespace BotNet_Server_UI
                     if((item as Window).Name == "settings")
                     {
                         var combobox = m3md2.WinHelper.FindChild<ComboBox>(item as Window, "ColorChoose");
-                        var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                        foreach (var u2 in appSettings.AppSettings.Settings)
-                        {
-                            if ((u2 as KeyValueConfigurationElement).Key == "ColorTheme")
-                            {
-                                (u2 as KeyValueConfigurationElement).Value = combobox.Text;
-                            }
-                        }
-                        appSettings.Save(ConfigurationSaveMode.Minimal);
-                        ConfigurationManager.RefreshSection("appSettings");
+                        ConfigurationRequest.WriteValueByKey("ColorTheme", combobox.Text);
                         m3md2.StaticVariables.Settings.ColorTheme = combobox.Text;
                         // bad code
                         MessageBox.Show("Для применения изменений программа будет перезапущена без ввода пароля", "Настройки", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
@@ -62,20 +52,8 @@ namespace BotNet_Server_UI
                     {
                         var checkbox = m3md2.WinHelper.FindChild<CheckBox>(item as Window, "CheckThis");
                         var checkbox1 = m3md2.WinHelper.FindChild<CheckBox>(item as Window, "Expect100Continue");
-                        var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                        foreach (var u2 in appSettings.AppSettings.Settings)
-                        {
-                            if ((u2 as KeyValueConfigurationElement).Key == "IgnoreBigLog")
-                            {
-                                (u2 as KeyValueConfigurationElement).Value = checkbox.IsChecked.GetValueOrDefault().ToString();
-                            }
-                            else if ((u2 as KeyValueConfigurationElement).Key == "Expect100Continue")
-                            {
-                                (u2 as KeyValueConfigurationElement).Value = (!checkbox1.IsChecked.GetValueOrDefault()).ToString();
-                            }
-                        }
-                        appSettings.Save(ConfigurationSaveMode.Minimal);
-                        ConfigurationManager.RefreshSection("appSettings");
+                        ConfigurationRequest.WriteValueByKey("IgnoreBigLog", checkbox.IsChecked.GetValueOrDefault().ToString());
+                        ConfigurationRequest.WriteValueByKey("Expect100Continue", (!checkbox1.IsChecked.GetValueOrDefault()).ToString());
                         m3md2.StaticVariables.Settings.IgnoreBigLog = checkbox.IsChecked.GetValueOrDefault();
                         Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
                     }
@@ -87,16 +65,7 @@ namespace BotNet_Server_UI
                     if((item as Window).Name == "settings")
                     {
                         var mineweb = m3md2.WinHelper.FindChild<TextBox>(item as Window, "ApiChoose");
-                        var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                        foreach (var u2 in appSettings.AppSettings.Settings)
-                        {
-                            if ((u2 as KeyValueConfigurationElement).Key == "MineWebUri")
-                            {
-                                (u2 as KeyValueConfigurationElement).Value = mineweb.Text;
-                            }
-                        }
-                        appSettings.Save(ConfigurationSaveMode.Minimal);
-                        ConfigurationManager.RefreshSection("appSettings");
+                        ConfigurationRequest.WriteValueByKey("MineWebUri", mineweb.Text);
                         Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
 
                         MessageBoxResult result = MessageBox.Show("Чтобы изменения вступили в силу, программу нужно перезагрузить. Сделать это сейчас?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -115,8 +84,7 @@ namespace BotNet_Server_UI
                 }
             })
         };
-
-        Action[] loadmethods = new Action[]
+        readonly Action[] loadmethods = new Action[]
         {
             new Action(() => {
 
@@ -130,7 +98,7 @@ namespace BotNet_Server_UI
                     if((item as Window).Name == "settings")
                     {
                         var mineweb = m3md2.WinHelper.FindChild<TextBox>(item as Window, "ApiChoose");
-                        mineweb.Text = ConfigurationManager.AppSettings.Get("MineWebUri");
+                        mineweb.Text = ConfigurationRequest.GetValueByKey("MineWebUri");
                     }
                 }
             })
@@ -160,7 +128,7 @@ namespace BotNet_Server_UI
         public Settings()
         {
             InitializeComponent();
-            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationManager.AppSettings.Get("ColorTheme"))[0]);
+            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationRequest.GetValueByKey("ColorTheme"))[0]);
             SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
             SettingsView.Background = brush1;
             Grid.Background = brush;

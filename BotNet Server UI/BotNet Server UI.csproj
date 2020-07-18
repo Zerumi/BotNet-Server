@@ -74,6 +74,7 @@
     <Compile Include="CommandsInfo.xaml.cs">
       <DependentUpon>CommandsInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConfigurationRequest.cs" />
     <Compile Include="Demos.xaml.cs">
       <DependentUpon>Demos.xaml</DependentUpon>
     </Compile>
@@ -192,6 +193,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

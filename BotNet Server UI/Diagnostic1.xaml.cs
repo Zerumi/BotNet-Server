@@ -17,7 +17,7 @@ namespace BotNet_Server_UI
             InitializeComponent();
         }
 
-        List<Button> buttons = new List<Button>();
+        readonly List<Button> buttons = new List<Button>();
 
         private void ExsLoaded(object sender, RoutedEventArgs e)
         {

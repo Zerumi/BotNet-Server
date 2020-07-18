@@ -1,19 +1,9 @@
 ﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace BotNet_Server_UI
@@ -24,7 +14,7 @@ namespace BotNet_Server_UI
     public partial class NetworkErrorVisualiser : Window
     {
 
-        public NetworkErrorVisualiser(int index)
+        public NetworkErrorVisualiser(in int index)
         {
             InitializeComponent();
             this.index = index;
@@ -32,8 +22,7 @@ namespace BotNet_Server_UI
 
         DispatcherTimer OpacityTimer;
         DispatcherTimer timer;
-
-        int index;
+        readonly int index;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -74,7 +63,7 @@ namespace BotNet_Server_UI
             OpacityTimer.Stop();
             timer.Stop();
             m3md2.StaticVariables.Settings.IsDataProblem[index] = false;
-            this.Close();
+            Close();
             GC.Collect();
         }
     }

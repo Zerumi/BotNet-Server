@@ -11,7 +11,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using System.Configuration;
 using CommandsLibrary;
 using System.Threading;
 
@@ -51,17 +50,17 @@ namespace BotNet_Server_UI
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Grid.Background этого окна установлен на brush\r\n";
                 ScrollLog.Background = brush1;
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) ScrollLog.Background этого окна установлен на brush1\r\n";
-                foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid as DependencyObject))
+                foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid))
                 {
                     label.Foreground = brush2;
                 }
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы Label этого окна: Foreground установлен на brush2\r\n";
-                foreach (var textBlock in m3md2.WinHelper.FindVisualChildren<TextBlock>(Grid as DependencyObject))
+                foreach (var textBlock in m3md2.WinHelper.FindVisualChildren<TextBlock>(Grid))
                 {
                     textBlock.Foreground = brush2;
                 }
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы Textblock этого окна: Foreground устаовлен на brush2\r\n";
-                foreach (var scrollViewer in m3md2.WinHelper.FindVisualChildren<ScrollViewer>(Grid as DependencyObject))
+                foreach (var scrollViewer in m3md2.WinHelper.FindVisualChildren<ScrollViewer>(Grid))
                 {
                     scrollViewer.Foreground = brush2;
                 }
@@ -168,13 +167,11 @@ namespace BotNet_Server_UI
                 }
                 string showcommand = Command.Text;
                 string command = Command.Text;
-                foreach (var item in args)
+                var textargs = args.OfType<TextBox>().ToArray();
+                foreach (var item in textargs)
                 {
-                    if (item is TextBox)
-                    {
-                        showcommand += " " + (item as TextBox).Text;
-                        command += "^" + (item as TextBox).Text;
-                    }
+                    showcommand += " " + item.Text;
+                    command += "^" + item.Text;
                 }
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Заданная команда {command} / {showcommand}\r\n";
                 Message message = new Message()
@@ -482,12 +479,10 @@ namespace BotNet_Server_UI
                         {
                             try
                             {
-                                foreach (var window in Application.Current.Windows)
+                                IDSet[] idset = Application.Current.Windows.OfType<IDSet>().ToArray();
+                                foreach (var window in idset)
                                 {
-                                    if (window is IDSet)
-                                    {
-                                        (window as IDSet).isSendFrom = false;
-                                    }
+                                    window.isSendFrom = false;
                                 }
                                 Command.IsEnabled = false;
                                 SendButton.IsEnabled = false;
@@ -571,12 +566,10 @@ namespace BotNet_Server_UI
                         {
                             try
                             {
-                                foreach (var window in Application.Current.Windows)
+                                IDSet[] idset = Application.Current.Windows.OfType<IDSet>().ToArray();
+                                foreach (var window in idset)
                                 {
-                                    if (window is IDSet)
-                                    {
-                                        (window as IDSet).isSendFrom = false;
-                                    }
+                                    window.isSendFrom = false;
                                 }
                                 Command.IsEnabled = false;
                                 SendButton.IsEnabled = false;
@@ -672,14 +665,7 @@ namespace BotNet_Server_UI
             try
             {
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Главное окно закрывается...\r\n";
-                foreach (var window in Application.Current.Windows)
-                {
-                    if ((window as Window) != null)
-                    {
-                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Закрываю окно {window}\r\n";
-                        (window as Window).Close();
-                    }
-                }
+                Array.ForEach(Application.Current.Windows.OfType<Window>().ToArray(), x => x.Close());
             }
             catch (Exception ex)
             {
@@ -735,18 +721,7 @@ namespace BotNet_Server_UI
             {
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Запускаю прослушку...\r\n";
                 StartListenAsync();
-                var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Получаем нынешнюю конфигурацию приложения\r\n";
-                foreach (var u2 in appSettings.AppSettings.Settings)
-                {
-                    if ((u2 as KeyValueConfigurationElement).Key == "InfnityListen")
-                    {
-                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Найден ключ InfinityListen и устанавливаем его значение на true\r\n";
-                        (u2 as KeyValueConfigurationElement).Value = "True";
-                    }
-                }
-                appSettings.Save(ConfigurationSaveMode.Minimal);
-                ConfigurationManager.RefreshSection("appSettings");
+                ConfigurationRequest.WriteValueByKey("InfnityListen", "True");
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Конфигурация сохранена и обновлена\r\n";
             }
             catch (Exception ex)
@@ -761,18 +736,7 @@ namespace BotNet_Server_UI
             {
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Останавливаю прослушку...\r\n";
                 StopListen();
-                var appSettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Получаем нынешнюю конфигурацию приложения\r\n";
-                foreach (var u2 in appSettings.AppSettings.Settings)
-                {
-                    if ((u2 as KeyValueConfigurationElement).Key == "InfnityListen")
-                    {
-                        m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Найден ключ InfinityListen и устанавливаем его значение на false\r\n";
-                        (u2 as KeyValueConfigurationElement).Value = "False";
-                    }
-                }
-                appSettings.Save(ConfigurationSaveMode.Minimal);
-                ConfigurationManager.RefreshSection("appSettings");
+                ConfigurationRequest.WriteValueByKey("InfnityListen", "False");
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / MenuItem_inflistener_Unchecked event) Конфигурация сохранена и обновлена\r\n";
             }
             catch (Exception ex)
@@ -828,7 +792,7 @@ namespace BotNet_Server_UI
             try
             {
                 MessageBox.Show("BotNet Server UI.exe\n" +
-                    "Версия 1.7.0 beta 4\n" +
+                    "Версия 1.7.0 beta 7\n" +
                     "Official BotNet Api (https://botnet-api.glitch.me/) (JS release 8)\n" +
                     "Исходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/ \n" +
                     "Discord: Zerumi#4666", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
