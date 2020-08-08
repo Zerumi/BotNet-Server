@@ -14,7 +14,8 @@ namespace m3md2_startup
         {
             "Цветовая тема",
             "Предупреждения",
-            "API"
+            "API",
+            "Производительность"
         };
         public static Settings[] settings =
         {
@@ -77,6 +78,19 @@ namespace m3md2_startup
                     {
                         Name = "ApiChoose",
                         Margin = new Thickness(40,65,140,315)
+                    }
+                }
+            },
+            new Settings()
+            {
+                Setting = "Производительность",
+                SettingObjects = new object[]
+                {
+                    new CheckBox()
+                    {
+                        Name = "PerfomanceCounter",
+                        Content = "Включить счетчик производительности",
+                        Margin = new Thickness(10,10,10,370)
                     }
                 }
             }

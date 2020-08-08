@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls.Primitives;
+using System.Linq;
 
 namespace BotNet_Server_UI
 {
@@ -15,114 +16,105 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class Settings : Window
     {
-        public RoutedEventHandler[] methods =
+        public RoutedEventHandler[] applymethods =
         {
             new RoutedEventHandler((object sender, RoutedEventArgs e) =>
             {
-                foreach (var item in Application.Current.Windows)
+                var item = Application.Current.Windows.OfType<Settings>().First();
+                var combobox = m3md2.WinHelper.FindChild<ComboBox>(item, "ColorChoose");
+                ConfigurationRequest.WriteValueByKey("ColorTheme", combobox.Text);
+                m3md2.StaticVariables.Settings.ColorTheme = combobox.Text;
+                MessageBox.Show("Для применения изменений программа будет перезапущена без ввода пароля", "Настройки", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                Close_Settings(m3md2.WinHelper.FindChild<Grid>(item, "Grid"));
+                m3md2.StaticVariables.Diagnostics.ProgramInfo = "";
+                Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                Application.Current.Windows.OfType<MainWindow>().First().Close();
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                Application.Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
+            }),
+            new RoutedEventHandler((object sender, RoutedEventArgs e) =>
+            {
+                var item = Application.Current.Windows.OfType<Settings>().First();
+                var checkbox = m3md2.WinHelper.FindChild<CheckBox>(item, "CheckThis");
+                var checkbox1 = m3md2.WinHelper.FindChild<CheckBox>(item, "Expect100Continue");
+                ConfigurationRequest.WriteValueByKey("IgnoreBigLog", checkbox.IsChecked.GetValueOrDefault().ToString());
+                ConfigurationRequest.WriteValueByKey("Expect100Continue", (!checkbox1.IsChecked.GetValueOrDefault()).ToString());
+                m3md2.StaticVariables.Settings.IgnoreBigLog = checkbox.IsChecked.GetValueOrDefault();
+                Close_Settings(m3md2.WinHelper.FindChild<Grid>(item, "Grid"));
+            }),
+            new RoutedEventHandler((object sender, RoutedEventArgs e) => {
+                var item = Application.Current.Windows.OfType<Settings>().First();
+                var mineweb = m3md2.WinHelper.FindChild<TextBox>(item, "ApiChoose");
+                ConfigurationRequest.WriteValueByKey("MineWebUri", mineweb.Text);
+                Close_Settings(m3md2.WinHelper.FindChild<Grid>(item, "Grid"));
+
+                MessageBoxResult result = MessageBox.Show("Чтобы изменения вступили в силу, программу нужно перезагрузить. Сделать это сейчас?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    if((item as Window).Name == "settings")
-                    {
-                        var combobox = m3md2.WinHelper.FindChild<ComboBox>(item as Window, "ColorChoose");
-                        ConfigurationRequest.WriteValueByKey("ColorTheme", combobox.Text);
-                        m3md2.StaticVariables.Settings.ColorTheme = combobox.Text;
-                        // bad code
-                        MessageBox.Show("Для применения изменений программа будет перезапущена без ввода пароля", "Настройки", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                        Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
-                        m3md2.StaticVariables.Diagnostics.ProgramInfo = "";
-                        Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                        foreach (var window in Application.Current.Windows)
-                        {
-                            if ((window as MainWindow) != null)
-                            {
-                                (window as MainWindow).Close();
-                            }
-                        }
-                        MainWindow mainWindow = new MainWindow();
-                        mainWindow.Show();
-                        Application.Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
-                    }
+                    System.Windows.Forms.Application.Restart();
+
+                    System.Windows.Application.Current.Shutdown();
+                }
+                else
+                {
+                    return;
                 }
             }),
             new RoutedEventHandler((object sender, RoutedEventArgs e) =>
             {
-                foreach (var item in Application.Current.Windows)
+                var item = Application.Current.Windows.OfType<Settings>().First();
+                var checkbox = m3md2.WinHelper.FindChild<CheckBox>(item, "PerfomanceCounter");
+                MainWindow _MainWindow = Application.Current.Windows[0] as MainWindow;
+                bool epc = Convert.ToBoolean(ConfigurationRequest.GetValueByKey("EnablePerfomanceCounter"));
+                if (checkbox.IsChecked.GetValueOrDefault() && !epc)
                 {
-                    if((item as Window).Name == "settings")
-                    {
-                        var checkbox = m3md2.WinHelper.FindChild<CheckBox>(item as Window, "CheckThis");
-                        var checkbox1 = m3md2.WinHelper.FindChild<CheckBox>(item as Window, "Expect100Continue");
-                        ConfigurationRequest.WriteValueByKey("IgnoreBigLog", checkbox.IsChecked.GetValueOrDefault().ToString());
-                        ConfigurationRequest.WriteValueByKey("Expect100Continue", (!checkbox1.IsChecked.GetValueOrDefault()).ToString());
-                        m3md2.StaticVariables.Settings.IgnoreBigLog = checkbox.IsChecked.GetValueOrDefault();
-                        Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
-                    }
+                    _MainWindow.StartPerfomanceCounter();
                 }
-            }),
-            new RoutedEventHandler((object sender, RoutedEventArgs e) => {
-                foreach (var item in Application.Current.Windows)
+                else if (!checkbox.IsChecked.GetValueOrDefault() && epc)
                 {
-                    if((item as Window).Name == "settings")
-                    {
-                        var mineweb = m3md2.WinHelper.FindChild<TextBox>(item as Window, "ApiChoose");
-                        ConfigurationRequest.WriteValueByKey("MineWebUri", mineweb.Text);
-                        Close_Settings(m3md2.WinHelper.FindChild<Grid>(item as Window, "Grid"));
-
-                        MessageBoxResult result = MessageBox.Show("Чтобы изменения вступили в силу, программу нужно перезагрузить. Сделать это сейчас?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            System.Windows.Forms.Application.Restart();
-
-                            System.Windows.Application.Current.Shutdown();
-                        }   
-                        else
-                        {
-                            return;
-                        }
-                    }
+                    _MainWindow.StopPerfomanceCounter();
                 }
+                ConfigurationRequest.WriteValueByKey("EnablePerfomanceCounter", checkbox.IsChecked.GetValueOrDefault().ToString());
+                Close_Settings(m3md2.WinHelper.FindChild<Grid>(item, "Grid"));
             })
         };
         readonly Action[] loadmethods = new Action[]
         {
             new Action(() => {
-
+                var item = Application.Current.Windows.OfType<Settings>().First();
+                var colortheme = ConfigurationRequest.GetValueByKey("ColorTheme");
+                var combox = m3md2.WinHelper.FindChild<ComboBox>(item, "ColorChoose");
+                combox.SelectedIndex = Array.IndexOf(combox.ItemsSource.OfType<string>().ToArray(), Array.Find(combox.ItemsSource.OfType<string>().ToArray(), x => x == colortheme));
             }),
             new Action(() => {
-
+                var item = Application.Current.Windows.OfType<Settings>().First();
+                var ibl = Convert.ToBoolean(ConfigurationRequest.GetValueByKey("IgnoreBigLog"));
+                var e100c = Convert.ToBoolean(ConfigurationRequest.GetValueByKey("Expect100Continue"));
+                var cb_ibl = m3md2.WinHelper.FindChild<CheckBox>(item, "CheckThis");
+                var cb_e100c = m3md2.WinHelper.FindChild<CheckBox>(item, "Expect100Continue");
+                cb_ibl.IsChecked = ibl;
+                cb_e100c.IsChecked = e100c;
             }),
             new Action(() => {
-                foreach (var item in Application.Current.Windows)
-                {
-                    if((item as Window).Name == "settings")
-                    {
-                        var mineweb = m3md2.WinHelper.FindChild<TextBox>(item as Window, "ApiChoose");
-                        mineweb.Text = ConfigurationRequest.GetValueByKey("MineWebUri");
-                    }
-                }
+                var item = Application.Current.Windows.OfType<Settings>().First();
+                var mineweb = m3md2.WinHelper.FindChild<TextBox>(item, "ApiChoose");
+                mineweb.Text = ConfigurationRequest.GetValueByKey("MineWebUri");
+            }),
+            new Action(() => {
+                var item = Application.Current.Windows.OfType<Settings>().First();
+                var epc = Convert.ToBoolean(ConfigurationRequest.GetValueByKey("EnablePerfomanceCounter"));
+                var cb_epc = m3md2.WinHelper.FindChild<CheckBox>(item, "PerfomanceCounter");
+                cb_epc.IsChecked = epc;
             })
         };
 
         private static void Close_Settings(Grid Grid)
         {
-        linkforech:
-            foreach (UIElement control in Grid.Children)
-            {
-                if (Grid.GetColumn(control) == 1)
-                {
-                    if ((control as Button) != null)
-                    {
-                        if ((control as Button).Name == "Apply")
-                        {
-                            (control as Button).Visibility = Visibility.Hidden;
-                            continue;
-                        }
-                    }
-                    Grid.Children.Remove(control);
-                    goto linkforech;
-                }
-            }
+            Array.Find(Grid.Children.OfType<Button>().ToArray(), x => x.Name == "Apply").Visibility = Visibility.Hidden;
+
+            Array.ForEach(Array.FindAll(Grid.Children.OfType<UIElement>().ToArray(), x => Grid.GetColumn(x) == 1 && !((x as Button)?.Name == "Apply")).ToArray(), y => Grid.Children.Remove(y));
         }
 
         public Settings()
@@ -159,25 +151,25 @@ namespace BotNet_Server_UI
                 {
                     var element = m3md2_startup.Settings.settings[items.IndexOf(sender as TreeViewItem)].SettingObjects[i] as UIElement;
                     element.SetValue(Grid.ColumnProperty, 1);
-                    if (LogicalTreeHelper.GetParent(element as DependencyObject) != null)
+                    if (LogicalTreeHelper.GetParent(element) != null)
                     {
-                        var Parent = (Grid)LogicalTreeHelper.GetParent(element as DependencyObject);
+                        var Parent = (Grid)LogicalTreeHelper.GetParent(element);
                         Parent.Children.Remove(element);
                     }
                     Grid.Children.Add(element);
                 }
                 loadmethods[items.IndexOf(sender as TreeViewItem)].Invoke();
                 Apply.Visibility = Visibility.Visible;
-                foreach (var method in methods)
+                foreach (var method in applymethods)
                 {
                     Apply.RemoveHandler(ButtonBase.ClickEvent, method);
                 }
-                Apply.Click += methods[items.IndexOf(sender as TreeViewItem)];
+                Apply.Click += applymethods[items.IndexOf(sender as TreeViewItem)];
             }
             catch (Exception ex)
             {
-                MessageBox.Show("(5) Возможно вы уже выбрали этот элемент");
-                ExceptionHandler.RegisterNew(ex, false);
+                MessageBox.Show("(5) Возможно, вы уже выбрали этот элемент");
+                ExceptionHandler.RegisterNew(ex);
             }
         }
     }

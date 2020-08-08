@@ -21,79 +21,82 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        readonly PerformanceCounter myAppCPU = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName, true);
-        readonly PerformanceCounter myAppRAM = new PerformanceCounter("Process", "Working Set", Process.GetCurrentProcess().ProcessName, true);
-        readonly PerformanceCounter myAppTMG = new PerformanceCounter("Process", "Elapsed Time", Process.GetCurrentProcess().ProcessName, true);
-
         public bool ipsall;
         public string[] ips;
         readonly List<UIElement> args = new List<UIElement>();
         readonly string argtype = null;
         Client[] arr;
-        public ulong TotalMem = new Memory().GetAllMemory();
 
         public MainWindow()
         {
             try
             {
                 InitializeComponent();
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) MainWindow загружен\r\n";
                 InfinityListenMenuItem.IsChecked = Convert.ToBoolean(m3md2.StaticVariables.Windows.InfinityListen);
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Режим вечной прослушки установлен на {InfinityListenMenuItem.IsChecked}\r\n";
                 SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush} / {brush.Color} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\r\n";
                 SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush1} / {brush1.Color} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\r\n";
                 SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Кисть brush настроена на {brush2} / {brush2.Color} (из цветовой темы {m3md2.StaticVariables.Settings.ColorTheme})\r\n";
                 Grid.Background = brush;
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Grid.Background этого окна установлен на brush\r\n";
                 ScrollLog.Background = brush1;
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) ScrollLog.Background этого окна установлен на brush1\r\n";
                 foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid))
                 {
                     label.Foreground = brush2;
                 }
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы Label этого окна: Foreground установлен на brush2\r\n";
                 foreach (var textBlock in m3md2.WinHelper.FindVisualChildren<TextBlock>(Grid))
                 {
                     textBlock.Foreground = brush2;
                 }
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы Textblock этого окна: Foreground устаовлен на brush2\r\n";
                 foreach (var scrollViewer in m3md2.WinHelper.FindVisualChildren<ScrollViewer>(Grid))
                 {
                     scrollViewer.Foreground = brush2;
                 }
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Все элементы ScrollViewer этого окна: Foreground установлен на brush2\r\n";
-                DispatcherTimer dispatcherTimer = new DispatcherTimer();
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Установлен таймер для обновления счетчиков производительности\r\n";
-                dispatcherTimer.Tick += DispatcherTimer_Tick;
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Установлено событие DispatcherTimer_Tick\r\n";
-                dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Задержка таймера установлена на 1 секунду\r\n";
-                dispatcherTimer.Start();
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow) Таймер запущен\r\n";
+                if (Convert.ToBoolean(ConfigurationRequest.GetValueByKey("EnablePerfomanceCounter")))
+                {
+                    StartPerfomanceCounter();
+                }
             }
             catch (Exception ex)
             {
                 ExceptionHandler.RegisterNew(ex);
             }
         }
+        
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+
+        public void StartPerfomanceCounter()
+        {
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+
+        public void StopPerfomanceCounter()
+        {
+            dispatcherTimer.Tick -= DispatcherTimer_Tick;
+            dispatcherTimer.Stop();
+            CPULabel.Content = $"Подсчет производительности остановлен";
+            RAMLabel.Content = $"Подсчет производительности остановлен";
+            TMGLabel.Content = $"Подсчет производительности остановлен";
+            SolidColorBrush brush = new SolidColorBrush(Colors.LightGray);
+            CPURectangle.Fill = brush;
+            RAMRectangle.Fill = brush;
+        }
+
+        PerformanceCounter myAppCPU = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName, true);
+        PerformanceCounter myAppRAM = new PerformanceCounter("Process", "Working Set", Process.GetCurrentProcess().ProcessName, true);
+        PerformanceCounter myAppTMG = new PerformanceCounter("Process", "Elapsed Time", Process.GetCurrentProcess().ProcessName, true);
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             try
             {
+                ulong TotalMem = new Memory().GetAllMemory();
                 var CPUnow = myAppCPU.NextValue();
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение CPUnow установлено на {CPUnow}\r\n";
                 var RAMnow = myAppRAM.NextValue();
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение RAMnow установлено на {RAMnow}\r\n";
+
                 CPULabel.Content = $"CPU = {CPUnow}%";
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение CPULabel для этого окна установлено на {CPULabel.Content}\r\n";
                 RAMLabel.Content = $"RAM = {RAMnow / (1024f * 1024f)}MB / {TotalMem / (1024f * 1024f)}MB";
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Значение RAMLabel для этого окна установлено на {RAMLabel.Content}\r\n";
                 TMGLabel.Content = $"Программа работает {(int)myAppTMG.NextValue()}с";
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event / TimeManagment) Программа работает уже {TMGLabel.Content}\r\n";
                 LinearGradientBrush CPULinearGradientBrush =
                 new LinearGradientBrush
                 {
@@ -106,7 +109,6 @@ namespace BotNet_Server_UI
                     new GradientStop(Colors.LightGray, CPUnow / 100));
                 CPURectangle.Fill = CPULinearGradientBrush;
 
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Обновлен CPURectangle (визуальная часть отображения CPUnow)\r\n";
                 LinearGradientBrush RAMLinearGradientBrush =
                 new LinearGradientBrush
                 {
@@ -118,7 +120,6 @@ namespace BotNet_Server_UI
                 RAMLinearGradientBrush.GradientStops.Add(
                     new GradientStop(Colors.LightGray, RAMnow / TotalMem));
                 RAMRectangle.Fill = RAMLinearGradientBrush;
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / DispatcherTimer_Tick event) Обновлен RAMRectangle (визуальная часть отображения RAMnow)\r\n";
             }
             catch (Exception ex)
             {
@@ -678,8 +679,12 @@ namespace BotNet_Server_UI
             try
             {
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / CommandsInfo_Click event) Открываю окно настроек приложения\r\n";
-                Settings settings = new Settings();
-                settings.Show();
+
+                if (!(Application.Current.Windows.OfType<Settings>().FirstOrDefault()?.Activate()).GetValueOrDefault(false))
+                {
+                    Settings settings = new Settings();
+                    settings.Show();
+                }
             }
             catch (Exception ex)
             {
@@ -792,8 +797,8 @@ namespace BotNet_Server_UI
             try
             {
                 MessageBox.Show("BotNet Server UI.exe\n" +
-                    "Версия 1.7.0 beta 7\n" +
-                    "Official BotNet Api (https://botnet-api.glitch.me/) (JS release 8)\n" +
+                    "Версия 1.7.0 beta 8\n" +
+                    "Основное API BotNet (https://botnet-api.glitch.me/) (JS release 8)\n" +
                     "Исходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/ \n" +
                     "Discord: Zerumi#4666", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }

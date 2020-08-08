@@ -29,9 +29,9 @@
         </ScrollViewer>
         <Label x:Name="Label_Client" Content="Список килентов: " HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Grid.ColumnSpan="2" Width="163"/>
         <Label x:Name="ID_Status" Content="ID не заданы" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Height="26" Grid.Row="1" Margin="0,225,0,0"/>
-        <Label x:Name="CPULabel" Content="Запуск средств подсчета производительности..." Grid.Column="2" Margin="10,36,10,0" Grid.Row="1" VerticalAlignment="Top" Height="27"/>
-        <Label x:Name="RAMLabel" Content="Запуск средств подсчета производительности..." Grid.Column="2" Margin="10,80,10,0" Grid.Row="1" VerticalAlignment="Top" Height="27"/>
-        <Label x:Name="TMGLabel" Content="Запуск средств подсчета производительности..." Grid.Column="2" Margin="10,10,10,0" Grid.Row="1" VerticalAlignment="Top" Height="26"/>
+        <Label x:Name="CPULabel" Content="Подсчет производительности отключен" Grid.Column="2" Margin="10,36,10,0" Grid.Row="1" VerticalAlignment="Top" Height="27"/>
+        <Label x:Name="RAMLabel" Content="Подсчет производительности отключен" Grid.Column="2" Margin="10,80,10,0" Grid.Row="1" VerticalAlignment="Top" Height="27"/>
+        <Label x:Name="TMGLabel" Content="Подсчет производительности отключен" Grid.Column="2" Margin="10,10,10,0" Grid.Row="1" VerticalAlignment="Top" Height="26"/>
         <Rectangle x:Name="CPURectangle" Grid.Column="2" Height="17" Margin="10,63,10,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0 0" EndPoint="1 0">
