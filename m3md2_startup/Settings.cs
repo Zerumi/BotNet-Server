@@ -37,7 +37,8 @@ namespace m3md2_startup
                         {
                             "Standard",
                             "Pinkerity",
-                            "Hackerman"
+                            "Hackerman",
+                            "Dark"
                         },
                         SelectedIndex = 0,
                         Margin = new Thickness(40,65,240,315)
@@ -59,6 +60,7 @@ namespace m3md2_startup
                     {
                         Name = "Expect100Continue",
                         Content = "Игнорировать ожидание (Может помочь, если не работает отправка команд)",
+                        FontSize = 10,
                         Margin = new Thickness(10,30,10,350)
                     }
                 }

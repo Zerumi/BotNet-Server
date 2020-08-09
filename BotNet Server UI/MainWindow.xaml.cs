@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,15 +28,17 @@ namespace BotNet_Server_UI
         readonly string argtype = null;
         Client[] arr;
 
+        SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+        SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
+        SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
+        SolidColorBrush brush3 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[3]);
+
         public MainWindow()
         {
             try
             {
                 InitializeComponent();
                 InfinityListenMenuItem.IsChecked = Convert.ToBoolean(m3md2.StaticVariables.Windows.InfinityListen);
-                SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
-                SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
-                SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
                 Grid.Background = brush;
                 ScrollLog.Background = brush1;
                 foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid))
@@ -49,6 +52,11 @@ namespace BotNet_Server_UI
                 foreach (var scrollViewer in m3md2.WinHelper.FindVisualChildren<ScrollViewer>(Grid))
                 {
                     scrollViewer.Foreground = brush2;
+                }
+                foreach (var textbox in m3md2.WinHelper.FindVisualChildren<TextBox>(Grid))
+                {
+                    textbox.Background = brush3;
+                    textbox.Foreground = brush2;
                 }
                 if (Convert.ToBoolean(ConfigurationRequest.GetValueByKey("EnablePerfomanceCounter")))
                 {
@@ -353,6 +361,7 @@ namespace BotNet_Server_UI
             }
         }
         bool isSendBlocked;
+
         private void Command_TextChanged(object sender, TextChangedEventArgs e)
         {
             bool isCommandWrote = false;
@@ -391,6 +400,8 @@ namespace BotNet_Server_UI
                             else if (Arguments.arguments[i].ArgumentType[j] == typeof(TextBox))
                             {
                                 (list as TextBox).TextWrapping = TextWrapping.NoWrap;
+                                (list as TextBox).Background = brush3;
+                                (list as TextBox).Foreground = brush2;
                                 if (!Arguments.arguments[i].IsForServer)
                                 {
                                     (list as TextBox).KeyDown += new KeyEventHandler(Command_KeyDown);
@@ -797,7 +808,7 @@ namespace BotNet_Server_UI
             try
             {
                 MessageBox.Show("BotNet Server UI.exe\n" +
-                    "Версия 1.7.0 beta 8\n" +
+                    "Версия 1.7.0 beta 9\n" +
                     "Основное API BotNet (https://botnet-api.glitch.me/) (JS release 8)\n" +
                     "Исходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/ \n" +
                     "Discord: Zerumi#4666", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -842,6 +853,11 @@ namespace BotNet_Server_UI
         private void Command_GotFocus(object sender, RoutedEventArgs e)
         {
             Command_TextChanged(sender, new TextChangedEventArgs(e.RoutedEvent, UndoAction.None));
+        }
+
+        private async void GetMessage_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(await ApiRequest.GetProductAsync<string>($"api/v1/support/version_note/{Assembly.GetExecutingAssembly().GetName().Version.ToString()}"));
         }
     }
 }

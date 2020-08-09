@@ -395,6 +395,16 @@ app.get("/api/v1/listen/clients", async (req, res, next) => {
         next(e);
     }
 });
+app.get("/api/v1/support/version_note/:version", (req, res, next) => {
+    try {
+        var note = versions.find(x => x.version === req.params.version).custommessage;
+        res.json(note);
+        res.end();
+    }
+    catch (e) {
+        next(e);
+    }
+});
 app.use((req, res, next) => {
     const err = new Error(`${req.method} ${req.url} Not Found`);
     err.status = 404;

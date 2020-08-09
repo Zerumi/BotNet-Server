@@ -3,6 +3,7 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace BotNet_Server_UI
 {
@@ -12,9 +13,18 @@ namespace BotNet_Server_UI
     public partial class IDSet : Window
     {
         public bool isSendFrom = false;
+
+        SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+        SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
+        SolidColorBrush brush3 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[3]);
+
         public IDSet()
         {
             InitializeComponent();
+            tb_ask.Foreground = brush2;
+            tb_ask.Background = brush;
+            ResponseTextBox.Background = brush3;
+            ResponseTextBox.Foreground = brush2;
         }
         public IDSet(bool isSendFrom)
         {

@@ -34,7 +34,8 @@ namespace m3md2
                 {
                     SystemColors.InfoColor, // main color
                     Color.FromRgb(255,255,255), // second color
-                    Color.FromRgb(0,0,0) // font color
+                    Color.FromRgb(0,0,0), // font color
+                    Color.FromRgb(255,255,255) // third color
                 }
             },
             new ColorTheme
@@ -44,7 +45,8 @@ namespace m3md2
                 {
                     Color.FromRgb(255,171,214), // main color
                     Color.FromRgb(171,255,177), // second color
-                    Color.FromRgb(255,0,128) // font color
+                    Color.FromRgb(255,0,128), // font color
+                    Color.FromRgb(255,255,255) // third color
                 }
             },
             new ColorTheme
@@ -54,7 +56,19 @@ namespace m3md2
                 {
                     Color.FromRgb(158,240,146), // main color
                     Color.FromRgb(235,255,232), // second color
-                    Color.FromRgb(0,0,0) // font color
+                    Color.FromRgb(0,0,0), // font color
+                    Color.FromRgb(255,255,255) // third color
+                }
+            },
+            new ColorTheme
+            {
+                Name = "Dark",
+                Colors = new Color[]
+                {
+                    Color.FromRgb(47,49,54), // main color
+                    Color.FromRgb(54,57,63), // second color
+                    Color.FromRgb(227,225,230), // font color
+                    Color.FromRgb(64,68,75) // third color
                 }
             }
         };

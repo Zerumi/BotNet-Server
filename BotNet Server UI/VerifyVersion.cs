@@ -11,5 +11,6 @@ namespace BotNet_Server_UI
         public string[] cmdlib { get; set; }
         public string[] m3md2 { get; set; }
         public string[] m3md2_startup { get; set; }
+        public string custommessage { get; set; }
     }
 }

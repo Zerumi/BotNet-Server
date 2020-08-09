@@ -1,6 +1,7 @@
 ﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -133,6 +134,7 @@ namespace BotNet_Server_UI
             ServerText = ConfigurationRequest.GetValueByKey("MainUri");
         }
 
+        VerifyVersion version;
         public async Task<bool> CheckDll()
         {
             try
@@ -141,7 +143,7 @@ namespace BotNet_Server_UI
                 _ = Assembly.Load("m3md2_startup");
                 _ = Assembly.Load("CommandsLibrary");
                 AuthButton.Content = "Проверка...";
-                VerifyVersion version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/v{ApiRequest.ApiVersion}/support/versions/{Assembly.GetExecutingAssembly().GetName().Version}");
+                version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/v{ApiRequest.ApiVersion}/support/versions/{Assembly.GetExecutingAssembly().GetName().Version}");
                 if (version.isDeprecated)
                 {
                     throw new NotSupportedException("Данная версия программы устарела. Пожалуйста, загрузите новую версию в разделе Releases");
@@ -161,6 +163,19 @@ namespace BotNet_Server_UI
                 {
                     throw new PlatformNotSupportedException("Данная версия библиотеки не поддерживается этим экземпляром оболочки");
                 }
+                if (!string.IsNullOrWhiteSpace(version.custommessage))
+                {
+                    if (version.custommessage != File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"\latestmessage.txt"))
+                    {
+                        File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\latestmessage.txt", version.custommessage);
+                        _ = MessageBox.Show(version.custommessage + "\nВам больше не будет показано это сообщение, пока оно не изменится. Вы можете прочитать это сообщение еще раз, нажав на специальный пункт в меню \"Справка\"");
+                    }
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\latestmessage.txt", version.custommessage);
+                _ = MessageBox.Show(version.custommessage + "\nВам больше не будет показано это сообщение, пока оно не изменится. Вы можете прочитать это сообщение еще раз, нажав на специальный пункт в меню \"Справка\"");
             }
             catch (NotSupportedException ex)
             {

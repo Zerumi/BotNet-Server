@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace BotNet_Server_UI
 {
@@ -12,8 +13,11 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class Diagnostic1 : Window
     {
+        SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+
         public Diagnostic1()
         {
+            this.Background = brush;
             InitializeComponent();
         }
 

@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
+using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace BotNet_Server_UI
 {
@@ -16,9 +18,23 @@ namespace BotNet_Server_UI
     {
         bool CanListen = true;
 
+        SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+        SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
+
         public Diagnostic2()
         {
             InitializeComponent();
+            Grid.Background = brush;
+            foreach (var textBlock in m3md2.WinHelper.FindVisualChildren<TextBlock>(Grid))
+            {
+                textBlock.Background = brush;
+                textBlock.Foreground = brush2;
+            }
+            foreach (var scrollViewer in m3md2.WinHelper.FindVisualChildren<ScrollViewer>(Grid))
+            {
+                scrollViewer.Background = brush;
+                scrollViewer.Foreground = brush2;
+            }
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)

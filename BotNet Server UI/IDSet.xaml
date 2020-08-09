@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Окно ввода" Height="97" Width="375" WindowState="Normal" ResizeMode="CanMinimize">
-    <StackPanel>
-        <TextBlock Text="Введите все ID через пробел (all для всех, null - очистить)" />
-        <TextBox x:Name="ResponseTextBox" KeyDown="Field_KeyDown" />
-        <Button x:Name="OKButton" Content="OK" Click="OKButton_Click" />
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="tb_ask" Text="Введите все ID через пробел (all для всех, null - очистить)" Grid.Row="0"/>
+        <TextBox x:Name="ResponseTextBox" KeyDown="Field_KeyDown" Grid.Row="1"/>
+        <Button x:Name="OKButton" Content="OK" Click="OKButton_Click" Grid.Row="2"/>
+    </Grid>
 </Window>

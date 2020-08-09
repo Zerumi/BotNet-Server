@@ -2,6 +2,7 @@
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
 using System.Windows;
+using System.Windows.Media;
 using static BotNet_Server_UI.ApiRequest;
 
 namespace BotNet_Server_UI
@@ -11,9 +12,15 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class Diagnostic3 : Window
     {
+        SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+        SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
+
         public Diagnostic3()
         {
             InitializeComponent();
+            Grid.Background = brush;
+            LogPanel.Foreground = brush2;
+            LogPanel.Background = brush;
         }
 
         private async void FormLoaded(object sender, RoutedEventArgs e)

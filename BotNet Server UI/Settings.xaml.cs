@@ -95,7 +95,7 @@ namespace BotNet_Server_UI
                 var cb_ibl = m3md2.WinHelper.FindChild<CheckBox>(item, "CheckThis");
                 var cb_e100c = m3md2.WinHelper.FindChild<CheckBox>(item, "Expect100Continue");
                 cb_ibl.IsChecked = ibl;
-                cb_e100c.IsChecked = e100c;
+                cb_e100c.IsChecked = !e100c;
             }),
             new Action(() => {
                 var item = Application.Current.Windows.OfType<Settings>().First();
@@ -117,11 +117,14 @@ namespace BotNet_Server_UI
             Array.ForEach(Array.FindAll(Grid.Children.OfType<UIElement>().ToArray(), x => Grid.GetColumn(x) == 1 && !((x as Button)?.Name == "Apply")).ToArray(), y => Grid.Children.Remove(y));
         }
 
+        SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+        SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
+        SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
+        SolidColorBrush brush3 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[3]);
+
         public Settings()
         {
             InitializeComponent();
-            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(ConfigurationRequest.GetValueByKey("ColorTheme"))[0]);
-            SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
             SettingsView.Background = brush1;
             Grid.Background = brush;
         }
@@ -151,6 +154,14 @@ namespace BotNet_Server_UI
                 {
                     var element = m3md2_startup.Settings.settings[items.IndexOf(sender as TreeViewItem)].SettingObjects[i] as UIElement;
                     element.SetValue(Grid.ColumnProperty, 1);
+                    if (element is Label || element is TextBlock || element is CheckBox || element is TextBox)
+                    {
+                        element.SetValue(ForegroundProperty, brush2);
+                    }
+                    if (element is TextBox)
+                    {
+                        element.SetValue(BackgroundProperty, brush3);
+                    }
                     if (LogicalTreeHelper.GetParent(element) != null)
                     {
                         var Parent = (Grid)LogicalTreeHelper.GetParent(element);
