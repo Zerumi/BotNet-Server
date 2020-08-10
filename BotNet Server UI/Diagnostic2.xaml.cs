@@ -18,8 +18,8 @@ namespace BotNet_Server_UI
     {
         bool CanListen = true;
 
-        SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
-        SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
+        SolidColorBrush brush = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[0]);
+        SolidColorBrush brush2 = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[2]);
 
         public Diagnostic2()
         {
@@ -51,12 +51,12 @@ namespace BotNet_Server_UI
                     await LogPanel.Dispatcher.BeginInvoke(new Action(async() =>
                     {
                         stopwatch.Start();
-                        LogPanel.Text = m3md2.StaticVariables.Diagnostics.ProgramInfo + "// Обнавляется каждую секунду.";
+                        LogPanel.Text = m3md2.StaticVariables.Diagnostics.ProgramInfo + "// Обновляется каждую секунду.";
                         stopwatch.Stop(); 
                         if (LogPanel.Text.Length >= 100000 && !m3md2.StaticVariables.Settings.IgnoreBigLog)
                         {
                             CanListen = false;
-                            await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text.Replace("// Обнавляется каждую секунду.", "")));
+                            await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text.Replace("// Обновляется каждую секунду.", "")));
                             MessageBox.Show("Обновление большого количества информации может нарушить высокую производительность системы. Мы приостановили вечное обновление информации, но вы можете всегда выгрузить информацию аудита в текстовый файл", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                             await StopListen.Dispatcher.BeginInvoke(new Action(() => {
                                 StopListen.Content = "Обновление невозможно";

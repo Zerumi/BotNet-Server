@@ -13,7 +13,7 @@ namespace BotNet_Server_UI
     /// </summary>
     public partial class Diagnostic1 : Window
     {
-        SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
+        SolidColorBrush brush = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[0]);
 
         public Diagnostic1()
         {

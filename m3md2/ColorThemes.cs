@@ -15,13 +15,11 @@ namespace m3md2
         /// <returns>Массив цветов этой темы</returns>
         public static Color[] GetColors(string name)
         {
-            Color[] colors = null;
-            foreach (var item in colorthemes)
+            Color[] colors = colorthemes.Find(x => x.Name == name).Colors;
+            if (colors == default)
             {
-                if (item.Name == name)
-                {
-                    colors = item.Colors;
-                }
+                MessageBox.Show("Тема " + name + " не была найдена. Вероятно она была удалена из программы. Последняя удаленная тема: Pinkerity");
+                colors = new Color[] { Color.FromRgb(255, 255, 255), Color.FromRgb(255, 255, 255), Color.FromRgb(255, 255, 255), Color.FromRgb(255, 255, 255) };
             }
             return colors;
         }
@@ -40,24 +38,13 @@ namespace m3md2
             },
             new ColorTheme
             {
-                Name = "Pinkerity",
-                Colors = new Color[]
-                {
-                    Color.FromRgb(255,171,214), // main color
-                    Color.FromRgb(171,255,177), // second color
-                    Color.FromRgb(255,0,128), // font color
-                    Color.FromRgb(255,255,255) // third color
-                }
-            },
-            new ColorTheme
-            {
                 Name = "Hackerman",
                 Colors = new Color[]
                 {
-                    Color.FromRgb(158,240,146), // main color
-                    Color.FromRgb(235,255,232), // second color
+                    Color.FromRgb(66,255,91), // main color
+                    Color.FromRgb(66,230,255), // second color
                     Color.FromRgb(0,0,0), // font color
-                    Color.FromRgb(255,255,255) // third color
+                    Color.FromRgb(148,255,66) // third color
                 }
             },
             new ColorTheme

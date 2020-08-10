@@ -2,6 +2,7 @@
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace m3md2
 {
@@ -16,6 +17,7 @@ namespace m3md2
         public static class Settings
         {
             public static string ColorTheme { get; set; }
+            public static Color[] colors { get; set; }
             public static bool IgnoreBigLog { get; set; }
             public static List<bool> IsDataProblem = new List<bool>();
         }

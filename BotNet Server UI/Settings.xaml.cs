@@ -24,6 +24,7 @@ namespace BotNet_Server_UI
                 var combobox = m3md2.WinHelper.FindChild<ComboBox>(item, "ColorChoose");
                 ConfigurationRequest.WriteValueByKey("ColorTheme", combobox.Text);
                 m3md2.StaticVariables.Settings.ColorTheme = combobox.Text;
+                m3md2.StaticVariables.Settings.colors = m3md2.ColorThemes.GetColors(combobox.Text);
                 MessageBox.Show("Для применения изменений программа будет перезапущена без ввода пароля", "Настройки", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                 Close_Settings(m3md2.WinHelper.FindChild<Grid>(item, "Grid"));
                 m3md2.StaticVariables.Diagnostics.ProgramInfo = "";
@@ -117,10 +118,10 @@ namespace BotNet_Server_UI
             Array.ForEach(Array.FindAll(Grid.Children.OfType<UIElement>().ToArray(), x => Grid.GetColumn(x) == 1 && !((x as Button)?.Name == "Apply")).ToArray(), y => Grid.Children.Remove(y));
         }
 
-        SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
-        SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
-        SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
-        SolidColorBrush brush3 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[3]);
+        SolidColorBrush brush = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[0]);
+        SolidColorBrush brush1 = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[1]);
+        SolidColorBrush brush2 = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[2]);
+        SolidColorBrush brush3 = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[3]);
 
         public Settings()
         {
@@ -137,7 +138,7 @@ namespace BotNet_Server_UI
             {
                 items.Add(new TreeViewItem()
                 {
-                    Foreground = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]),
+                    Foreground = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[2]),
                     Header = m3md2_startup.Settings.SettingsList[i]
                 });
                 items[i].PreviewMouseDown += Settings_PreviewMouseDown;

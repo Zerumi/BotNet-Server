@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BotNet_Server_UI"
         mc:Ignorable="d"
         Title="Settings" Height="440" Width="620" WindowState="Normal" ResizeMode="CanMinimize">
     <Grid x:Name="Grid">
@@ -12,6 +11,6 @@
             <ColumnDefinition Width="407*"/>
         </Grid.ColumnDefinitions>
         <TreeView x:Name="SettingsView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Loaded="Setting_Load"/>
-        <Button x:Name="Apply" Content="Применить и выйти" Grid.Column="1" HorizontalAlignment="Left" Margin="273,378,0,0" VerticalAlignment="Top" Visibility="Hidden" Width="124"/>
+        <Button x:Name="Apply" Content="Применить и выйти" Grid.Column="1" HorizontalAlignment="Left" Margin="226.4,371,0,0" VerticalAlignment="Top" Visibility="Hidden" Width="171" Height="26"/>
     </Grid>
 </Window>

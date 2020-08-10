@@ -18,9 +18,9 @@ namespace BotNet_Server_UI
         public CommandsInfo()
         {
             InitializeComponent();
-            SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
-            SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
-            SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
+            SolidColorBrush brush = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[0]);
+            SolidColorBrush brush1 = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[1]);
+            SolidColorBrush brush2 = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[2]);
             Grid.Background = brush;
             CommandsPanel.Background = brush1;
             foreach (var label in m3md2.WinHelper.FindVisualChildren<Label>(Grid as DependencyObject))
@@ -61,7 +61,7 @@ namespace BotNet_Server_UI
             {
                 labels.Add(new Label()
                 {
-                    Foreground = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]),
+                    Foreground = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[2]),
                     Content = Commands.commands[i]
                 });
                 labels[i].PreviewMouseDown += Label_Click;

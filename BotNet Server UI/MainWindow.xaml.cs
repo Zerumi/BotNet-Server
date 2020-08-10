@@ -28,10 +28,10 @@ namespace BotNet_Server_UI
         readonly string argtype = null;
         Client[] arr;
 
-        SolidColorBrush brush = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[0]);
-        SolidColorBrush brush1 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[1]);
-        SolidColorBrush brush2 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[2]);
-        SolidColorBrush brush3 = new SolidColorBrush(m3md2.ColorThemes.GetColors(m3md2.StaticVariables.Settings.ColorTheme)[3]);
+        readonly SolidColorBrush brush = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[0]);
+        readonly SolidColorBrush brush1 = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[1]);
+        readonly SolidColorBrush brush2 = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[2]);
+        readonly SolidColorBrush brush3 = new SolidColorBrush(m3md2.StaticVariables.Settings.colors[3]);
 
         public MainWindow()
         {
@@ -68,8 +68,8 @@ namespace BotNet_Server_UI
                 ExceptionHandler.RegisterNew(ex);
             }
         }
-        
-        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+
+        readonly DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
         public void StartPerfomanceCounter()
         {
@@ -90,9 +90,9 @@ namespace BotNet_Server_UI
             RAMRectangle.Fill = brush;
         }
 
-        PerformanceCounter myAppCPU = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName, true);
-        PerformanceCounter myAppRAM = new PerformanceCounter("Process", "Working Set", Process.GetCurrentProcess().ProcessName, true);
-        PerformanceCounter myAppTMG = new PerformanceCounter("Process", "Elapsed Time", Process.GetCurrentProcess().ProcessName, true);
+        readonly PerformanceCounter myAppCPU = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName, true);
+        readonly PerformanceCounter myAppRAM = new PerformanceCounter("Process", "Working Set", Process.GetCurrentProcess().ProcessName, true);
+        readonly PerformanceCounter myAppTMG = new PerformanceCounter("Process", "Elapsed Time", Process.GetCurrentProcess().ProcessName, true);
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -857,7 +857,7 @@ namespace BotNet_Server_UI
 
         private async void GetMessage_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(await ApiRequest.GetProductAsync<string>($"api/v1/support/version_note/{Assembly.GetExecutingAssembly().GetName().Version.ToString()}"));
+            _ = MessageBox.Show(await ApiRequest.GetProductAsync<string>($"api/v1/support/version_note/{Assembly.GetExecutingAssembly().GetName().Version}"));
         }
     }
 }

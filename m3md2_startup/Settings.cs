@@ -36,7 +36,6 @@ namespace m3md2_startup
                         ItemsSource = new string[]
                         {
                             "Standard",
-                            "Pinkerity",
                             "Hackerman",
                             "Dark"
                         },
