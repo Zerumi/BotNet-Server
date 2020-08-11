@@ -66,7 +66,8 @@ namespace BotNet_Server_UI
                 UpdateCenterRequest.BaseAddress = ConfigurationRequest.GetValueByKey("MineWebUri");
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Authorization) Запускаю проверку пароля\r\n";
                 AuthButton.Content = "Проверка...";
-                if (await ApiRequest.GetProductAsync<bool>($"api/v{ApiRequest.ApiVersion}/admin/{ResponseText}"))
+                m3md2.Encryption encryption = new m3md2.Encryption(ResponseText);
+                if (await ApiRequest.CreateProductAsync<m3md2.Encryption, bool>(encryption, "admin"))
                 {
                     ConfigurationRequest.WriteValueByKey("MainUri", ServerText);
                     AuthButton.Content = "Загрузка сборок...";

@@ -54,10 +54,14 @@
   <ItemGroup>
     <Compile Include="ColorTheme.cs" />
     <Compile Include="ColorThemes.cs" />
+    <Compile Include="Encryption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticVariables.cs" />
     <Compile Include="Verifier.cs" />
     <Compile Include="WinHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="cryptcode.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

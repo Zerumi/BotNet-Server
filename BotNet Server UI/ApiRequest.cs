@@ -49,10 +49,41 @@ namespace BotNet_Server_UI
             {
                 OnRequestFailed?.Invoke(ex);
             }
-            // return URI of the created resource.
             return response?.Headers?.Location;
         }
-
+        /// <summary>
+        /// Отправляет POST запрос на API и получает ответное значение
+        /// </summary>
+        /// <typeparam name="T">Класс, объект которого отправляется</typeparam>
+        /// <typeparam name="T1">Класс, объект которого получается</typeparam>
+        /// <param name="product">Экземпляр клаасса T для отправки</param>
+        /// <param name="apilist">Путь в формате api/v{apiversion}/{apilist}</param>
+        /// <returns>Асинхронную задачу с Uri этой операции</returns>
+        public static async Task<T1> CreateProductAsync<T, T1>(T product, string apilist)
+        {
+            T1 returnproduct = default;
+            HttpResponseMessage response = null;
+            try
+            {
+                HttpClient client = new HttpClient
+                {
+                    BaseAddress = new Uri(BaseAddress)
+                };
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
+                string json = new JavaScriptSerializer().Serialize(product);
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Экземпляр класса преобразован в JSON строку {json}\r\n";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю POST запрос на {apilist}\r\n";
+                response = await client.PostAsync($"api/v{ApiVersion}/{apilist}", new StringContent(json));
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Ответ от API {(response.IsSuccessStatusCode ? "Обработано успешно" : $"Что-то пошло не так {await response.Content.ReadAsStringAsync()}")}\r\n";
+                response.EnsureSuccessStatusCode();
+                returnproduct = await response.Content.ReadAsAsync<T1>();
+            }
+            catch (Exception ex)
+            {
+                OnRequestFailed?.Invoke(ex);
+            }
+            return returnproduct;
+        }
         /// <summary>
         /// Отправляет GET запрос на API
         /// </summary>

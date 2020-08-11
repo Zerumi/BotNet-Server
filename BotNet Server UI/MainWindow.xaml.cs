@@ -808,7 +808,7 @@ namespace BotNet_Server_UI
             try
             {
                 MessageBox.Show("BotNet Server UI.exe\n" +
-                    "Версия 1.7.0 beta 9\n" +
+                    "Версия 1.7.0 beta 11\n" +
                     "Основное API BotNet (https://botnet-api.glitch.me/) (JS release 8)\n" +
                     "Исходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/ \n" +
                     "Discord: Zerumi#4666", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);

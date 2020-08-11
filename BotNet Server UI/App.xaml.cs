@@ -49,6 +49,7 @@ namespace BotNet_Server_UI
             {
                 m3md2_startup.StartupManager.Main();
                 System.Net.ServicePointManager.Expect100Continue = System.Convert.ToBoolean(ConfigurationRequest.GetValueByKey("Expect100Continue"));
+                System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"(StartupManager) Значение Expect100Continue установлено на {System.Net.ServicePointManager.Expect100Continue}\n";
             }
             catch (Exception ex)
