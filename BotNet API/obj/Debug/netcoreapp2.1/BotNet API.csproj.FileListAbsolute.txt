@@ -1,0 +1,18 @@
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\bin\Debug\netcoreapp2.1\appsettings.Development.json
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\bin\Debug\netcoreapp2.1\appsettings.json
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\bin\Debug\netcoreapp2.1\BotNet API.deps.json
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\bin\Debug\netcoreapp2.1\BotNet API.runtimeconfig.json
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\bin\Debug\netcoreapp2.1\BotNet API.runtimeconfig.dev.json
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\bin\Debug\netcoreapp2.1\BotNet API.dll
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\bin\Debug\netcoreapp2.1\BotNet API.pdb
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.csprojAssemblyReference.cache
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.AssemblyInfoInputs.cache
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.AssemblyInfo.cs
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.csproj.CoreCompileInputs.cache
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.RazorAssemblyInfo.cache
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.RazorAssemblyInfo.cs
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.RazorTargetAssemblyInfo.cache
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.dll
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.pdb
+C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.genruntimeconfig.cache

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotNet API", "BotNet API.csproj", "{0DCBBB6C-E690-4247-A4FD-E95CCD29F4D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotNet API", "BotNet API.csproj", "{74B2D3D3-30E3-4EF5-A1A0-C396220AAA31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0DCBBB6C-E690-4247-A4FD-E95CCD29F4D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0DCBBB6C-E690-4247-A4FD-E95CCD29F4D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0DCBBB6C-E690-4247-A4FD-E95CCD29F4D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0DCBBB6C-E690-4247-A4FD-E95CCD29F4D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B2D3D3-30E3-4EF5-A1A0-C396220AAA31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B2D3D3-30E3-4EF5-A1A0-C396220AAA31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B2D3D3-30E3-4EF5-A1A0-C396220AAA31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B2D3D3-30E3-4EF5-A1A0-C396220AAA31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B43D169A-A980-49E6-87E9-4AABABA8DE8D}
+		SolutionGuid = {1BE18D3D-C2BC-4F7D-B1B5-B75BF6C3CB49}
 	EndGlobalSection
 EndGlobal
