@@ -2,7 +2,7 @@
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 namespace BotNet_Server_UI
 {
-    public class Message
+    public class Command
     {
         public uint id { get; set; }
         public string command { get; set; }

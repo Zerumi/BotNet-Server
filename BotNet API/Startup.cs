@@ -22,6 +22,8 @@ namespace BotNet_API
         {
             services.AddDbContext<ClientContext>(opt =>
                    opt.UseInMemoryDatabase("ClientList"));
+            services.AddDbContext<CommandContext>(opt =>
+                   opt.UseInMemoryDatabase("CommandList"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

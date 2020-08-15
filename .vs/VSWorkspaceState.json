@@ -1,12 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\BotNet API",
     "\\BotNet Server UI",
     "\\CommandsLibrary",
     "\\m3md2",
     "\\m3md2_startup",
     "\\Mineweb API"
   ],
-  "SelectedNode": "\\BotNet Server UI",
+  "SelectedNode": "\\BotNet API\\appsettings.Development.json",
   "PreviewInSolutionExplorer": false
 }

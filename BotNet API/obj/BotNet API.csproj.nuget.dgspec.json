@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Zerumi\\Source\\Repos\\BotNet-Server\\BotNet API\\BotNet API.csproj": {}
+    "C:\\Users\\Zerumi\\source\\repos\\BotNet-Server\\BotNet API\\BotNet API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Zerumi\\Source\\Repos\\BotNet-Server\\BotNet API\\BotNet API.csproj": {
+    "C:\\Users\\Zerumi\\source\\repos\\BotNet-Server\\BotNet API\\BotNet API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Zerumi\\Source\\Repos\\BotNet-Server\\BotNet API\\BotNet API.csproj",
+        "projectUniqueName": "C:\\Users\\Zerumi\\source\\repos\\BotNet-Server\\BotNet API\\BotNet API.csproj",
         "projectName": "BotNet API",
-        "projectPath": "C:\\Users\\Zerumi\\Source\\Repos\\BotNet-Server\\BotNet API\\BotNet API.csproj",
+        "projectPath": "C:\\Users\\Zerumi\\source\\repos\\BotNet-Server\\BotNet API\\BotNet API.csproj",
         "packagesPath": "C:\\Users\\Zerumi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Zerumi\\Source\\Repos\\BotNet-Server\\BotNet API\\obj\\",
+        "outputPath": "C:\\Users\\Zerumi\\source\\repos\\BotNet-Server\\BotNet API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Microsoft\\Xamarin\\NuGet\\"
@@ -70,7 +70,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
