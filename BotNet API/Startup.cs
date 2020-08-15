@@ -24,6 +24,8 @@ namespace BotNet_API
                    opt.UseInMemoryDatabase("ClientList"));
             services.AddDbContext<CommandContext>(opt =>
                    opt.UseInMemoryDatabase("CommandList"));
+            services.AddDbContext<ResponseContext>(opt =>
+                   opt.UseInMemoryDatabase("ResponseList"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
