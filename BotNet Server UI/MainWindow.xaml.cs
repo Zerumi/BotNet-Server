@@ -290,17 +290,17 @@ namespace BotNet_Server_UI
                     linkrenew:
                         if (arr == null)
                         {
-                            arr = await ApiRequest.GetProductAsync<Client[]>("api/v1/client");
+                            arr = await ApiRequest.GetProductAsync<Client[]>("api/client");
                             goto linkrenew;
                         }
                     }
                     else
                     {
-                        arr = await ApiRequest.KeepAliveGetProduct<Client[]>("api/v1/listen/clients");
+                        arr = await ApiRequest.KeepAliveGetProduct<Client[]>("api/listen/clients");
                     linkrenew:
                         if (arr == null)
                         {
-                            arr = await ApiRequest.GetProductAsync<Client[]>("api/v1/client");
+                            arr = await ApiRequest.GetProductAsync<Client[]>("api/client");
                             goto linkrenew;
                         }
                     }
@@ -328,7 +328,7 @@ namespace BotNet_Server_UI
                 while (true)
                 {
                     token.ThrowIfCancellationRequested();
-                    var response = await ApiRequest.KeepAliveGetProduct<Response>($"api/v1/listen/responses/");
+                    var response = await ApiRequest.KeepAliveGetProduct<Response>($"api/listen/responses/");
                     if (response != null)
                     {
                         SetResponse(response);
@@ -808,8 +808,8 @@ namespace BotNet_Server_UI
             try
             {
                 MessageBox.Show("BotNet Server UI.exe\n" +
-                    "Версия 1.7.0 beta 11\n" +
-                    "Основное API BotNet (https://botnet-api.glitch.me/) (JS release 8)\n" +
+                    "Версия 2.0.0 beta 16\n" +
+                    "Основное API BotNet (https://botnet-api.glitch.me/) (ASP.NET Release 1)\n" +
                     "Исходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/ \n" +
                     "Discord: Zerumi#4666", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -857,7 +857,7 @@ namespace BotNet_Server_UI
 
         private async void GetMessage_Click(object sender, RoutedEventArgs e)
         {
-            _ = MessageBox.Show(await ApiRequest.GetProductAsync<string>($"api/v1/support/version_note/{Assembly.GetExecutingAssembly().GetName().Version}"));
+            _ = MessageBox.Show(await ApiRequest.GetProductAsync<string>($"api/support/version_note/{Assembly.GetExecutingAssembly().GetName().Version}"));
         }
     }
 }
