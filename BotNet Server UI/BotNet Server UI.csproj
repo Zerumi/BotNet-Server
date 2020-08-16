@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Auth.cs" />
     <Compile Include="CommandsInfo.xaml.cs">
       <DependentUpon>CommandsInfo.xaml</DependentUpon>
     </Compile>

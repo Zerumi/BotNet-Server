@@ -1,27 +1,21 @@
-﻿// Encryption & Decryption code source here: https://stackoverflow.com/questions/10168240/encrypting-decrypting-a-string-in-c-sharp
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace m3md2
+namespace BotNet_API
 {
     public class Encryption
     {
-        public Encryption(string password)
-        {
-            pass = Encrypt(password);
-        }
-
-        public string pass { get; set; }
-
         // you must create code and write them to m3md2\cryptcode.txt
         private static string loadcode()
         {
             string code = null;
-            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("m3md2.cryptcode.txt");
+            var stream = File.OpenRead(@".\cryptcode.txt");
             using (StreamReader reader = new StreamReader(stream))
             {
                 code = reader.ReadToEnd();

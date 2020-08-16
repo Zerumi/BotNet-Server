@@ -1,5 +1,6 @@
 ﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+using m3md2;
 using System;
 using System.IO;
 using System.Linq;
@@ -62,12 +63,10 @@ namespace BotNet_Server_UI
                 sResponseTextBox.KeyDown -= Field_KeyDown;
                 ApiRequest.BaseAddress = ServerText;
                 AuthButton.Content = "Подключение...";
-                ApiRequest.ApiVersion = (await ApiRequest.GetProductAsync<Info>("/api")).version;
                 UpdateCenterRequest.BaseAddress = ConfigurationRequest.GetValueByKey("MineWebUri");
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(Authorization) Запускаю проверку пароля\r\n";
                 AuthButton.Content = "Проверка...";
-                m3md2.Encryption encryption = new m3md2.Encryption(ResponseText);
-                if (await ApiRequest.CreateProductAsync<m3md2.Encryption, bool>(encryption, "admin"))
+                if (await ApiRequest.CreateProductAsync<Auth, bool>(new Auth() { password = Encryption.Encrypt(ResponseText) },$"admin"))
                 {
                     ConfigurationRequest.WriteValueByKey("MainUri", ServerText);
                     AuthButton.Content = "Загрузка сборок...";
@@ -144,7 +143,7 @@ namespace BotNet_Server_UI
                 _ = Assembly.Load("m3md2_startup");
                 _ = Assembly.Load("CommandsLibrary");
                 AuthButton.Content = "Проверка...";
-                version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/v{ApiRequest.ApiVersion}/support/versions/{Assembly.GetExecutingAssembly().GetName().Version}");
+                version = await ApiRequest.GetProductAsync<VerifyVersion>($"api/support/versions/{Assembly.GetExecutingAssembly().GetName().Version}");
                 if (version.isDeprecated)
                 {
                     throw new NotSupportedException("Данная версия программы устарела. Пожалуйста, загрузите новую версию в разделе Releases");

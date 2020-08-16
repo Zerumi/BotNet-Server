@@ -3,6 +3,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
@@ -17,10 +18,6 @@ namespace BotNet_Server_UI
         /// Адрес API в сети Интернет
         /// </summary>
         public static string BaseAddress { get; set; }
-        /// <summary>
-        /// Версия API
-        /// </summary>
-        public static uint ApiVersion { get; set; }
         /// <summary>
         /// Отправляет POST запрос на API
         /// </summary>
@@ -41,7 +38,7 @@ namespace BotNet_Server_UI
                 string json = new JavaScriptSerializer().Serialize(product);
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Экземпляр класса преобразован в JSON строку {json}\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю POST запрос на {apilist}\r\n";
-                response = await client.PostAsync($"api/v{ApiVersion}/{apilist}", new StringContent(json));
+                response = await client.PostAsync($"api/{apilist}", new StringContent(json));
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Ответ от API {(response.IsSuccessStatusCode ? "Обработано успешно" : $"Что-то пошло не так {await response.Content.ReadAsStringAsync()}")}\r\n";
                 response.EnsureSuccessStatusCode();
             }
@@ -73,7 +70,7 @@ namespace BotNet_Server_UI
                 string json = new JavaScriptSerializer().Serialize(product);
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Экземпляр класса преобразован в JSON строку {json}\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю POST запрос на {apilist}\r\n";
-                response = await client.PostAsync($"api/v{ApiVersion}/{apilist}", new StringContent(json));
+                response = await client.PostAsync($"api/{apilist}", new StringContent(json, Encoding.UTF8, "application/json"));
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Ответ от API {(response.IsSuccessStatusCode ? "Обработано успешно" : $"Что-то пошло не так {await response.Content.ReadAsStringAsync()}")}\r\n";
                 response.EnsureSuccessStatusCode();
                 returnproduct = await response.Content.ReadAsAsync<T1>();
@@ -134,7 +131,7 @@ namespace BotNet_Server_UI
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю DELETE запрос на {apilist}/{id}\r\n";
                 response = await client.DeleteAsync(
-                    $"api/v{ApiVersion}/{apilist}/{id}");
+                    $"api/{apilist}/{id}");
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Ответ от API {(response.IsSuccessStatusCode ? "Обработано успешно" : $"Что-то пошло не так {await response.Content.ReadAsStringAsync()}")}\r\n";
                 return response.StatusCode;
             }

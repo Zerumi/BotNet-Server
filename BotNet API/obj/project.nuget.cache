@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "T/jFX4XHrKa73FQDS47aATNcV29zb3BfO5dkz4QNEkeMladfq0abezQ9Wr8qUE7SUVmpwrayP6bG+iqbZysogQ==",
+  "dgSpecHash": "5F0VIyrtk+OZ77p1GE+SwG2lozYTbbD4I/56XOL6Q0jKnr1kGMP2B542xEx42hFjNTpY4KDblsb31vLZhFyCyQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Zerumi\\source\\repos\\BotNet-Server\\BotNet API\\BotNet API.csproj",
+  "projectFilePath": "C:\\Users\\Zerumi\\Source\\Repos\\BotNet-Server\\BotNet API\\BotNet API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Zerumi\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.6\\microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
     "C:\\Users\\Zerumi\\.nuget\\packages\\microsoft.aspnetcore\\2.1.1\\microsoft.aspnetcore.2.1.1.nupkg.sha512",
