@@ -8,6 +8,7 @@ using System.Linq;
 namespace BotNet_API.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class CommandController : ControllerBase
     {

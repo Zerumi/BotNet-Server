@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BotNet_API.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class ResponseController : ControllerBase
     {

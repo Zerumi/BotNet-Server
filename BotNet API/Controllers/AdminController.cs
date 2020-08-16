@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BotNet_API.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class AdminController : ControllerBase
     {

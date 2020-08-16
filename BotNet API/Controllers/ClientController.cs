@@ -7,6 +7,7 @@ using BotNet_API.Models;
 namespace BotNet_API.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class ClientController : ControllerBase
     {

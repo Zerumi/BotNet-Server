@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using BotNet_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BotNet_API.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class SupportController : ControllerBase
     {
@@ -54,7 +57,7 @@ namespace BotNet_API.Controllers
         [HttpGet("version_note/{version}")]
         public ActionResult<string> GetVersionNote(string version)
         {
-            return Array.Find(versions, x => x.version == version).custommessage;
+            return JsonConvert.SerializeObject(Array.Find(versions, x => x.version == version).custommessage);
         }
     }
 }
