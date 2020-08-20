@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
+// (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+using System;
 using BotNet_API.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace BotNet_API.Controllers
 {
@@ -46,7 +42,7 @@ namespace BotNet_API.Controllers
                     cmdlib = new string[] {"2.1.0.0", "2.2.0.0"},
                     m3md2 = new string[] {"1.4.0.0"},
                     m3md2_startup = new string[] {"1.3.0.0"},
-                    custommessage = "Доступ к авторизации восстановлен, однако скриншоты и диагностика API недоступны. Мы работаем над исправлением..."
+                    custommessage = "Доступ к авторизации и скриншотам восстановлен, однако прослушка и диагностика API недоступны. Мы работаем над исправлением..."
                 }
             };
         [HttpGet("versions/{version}")]
@@ -57,7 +53,7 @@ namespace BotNet_API.Controllers
         [HttpGet("version_note/{version}")]
         public ActionResult<string> GetVersionNote(string version)
         {
-            return JsonConvert.SerializeObject(Array.Find(versions, x => x.version == version).custommessage);
+            return Array.Find(versions, x => x.version == version).custommessage;
         }
     }
 }

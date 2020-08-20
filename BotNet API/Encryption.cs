@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Encryption & Decryption code source here: https://stackoverflow.com/questions/10168240/encrypting-decrypting-a-string-in-c-sharp
+using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BotNet_API
 {

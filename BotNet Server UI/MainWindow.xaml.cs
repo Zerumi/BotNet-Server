@@ -189,9 +189,9 @@ namespace BotNet_Server_UI
                     ids = ipsall ? arr.Where(x => x.nameofpc != string.Empty).Select(x => x.id.ToString()).ToArray() : ips
                 };
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Создан экземпляр Message: Команда {message.command} / ID {message.ids}\r\n";
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Отправлен ApiRequest.Create(message) на messages\r\n";
-                Uri res = await ApiRequest.CreateProductAsync(message, "messages");
-                LogPanel.Text += $"({DateTime.Now.ToLongTimeString()}) Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>($"api/messages") - 1}) отправлена.\r\n";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Отправлен ApiRequest.Create(command) на command\r\n";
+                Uri res = await ApiRequest.CreateProductAsync(message, "command");
+                LogPanel.Text += $"({DateTime.Now.ToLongTimeString()}) Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>($"api/command") - 1}) отправлена.\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event to MainWindow.LogPanel) Команда {command} / {showcommand} отправлена.\r\n";
                 ListenInfo();
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Обновлена информация API\r\n";
@@ -236,10 +236,10 @@ namespace BotNet_Server_UI
             try
             {
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow loaded event) Форма загружена\r\n";
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWIndow loaded event) Отправлен ApiRequest.Delete на api/messages\r\n";
-                _ = await ApiRequest.DeleteProductsAsync($"api/messages");
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow loaded event) Отправлен ApiRequest.Delete на api/responses\r\n";
-                _ = await ApiRequest.DeleteProductsAsync($"api/responses");
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWIndow loaded event) Отправлен ApiRequest.Delete на api/command\r\n";
+                _ = await ApiRequest.DeleteProductsAsync($"api/command");
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow loaded event) Отправлен ApiRequest.Delete на api/response\r\n";
+                _ = await ApiRequest.DeleteProductsAsync($"api/response");
             }
             catch (Exception ex)
             {
@@ -807,9 +807,10 @@ namespace BotNet_Server_UI
         {
             try
             {
-                MessageBox.Show("BotNet Server UI.exe\n" +
-                    "Версия 2.0.0 beta 16\n" +
-                    "Основное API BotNet (https://botnet-api.glitch.me/) (ASP.NET Release 1)\n" +
+                MessageBox.Show("BotNet Server UI.exe by Zerumi\n" +
+                    "Версия 2.0.0 beta 18\n" +
+                    "Основное API BotNet (https://botnet-api.glitch.me/)\n" +
+                    "Версия ASP.NET Release 1" +
                     "Исходный код/сообщить об ошибке: https://github.com/Zerumi/BotNet-Server/ \n" +
                     "Discord: Zerumi#4666", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }

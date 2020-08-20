@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
+// (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BotNet_API.Models;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Http;
-using System.IO;
 
 namespace BotNet_API
 {
@@ -29,6 +28,8 @@ namespace BotNet_API
                    opt.UseInMemoryDatabase("CommandList"));
             services.AddDbContext<ResponseContext>(opt =>
                    opt.UseInMemoryDatabase("ResponseList"));
+            services.AddDbContext<ScreenContext>(opt =>
+                   opt.UseInMemoryDatabase("ScreenList"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

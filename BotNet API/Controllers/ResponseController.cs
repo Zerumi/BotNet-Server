@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
+// (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BotNet_API.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +50,15 @@ namespace BotNet_API.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetResponse), new { item.id }, item);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteResponses()
+        {
+            _context.Responses.RemoveRange(_context.Responses.ToArray());
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

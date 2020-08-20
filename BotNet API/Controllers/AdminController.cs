@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// This code is licensed under the isc license. You can improve the code by keeping this comments 
+// (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using BotNet_API.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BotNet_API.Controllers
