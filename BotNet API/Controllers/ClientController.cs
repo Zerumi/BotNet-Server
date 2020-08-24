@@ -41,6 +41,10 @@ namespace BotNet_API.Controllers
             return client;
         }
 
+        public delegate void ClientListenerHandler(Client client);
+
+        public static event ClientListenerHandler OnClientAdded;
+
         // POST: api/Todo
         [HttpPost]
         public async Task<uint> PostClient([FromBody] Client item)
@@ -49,6 +53,7 @@ namespace BotNet_API.Controllers
             await _context.SaveChangesAsync();
 
             CreatedAtAction(nameof(GetClient), new { item.id }, item);
+            OnClientAdded?.Invoke(item);
 
             return item.id;
         }

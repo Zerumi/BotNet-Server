@@ -38,7 +38,7 @@ namespace BotNet_Server_UI
                 string json = new JavaScriptSerializer().Serialize(product);
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Экземпляр класса преобразован в JSON строку {json}\r\n";
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю POST запрос на {apilist}\r\n";
-                response = await client.PostAsync($"api/{apilist}", new StringContent(json));
+                response = await client.PostAsync($"api/{apilist}", new StringContent(json, Encoding.UTF8, "application/json"));
                 m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Ответ от API {(response.IsSuccessStatusCode ? "Обработано успешно" : $"Что-то пошло не так {await response.Content.ReadAsStringAsync()}")}\r\n";
                 response.EnsureSuccessStatusCode();
             }
@@ -177,6 +177,7 @@ namespace BotNet_Server_UI
                 {
                     BaseAddress = new Uri(BaseAddress)
                 };
+                m3md2.StaticVariables.Diagnostics.ProgramInfo += $"{DateTime.Now.ToLongTimeString()}(ApiRequest) Отправляю keep-alive GET запрос на {path}\r\n";
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
                 client.DefaultRequestHeaders.Connection.Clear();
                 client.DefaultRequestHeaders.Connection.ParseAdd("keep-alive");

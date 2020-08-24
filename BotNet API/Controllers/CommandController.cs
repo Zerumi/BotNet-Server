@@ -42,12 +42,18 @@ namespace BotNet_API.Controllers
             return client;
         }
 
+        public delegate void ListenCommandHandler(Command command);
+
+        public static event ListenCommandHandler OnCommandAdded;
+
         // POST: api/Todo
         [HttpPost]
         public async Task<ActionResult<Command>> PostCommand([FromBody] Command item)
         {
             _context.Commands.Add(item);
             await _context.SaveChangesAsync();
+
+            OnCommandAdded?.Invoke(item);
 
             return CreatedAtAction(nameof(GetCommand), new { item.id }, item);
         }

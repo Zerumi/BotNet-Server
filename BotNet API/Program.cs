@@ -2,6 +2,7 @@
 // (or by any other means, with saving authorship by Zerumi and PizhikCoder retained)
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using System;
 
 namespace BotNet_API
 {
@@ -14,6 +15,10 @@ namespace BotNet_API
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseKestrel(o =>
+                {
+                    o.Limits.KeepAliveTimeout = TimeSpan.FromDays(1);
+                });
     }
 }

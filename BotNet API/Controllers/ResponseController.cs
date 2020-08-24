@@ -28,19 +28,9 @@ namespace BotNet_API.Controllers
             return await _context.Responses.ToListAsync();
         }
 
-        // GET: api/Todo/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Response>> GetResponse(uint id)
-        {
-            var response = await _context.Responses.FindAsync(id);
+        public delegate void ListenResponseHandler(Response response);
 
-            if (response == null)
-            {
-                return NotFound();
-            }
-
-            return response;
-        }
+        public static event ListenResponseHandler OnResponseAdded;
 
         // POST: api/Todo
         [HttpPost]
@@ -49,7 +39,9 @@ namespace BotNet_API.Controllers
             _context.Responses.Add(item);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetResponse), new { item.id }, item);
+            OnResponseAdded?.Invoke(item);
+
+            return Created("api/response", item);
         }
 
         [HttpDelete]
