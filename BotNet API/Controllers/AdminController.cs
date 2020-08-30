@@ -12,7 +12,7 @@ namespace BotNet_API.Controllers
     public class AdminController : ControllerBase
     {
         [HttpPost]
-        public ActionResult<bool> PostAdmin([FromBody] Auth pass)
+        public ActionResult<bool> PostAdmin([FromBody] BotNet_API.Models.Auth pass)
         {
             return Encryption.Decrypt(pass.password) == new StreamReader(System.IO.File.OpenRead(@".\password.txt")).ReadToEnd();
         }

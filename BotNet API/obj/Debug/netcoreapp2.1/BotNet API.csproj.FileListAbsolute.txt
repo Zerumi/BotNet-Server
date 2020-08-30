@@ -16,3 +16,4 @@ C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\Bo
 C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.dll
 C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.pdb
 C:\Users\Zerumi\source\repos\BotNet-Server\BotNet API\obj\Debug\netcoreapp2.1\BotNet API.genruntimeconfig.cache
+C:\Users\Zerumi\Source\Repos\BotNet-Server\BotNet API\bin\Debug\netcoreapp2.1\libman.json

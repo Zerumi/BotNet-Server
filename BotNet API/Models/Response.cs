@@ -4,7 +4,7 @@ namespace BotNet_API.Models
 {
     public class Response
     {
-        public uint cid { get; set; }
+        public uint id { get; set; }
         public string response { get; set; }
     }
 }

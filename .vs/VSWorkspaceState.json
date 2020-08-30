@@ -3,12 +3,13 @@
     "",
     "\\BotNet API",
     "\\BotNet API\\Controllers",
+    "\\BotNet API\\Hubs",
     "\\BotNet Server UI",
     "\\CommandsLibrary",
     "\\m3md2",
     "\\m3md2_startup",
     "\\Mineweb API"
   ],
-  "SelectedNode": "\\BotNet API\\Controllers\\ClientController.cs",
+  "SelectedNode": "\\BotNet API\\Hubs\\ResponseHub.cs",
   "PreviewInSolutionExplorer": false
 }

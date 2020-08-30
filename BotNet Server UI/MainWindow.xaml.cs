@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using CommandsLibrary;
 using System.Threading;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace BotNet_Server_UI
 {
@@ -254,8 +255,8 @@ namespace BotNet_Server_UI
             try
             {
                 cts = new CancellationTokenSource();
-                await Task.Run(() => ListenClients(cts.Token));
-                await Task.Run(() => ListenResponses(cts.Token));
+                await Task.Run(() => ListenClients());
+                await Task.Run(() => ListenResponses());
             }
             catch (Exception ex)
             {
@@ -276,38 +277,12 @@ namespace BotNet_Server_UI
             }
         }
 
-        private async void ListenClients(CancellationToken token)
+        private async void ListenClients()
         {
             try
             {
-                bool isFirstIter = true;
-                while (true)
-                {
-                    token.ThrowIfCancellationRequested();
-                    if (isFirstIter)
-                    {
-                        isFirstIter = false;
-                    linkrenew:
-                        if (arr == null)
-                        {
-                            arr = await ApiRequest.GetProductAsync<Client[]>("api/client");
-                            goto linkrenew;
-                        }
-                    }
-                    else
-                    {
-                        arr = await ApiRequest.KeepAliveGetProduct<Client[]>("api/listen/clients");
-                    linkrenew:
-                        if (arr == null)
-                        {
-                            arr = await ApiRequest.GetProductAsync<Client[]>("api/client");
-                            goto linkrenew;
-                        }
-                    }
-                    _ = SetClientList();
-                }
+
             }
-            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 ExceptionHandler.RegisterNew(ex);
@@ -321,30 +296,32 @@ namespace BotNet_Server_UI
             await ClientList.Dispatcher.BeginInvoke(new Action(() => ClientList.Text = res));
         }
 
-        private async void ListenResponses(CancellationToken token)
+        private async void ListenResponses()
         {
             try
             {
-                while (true)
+                var connection = new HubConnectionBuilder()
+                .WithUrl("http://localhost:64760/signalr/response")
+                .Build();
+
+                connection.Closed += async (error) =>
                 {
-                    token.ThrowIfCancellationRequested();
-                    var response = await ApiRequest.KeepAliveGetProduct<Response>($"api/listen/responses/");
-                    if (response != null)
-                    {
-                        SetResponse(response);
-                    }
-                }
+                    ExceptionHandler.RegisterNew(error);
+                    await Task.Delay(new Random().Next(0, 5) * 1000);
+                    await connection.StartAsync();
+                };
+
+                connection.On<Response>("ReceiveResponse", async(response) =>
+                {
+                    await Task.Run(async () => await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") id: " + response.id + " / " + response.response + "\n")));
+                });
+
+                await connection.StartAsync();
             }
-            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 ExceptionHandler.RegisterNew(ex);
             }
-        }
-
-        private async void SetResponse(Response response)
-        {
-            await Task.Run(async() => await LogPanel.Dispatcher.BeginInvoke(new Action(() => LogPanel.Text += "(" + DateTime.Now.ToLongTimeString() + ") id: " + response.cid + " / " + response.response + "\n")));
         }
 
         private void IPSetButton_Click(object sender, RoutedEventArgs e)

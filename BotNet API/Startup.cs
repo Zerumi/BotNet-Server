@@ -7,6 +7,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BotNet_API.Models;
+using BotNet_API.Hubs;
+using System;
+using System.Net.WebSockets;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System.Threading;
+using Microsoft.AspNetCore.SignalR;
+using BotNet_API.Auth;
+using BotNet_API.Auth.Requirements;
 
 namespace BotNet_API
 {
@@ -30,6 +39,12 @@ namespace BotNet_API
                    opt.UseInMemoryDatabase("ResponseList"));
             services.AddDbContext<ScreenContext>(opt =>
                    opt.UseInMemoryDatabase("ScreenList"));
+            services.AddSignalR();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrator", policy =>
+                    policy.Requirements.Add(new AdminRequirement(true)));
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -44,8 +59,12 @@ namespace BotNet_API
             {
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
+            app.UseAuthentication();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ResponseHub>("/signalr/response");
+            });
             app.UseMvc();
         }
     }
