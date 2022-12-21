@@ -1,6 +1,9 @@
 # BotNet-Server
 C# .Net BotNet Server and everything about it
 
+# Check my new project: https://github.com/Zerumi/AMWE-Server
+
+
 How to build your own botnet?
 - Create API
 - - You can use our API example, wrote on JS, or create yourself API
