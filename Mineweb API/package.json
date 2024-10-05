@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "acorn": "^5.7.4",
-    "body-parser": "^1.20.1",
+    "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.5",
     "debug": "^2.2.0",
     "express": "^4.21.0",
